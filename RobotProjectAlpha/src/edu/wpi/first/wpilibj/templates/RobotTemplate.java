@@ -38,10 +38,16 @@ public class RobotTemplate extends SimpleRobot implements IRobot
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl()
-    {
+    {  
+        camera = AxisCamera.getInstance();
+        camera.writeResolution(AxisCamera.ResolutionT.k320 x240);
+        camera.writeBrightness(0);
+        
         while(isOperatorControl() && isEnabled())
         {
             myDrive.drive();
+            getCamera.camera();
+      
             dashboardUpdate();
             Timer.delay(0.010);
         }
