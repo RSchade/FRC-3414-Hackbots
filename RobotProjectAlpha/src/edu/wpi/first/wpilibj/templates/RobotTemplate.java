@@ -52,6 +52,6 @@ public class RobotTemplate extends SimpleRobot implements IRobot
      */
     public void test()
     {
-    
+        RSchade.rschade();
     }
 }
