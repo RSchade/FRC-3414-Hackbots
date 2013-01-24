@@ -1,0 +1,3 @@
+hackbots.no-ip.org
+
+running Minecraft version 1.4.7
