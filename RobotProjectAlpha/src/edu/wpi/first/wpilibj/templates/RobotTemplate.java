@@ -10,7 +10,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.templates.DriveTrain;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,21 +19,30 @@ import edu.wpi.first.wpilibj.templates.DriveTrain;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends SimpleRobot implements IRobot {
+public class RobotTemplate extends SimpleRobot implements IRobot
+{
     
     DriveTrain myDrive = new DriveTrain();
     
-    public void autonomous() {
+    public void dashboardUpdate()
+    {
+        myDrive.dashboard();
+    }
+    
+    public void autonomous()
+    {
         
     }
 
     /**
      * This function is called once each time the robot enters operator control.
      */
-    public void operatorControl() {
+    public void operatorControl()
+    {
         while(isOperatorControl() && isEnabled())
         {
             myDrive.drive();
+            dashboardUpdate();
             Timer.delay(0.010);
         }
     }
@@ -41,7 +50,8 @@ public class RobotTemplate extends SimpleRobot implements IRobot {
     /**
      * This function is called once each time the robot enters test mode.
      */
-    public void test() {
+    public void test()
+    {
     
     }
 }

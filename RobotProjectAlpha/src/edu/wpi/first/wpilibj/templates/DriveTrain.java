@@ -4,6 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  *
  * @author Robotics
@@ -12,11 +14,20 @@ package edu.wpi.first.wpilibj.templates;
 // import edu.wpi.first.wpilibj.Joystick;
 // import edu.wpi.first.wpilibj.Talon;
 
-public class DriveTrain implements IRobot {
-    public void drive() {
+public class DriveTrain implements IRobot
+{
+    public void drive()
+    {
         leftMotorFront.set(leftStick.getRawAxis(2));
         leftMotorBack.set(leftStick.getRawAxis(2));
         rightMotorFront.set(-1*rightStick.getRawAxis(2));
         rightMotorBack.set(-1*rightStick.getRawAxis(2));
+    }
+    public void dashboard()
+    {
+        SmartDashboard.putNumber("Left Front Motor", leftMotorFront.get());
+        SmartDashboard.putNumber("Left Back Motor", leftMotorBack.get());
+        SmartDashboard.putNumber("Right Front Motor", rightMotorFront.get());
+        SmartDashboard.putNumber("Right Back Motor", rightMotorBack.get());
     }
 }
