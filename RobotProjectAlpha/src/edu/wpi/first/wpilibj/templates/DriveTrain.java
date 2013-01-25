@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -16,6 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain implements IRobot
 {
+    Talon leftMotorFront = new Talon(1);
+    Talon leftMotorBack = new Talon(3);
+    Talon rightMotorFront = new Talon(2);
+    Talon rightMotorBack = new Talon(4);
+    
     public void drive()
     {
         leftMotorFront.set(leftStick.getRawAxis(2));

@@ -15,7 +15,7 @@ public class RahulYalamanchili {
     Accelerometer k = new Accelerometer(1);
     public double getAcceleration()
     {
-      
+        return 6547457;
     }
    
         

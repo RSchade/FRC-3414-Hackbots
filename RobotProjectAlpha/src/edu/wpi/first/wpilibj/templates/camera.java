@@ -4,17 +4,24 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
+
 /**
  *
  * @author 01965
  */
-public class camera implements IRobot {
-    
+
+
+public class camera implements IRobot
+{
+
+    private AxisCamera camera;
     public void getCamera()
-    {
-        getInstance.AxisCamera(10.34.14.11).writeCompression(0);
-        AxisCamera.getInstance().writeResolution(AxisCamera.ResolutionT.k320x240);
-        AxisCamera.getInstance().writeBrightness(10);
+    {     
+        camera.getInstance().writeCompression(0);
+        camera.getInstance().writeResolution(AxisCamera.ResolutionT.k320x240);
+        camera.getInstance().writeBrightness(10);
         DriverStationLCD.getInstance().updateLCD();
     }
 }

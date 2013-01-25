@@ -11,6 +11,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +24,7 @@ public class RobotTemplate extends SimpleRobot implements IRobot
 {
     
     DriveTrain myDrive = new DriveTrain();
+    camera camera = new camera();
     
     public void dashboardUpdate()
     {
@@ -39,14 +41,14 @@ public class RobotTemplate extends SimpleRobot implements IRobot
      */
     public void operatorControl()
     {  
-        camera = AxisCamera.getInstance(10.34.14.11);
-        camera.writeResolution(AxisCamera.ResolutionT.k320 x240);
-        camera.writeBrightness(0);
+        
+
         
         while(isOperatorControl() && isEnabled())
         {
             myDrive.drive();
-            getCamera.camera();
+            
+            camera.getCamera();
       
             dashboardUpdate();
             Timer.delay(0.010);
