@@ -12,7 +12,7 @@ public class camera implements IRobot {
     
     public void getCamera()
     {
-            getInstance.AxisCamera().writeCompression(0);
+        getInstance.AxisCamera(10.34.14.11).writeCompression(0);
         AxisCamera.getInstance().writeResolution(AxisCamera.ResolutionT.k320x240);
         AxisCamera.getInstance().writeBrightness(10);
         DriverStationLCD.getInstance().updateLCD();

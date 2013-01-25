@@ -39,7 +39,7 @@ public class RobotTemplate extends SimpleRobot implements IRobot
      */
     public void operatorControl()
     {  
-        camera = AxisCamera.getInstance();
+        camera = AxisCamera.getInstance(10.34.14.11);
         camera.writeResolution(AxisCamera.ResolutionT.k320 x240);
         camera.writeBrightness(0);
         
