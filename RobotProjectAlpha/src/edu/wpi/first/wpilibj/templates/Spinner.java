@@ -1,21 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 
-/**
- *
- * @author 06335
- */
+
 public class Spinner implements IRobot{
     Talon shooterMotor = new Talon(5);
     Solenoid shooterControlPiston = new Solenoid(1);
-    Talon shooterControlMotor = new Talon (6);    
-        
+    Talon shooterControlMotor = new Talon (6);   
+    
+/* IN THIS CLASS, ALL METHODS NEED:
+ * 
+ * import edu.wpi.first.wpilibj.Talon;
+ * import edu.wpi.first.wpilibj.Solenoid;
+ * import edu.wpi.first.wpilibj.Joystick;
+ * import edu.wpi.first.wpilibj.SimpleRobot;
+ * import edu.wpi.first.wpilibj.Timer;
+ * 
+ * Joystick rightStick = new Joystick(2);                Right Joystick; button (see below at (.getRawButton(1/2)))
+ * Talon shooterMotor = new Talon(5);                    Talon's 1-4 are for drive train
+ * Solenoid shooterControlPiston = new Solenoid(1);      Piston: 1
+ * Talon shooterControlMotor = new Talon (6);            Either this motor or the piston; depends on what we need 
+ *                                                          to push the frisbee into the shooter                                        
+ *  
+ */        
         
         
         
@@ -66,13 +75,13 @@ public class Spinner implements IRobot{
         {
                          if (rightStick.getRawButton(2) == true || n == true)               // 1. if the button is pressed    -or-   n = true :                                   
                         {                                                                   // 2.                           
-                            shooterControlMotor.set(1);                                        // 3. piston is pushed out
+                            shooterControlMotor.set(1);                                     // 3. piston is pushed out
                             m++;                                                            // 4. m increases by 1
                             n = true;                                                       // 5. n = true
                             if (m==300) {                                                   // 6.               (**if m =/= 300: loop restarts (16) and 
                                                                                             // 7.                m increases for 3 seconds before running the next part)                 
                                                                                             // 8. if m = 300:                 
-                                shooterControlMotor.set(0);                                   // 9.       reset: piston is pulled back in
+                                shooterControlMotor.set(0);                                 // 9.       reset: piston is pulled back in
                                 n = false;                                                  // 10.      reset: n = false
                                 m = 1;                                                      // 11.      reset: m restarts back to 1
                             }
