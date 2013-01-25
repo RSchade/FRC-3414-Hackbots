@@ -1,3 +1,5 @@
 hackbots.no-ip.org
 
+Server is currently OFFLINE, please check back later (around 7:00 pm)
+
 running Minecraft version 1.4.7
