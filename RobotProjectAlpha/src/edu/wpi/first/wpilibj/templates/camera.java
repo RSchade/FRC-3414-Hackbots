@@ -15,13 +15,12 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 public class camera implements IRobot
 {
-
-    private AxisCamera camera;
+    
     public void getCamera()
     {     
-        camera.getInstance().writeCompression(0);
-        camera.getInstance().writeResolution(AxisCamera.ResolutionT.k320x240);
-        camera.getInstance().writeBrightness(10);
+        AxisCamera.getInstance().writeCompression(0);
+        AxisCamera.getInstance().writeResolution(AxisCamera.ResolutionT.k320x240);
+        AxisCamera.getInstance().writeBrightness(10);
         DriverStationLCD.getInstance().updateLCD();
     }
 }
