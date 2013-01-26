@@ -10,8 +10,6 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,13 +20,14 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
  */
 public class RobotTemplate extends SimpleRobot implements IRobot
 {
+    public static final double TIME_DELAY = 0.010; // 10 millisecond loop
     
     DriveTrain myDrive = new DriveTrain();
-    camera camera = new camera();
+    camera myCamera = new camera();
     
     public void dashboardUpdate()
     {
-        myDrive.dashboard();
+        myDrive.getDashboard();
     }
     
     public void autonomous()
@@ -40,18 +39,18 @@ public class RobotTemplate extends SimpleRobot implements IRobot
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl()
-    {  
-        
-
-        
+    {
+        /**
+         * This loops every 10 milliseconds
+         */
         while(isOperatorControl() && isEnabled())
         {
             myDrive.drive();
             
-            camera.getCamera();
-      
+            myCamera.getCamera();
+            
             dashboardUpdate();
-            Timer.delay(0.010);
+            Timer.delay(TIME_DELAY);
         }
     }
     
@@ -60,6 +59,6 @@ public class RobotTemplate extends SimpleRobot implements IRobot
      */
     public void test()
     {
-        RSchade.rschade();
+
     }
 }
