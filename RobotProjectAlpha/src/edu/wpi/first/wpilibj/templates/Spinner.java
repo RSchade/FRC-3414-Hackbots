@@ -13,7 +13,8 @@ public class Spinner implements IRobot
     Solenoid shooterControlPiston = new Solenoid(1);
     Talon shooterControlMotor = new Talon(7);
     
-    /* IN THIS CLASS, ALL METHODS NEED:
+    /* Created by Josh Kavner
+     * IN THIS CLASS, ALL METHODS NEED:
      * 
      * import edu.wpi.first.wpilibj.Talon;
      * import edu.wpi.first.wpilibj.Solenoid;
