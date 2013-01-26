@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Accelerometer;
  */
 public class ShrihariBhaskar {
     Accelerometer k = new Accelerometer(1);
+    double n;
     
     public double getAcceleration()
     {
@@ -20,6 +21,11 @@ public class ShrihariBhaskar {
     public double pidGet()
     {
         return k.pidGet();
+    }
+    
+    public void setSensitivity()
+    {
+        k.setSensitivity(n);
     }
 }
 
