@@ -16,7 +16,7 @@ import  edu.wpi.first.wpilibj.PIDSource;
  */
 public class Angle extends SensorBase implements PIDSource {
 
-    private static final double biasVoltage = 2.25;
+    private final double BIAS_VOLTAGE = 2.25;
     private AnalogChannel sinChannel;
     private AnalogChannel cosChannel;
 
@@ -28,12 +28,12 @@ public class Angle extends SensorBase implements PIDSource {
 
     protected double getCos()
     {
-        return cosChannel.getVoltage() - biasVoltage;
+        return cosChannel.getVoltage() - BIAS_VOLTAGE;
     }
 
     protected double getSin()
     {
-        return sinChannel.getVoltage() - biasVoltage;
+        return sinChannel.getVoltage() - BIAS_VOLTAGE;
     }
 
     public double getAngle()
@@ -48,7 +48,8 @@ public class Angle extends SensorBase implements PIDSource {
      * Get the angle of the encoder for use with PIDControllers
      * @return the current angle according to the encoder
      */
-    public double pidGet() {
+    public double pidGet() 
+    {
         return getAngle();
     }
 
