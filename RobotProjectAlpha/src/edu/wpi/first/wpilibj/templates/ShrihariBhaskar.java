@@ -11,9 +11,15 @@ import edu.wpi.first.wpilibj.Accelerometer;
  */
 public class ShrihariBhaskar {
     Accelerometer k = new Accelerometer(1);
+    
     public double getAcceleration()
     {
         return k.getAcceleration();
+    }
+    
+    public double pidGet()
+    {
+        return k.pidGet();
     }
 }
 
