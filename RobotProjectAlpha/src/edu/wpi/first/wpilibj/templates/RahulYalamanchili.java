@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj.Accelerometer;
 public class RahulYalamanchili {
     
     Accelerometer k = new Accelerometer(1);
-    public double getAcceleration()
+    double n;
+    public void setSensitivity()
     {
-        return 6547457;
+        k.setSensitivity(n);
     }
    
         
