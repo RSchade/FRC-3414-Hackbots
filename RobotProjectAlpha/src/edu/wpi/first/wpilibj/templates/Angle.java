@@ -3,21 +3,24 @@
  * and open the template in the editor.
  */
 
-package edu.wpi.first.wpilibj;
+package edu.wpi.first.wpilibj.templates;
 
 import  com.sun.squawk.util.MathUtils;
+import  edu.wpi.first.wpilibj.AnalogChannel;
+import  edu.wpi.first.wpilibj.SensorBase;
+import  edu.wpi.first.wpilibj.PIDSource;
 
 /**
  *
  * @author charris
  */
-public class RobotTemplate extends SensorBase implements PIDSource {
+public class Angle extends SensorBase implements PIDSource {
 
     private static final double biasVoltage = 2.25;
     private AnalogChannel sinChannel;
     private AnalogChannel cosChannel;
 
-    public RobotTemplate( int slotParam, int sinChannelParam, int cosChannelParam)
+    public Angle( int slotParam, int sinChannelParam, int cosChannelParam)
     {
         sinChannel = new AnalogChannel( slotParam, sinChannelParam );
         cosChannel = new AnalogChannel( slotParam, cosChannelParam );
