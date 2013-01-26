@@ -1,3 +1,4 @@
+
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Jaguar;
@@ -6,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
- * created by Rahul Yalamanchili and Shrihari Baskaramurthi
+ * @author Rahul Yalamanchili and Shrihari Baskaramurthi
  */
 public class OldRobotShooter {
     
@@ -20,7 +21,7 @@ public class OldRobotShooter {
        {
            k.set(1);
            m.set(1);
-       }
+}
     }
     
     public void negativeAxis()
