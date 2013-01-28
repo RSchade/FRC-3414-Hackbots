@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Talon;
@@ -19,12 +15,14 @@ public class Screw implements IRobot     //This is the lead screw. It basically 
     {
         rightStick.getRawButton(1);
         rightStick.getRawButton(2);
+        double ANGLE_MAX = 50.0;
+        double ANGLE_MIN = 0.0;
         
-        if (rightStick.getRawButton(1) && !rightStick.getRawButton(2) && encoder.pidGet()<=50.0)  //If we press button 1 and not button 2 and the shooter is <= 50 degrees
+        if (rightStick.getRawButton(1) && !rightStick.getRawButton(2) && encoder.pidGet()<=ANGLE_MAX)  //If we press button 1 and not button 2 and the shooter is <= 50 degrees
         {
             screwLift.set(0.5);                                                                   //The lead screw will lift the shooter up
         }
-        else if (rightStick.getRawButton(2) && !rightStick.getRawButton(1) && encoder.pidGet()>=0.0) //If we press button 2 and not button 1 and the shooter is >= 0 degrees
+        else if (rightStick.getRawButton(2) && !rightStick.getRawButton(1) && encoder.pidGet()>=ANGLE_MIN) //If we press button 2 and not button 1 and the shooter is >= 0 degrees
         {
             screwLift.set(-0.5);                                                                     //The lead screw will set itself down
         }
