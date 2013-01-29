@@ -10,9 +10,6 @@ package edu.wpi.first.wpilibj.templates;
  */
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SimpleRobot;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public interface IRobot {
     Joystick leftStick = new Joystick(1);
