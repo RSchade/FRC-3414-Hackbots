@@ -24,7 +24,8 @@ public class RobotTemplate extends SimpleRobot
     private Talon firewheel = new Talon(1);
     private Talon firewheel_2 = new Talon(2);
     private Talon angler = new Talon(3);
-    private Solenoid loader = new Solenoid(1);
+    private Talon loaderwheel_1 = new Talon(4);
+    private Talon loaderwheel_2 = new Talon(5);
     private Encoder anglereader[];
     
     private final int CENTER_BUTTON = 3;
@@ -72,10 +73,12 @@ public class RobotTemplate extends SimpleRobot
 
         if (left_stick.getRawButton(TRIGGER) == true)
         {
-            loader.set(true);
+            loaderwheel_1.set(HALF_FORWARD);
+            loaderwheel_2.set(HALF_FORWARD);
         } 
         else {
-            loader.set(false);
+            loaderwheel_1.set(OFF);
+            loaderwheel_2.set(OFF);
         }
 
         if (right_stick.getRawButton(CENTER_BUTTON) == true)
