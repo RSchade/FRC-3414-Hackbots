@@ -1,24 +1,16 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Color Sensor
  */
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.Accelerometer;
-
+import edu.wpi.first.wpilibj.AnalogChannel;
 /**
  *
  * created by: Rahul Yalamanchili
  */
 public class RahulYalamanchili {
     
-    Accelerometer k = new Accelerometer(1);
-    double n;
-    public void setSensitivity()
-    {
-        k.setSensitivity(n);
-    }
+
    
-        
-    
+            
 }
