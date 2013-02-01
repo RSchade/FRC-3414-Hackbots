@@ -14,7 +14,7 @@ public class PhotoSensorNP {
     }
     
     public void getDashboard(){
-        SmartDashboard.getBoolean("Photosensor value", photosensor.get());
+        SmartDashboard.getBoolean("Photosensor value", lights.get());
     }
     
 }
