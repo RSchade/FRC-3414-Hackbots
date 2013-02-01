@@ -24,9 +24,11 @@ public class RobotTemplate extends SimpleRobot implements IRobot
     
     DriveTrain myDrive = new DriveTrain();
     Camera myCamera = new Camera();
+    LightSensor photosensor = new LightSensor();
     
     public void dashboardUpdate()
     {
+        photosensor.getDashboard();
         myDrive.getDashboard();
     }
     

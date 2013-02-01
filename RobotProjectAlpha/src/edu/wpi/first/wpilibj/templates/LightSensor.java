@@ -3,7 +3,6 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.Dashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -11,17 +10,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * created by: Rahul Yalamanchili
  */
-public class RahulYalamanchili {
+public class LightSensor {
     
-    DigitalInput PhotoSensor = new DigitalInput(1);
+    DigitalInput photosensor = new DigitalInput(1);
     
     public boolean get()
     {
-        return PhotoSensor.get();
+        return photosensor.get();
     }
 
    public void getDashboard(){
-       SmartDashboard.getBoolean("PhotoSensor Value;", PhotoSensor.get);
+       SmartDashboard.putBoolean("PhotoSensor Value;", photosensor.get());
    }
             
 }
