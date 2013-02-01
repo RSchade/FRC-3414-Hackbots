@@ -74,11 +74,11 @@ public class Spinner implements IRobot
     public void pushMotor() {
         if (rightStick.getRawButton(JOYSTICK_BUTTON_TWO) == true || pushMotorState == true)    // if the button is pressed    -or-   "pushPistonState" = true :                                
         {                                                                                              
-            shooterControlMotor.set(1);                                                        // piston is pushed out
+            shooterControlMotor.set(1.0);                                                      // motor is turned on
             countTimer++;                                                                      // "countTimer" increases by 1
             pushMotorState = true;                                                             // "pushPistonState" = true  , so it can continue to loop even if the button is not pushed
             if (countTimer == THREE_SECONDS) {                                                 // if "countTimer" = 300:                
-                shooterControlMotor.set(0);                                                    //      reset: piston is pulled back in
+                shooterControlMotor.set(0.0);                                                  //      reset: motor is turned off
                 pushMotorState = false;                                                        //      reset: "pushPistonState" = false
                 countTimer = 1;                                                                //      reset: "countTimer" restarts back to 1
             }
