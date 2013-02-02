@@ -27,7 +27,7 @@ public class Main extends SimpleRobot implements IRobot {
     DriveTrain myDrive = new DriveTrain(PWM_SLOT_ONE, PWM_SLOT_THREE, PWM_SLOT_TWO, PWM_SLOT_FOUR);
     Camera myCamera = new Camera();
     LightSensor photosensor = new LightSensor(DIO_ONE, PWM_SLOT_FIVE);
-//    Shooter myShooter = new Shooter(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
+    Shooter myShooter = new Shooter(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
     Screw myScrew = new Screw(PWM_SLOT_SIX);
 
     

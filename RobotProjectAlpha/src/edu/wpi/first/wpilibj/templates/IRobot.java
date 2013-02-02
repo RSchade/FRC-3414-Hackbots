@@ -33,6 +33,8 @@ public interface IRobot {
     final int PWM_SLOT_NINE = 9;
     final int PWM_SLOT_TEN = 10;
     
+    final int SOLENOID_ONE = 1;     //Solenoid ports
+    
     final int USB_ONE = 1;          //USB ports
     final int USB_TWO = 2;
     
