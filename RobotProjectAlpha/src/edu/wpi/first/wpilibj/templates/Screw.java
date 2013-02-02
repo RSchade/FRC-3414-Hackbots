@@ -8,27 +8,25 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class Screw implements IRobot     //This is the lead screw. It basically uses a motor to move the shooter up and down.
 {
+    final double MAX_ANGLE = 50.0;
+    final double MIN_ANGLE = 0.0;
+        
     Talon screwLift = new Talon(5);      //This is the motor that controls the lead screw that controls the shooter movement
     Angle encoder = new Angle(1, 1, 2);  //This encoder finds the angle of the shooter
     
     public void setMotor()
     {
-        rightStick.getRawButton(1);
-        rightStick.getRawButton(2);
-        double maxAngle = 50.0;
-        double minAngle = 0.0;
-        
-        if (rightStick.getRawButton(1) && !rightStick.getRawButton(2) && encoder.pidGet()<=maxAngle)  //If we press button 1 and not button 2 and the shooter is <= 50 degrees
+        if (rightStick.getRawButton(1) && !rightStick.getRawButton(2) && encoder.pidGet()<=MAX_ANGLE) 
         {
-            screwLift.set(0.5);                                                                   //The lead screw will lift the shooter up
+            screwLift.set(0.5);
         }
-        else if (rightStick.getRawButton(2) && !rightStick.getRawButton(1) && encoder.pidGet()>=minAngle) //If we press button 2 and not button 1 and the shooter is >= 0 degrees
+        else if (rightStick.getRawButton(2) && !rightStick.getRawButton(1) && encoder.pidGet()>=MIN_ANGLE)
         {
-            screwLift.set(-0.5);                                                                     //The lead screw will set itself down
+            screwLift.set(-0.5);
         }
-        else                                                                           //If no buttons are currently pressed
+        else
         {
-            screwLift.set(0.0);                                                        //The shooter will keep its current position
+            screwLift.set(0.0);
         }
     }
 }

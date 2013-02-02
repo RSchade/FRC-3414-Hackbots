@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
- * @author Robotics
+ * @author Cooper Riehl
  */
 
 // import edu.wpi.first.wpilibj.Joystick;
@@ -19,11 +19,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain implements IRobot
 {
-    private static final int PWM_SLOT_ONE = 1;
-    private static final int PWM_SLOT_TWO = 2;
-    private static final int PWM_SLOT_THREE = 3;
-    private static final int PWM_SLOT_FOUR = 4;
-    private static final int VERTICAL_AXIS = 2;
+    private final int PWM_SLOT_ONE = 1;
+    private final int PWM_SLOT_TWO = 2;
+    private final int PWM_SLOT_THREE = 3;
+    private final int PWM_SLOT_FOUR = 4;
+    private final int VERTICAL_AXIS = 2;
     
     
     

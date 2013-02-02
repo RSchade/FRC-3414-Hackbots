@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends SimpleRobot implements IRobot
+public class Main extends SimpleRobot implements IRobot
 {
     public static final double TIME_DELAY = 0.010; // 10 millisecond loop
     
@@ -51,32 +51,22 @@ public class RobotTemplate extends SimpleRobot implements IRobot
         
         while(isOperatorControl() && isEnabled())
         {
-            if(leftStick.getRawButton(1)) {
-                try {
-                    myCamera.image.free();
-                    myCamera.dataImage.free();
-                    System.out.println("Freeing memory.");
-                } catch(Exception ex) {
-                    System.out.println("BROKEN");
-                }
-            }
+            myDrive.drive();        //Drive Train update
             
-            if (rightStick.getRawButton(1) && a) {
+            if (rightStick.getRawButton(1) && a) {      //Take a picture
                 myCamera.centerCalculate();
                 a = false;
             }
             if (!rightStick.getRawButton(1) && !a) {
                 a = true;
             }
-            
-            myDrive.drive();
-            
-            dashboardUpdate();
-            Timer.delay(TIME_DELAY);
             i++;
             if (i==11) {
                 i = 1;
             }
+            
+            dashboardUpdate();
+            Timer.delay(TIME_DELAY);
         }
     }
     

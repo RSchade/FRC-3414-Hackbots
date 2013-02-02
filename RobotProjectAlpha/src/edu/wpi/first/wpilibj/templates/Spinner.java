@@ -5,13 +5,6 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class Spinner implements IRobot 
 {
-    private final int THREE_SECONDS = 300;
-    private final int JOYSTICK_BUTTON_ONE = 1;
-    private final int JOYSTICK_BUTTON_TWO = 2;
-    Talon shooterMotorLeft = new Talon(5);
-    Talon shooterMotorRight = new Talon(6);
-    Solenoid shooterControlPiston = new Solenoid(1);
-    Talon shooterControlMotor = new Talon(7);
     
     /* Created by Josh Kavner
      * IN THIS CLASS, ALL METHODS NEED:
@@ -28,6 +21,15 @@ public class Spinner implements IRobot
      * Talon shooterControlMotor = new Talon (6);            Either this motor or the piston; depends on what we need 
      *                                                          to push the frisbee into the shooter                                        
      */
+    
+    private final int THREE_SECONDS = 300;
+    private final int JOYSTICK_BUTTON_ONE = 1;
+    private final int JOYSTICK_BUTTON_TWO = 2;
+    
+    Talon shooterMotorLeft = new Talon(5);
+    Talon shooterMotorRight = new Talon(6);
+    Solenoid shooterControlPiston = new Solenoid(1);
+    Talon shooterControlMotor = new Talon(7);
     
     private int motorPulse = 1;
     private boolean motorState = true;
@@ -50,10 +52,10 @@ public class Spinner implements IRobot
             shooterMotorLeft.set(1.0);                                                         // both motors run
             shooterMotorRight.set(1.0);                                                   
         }                                                                                      // ^ We need to use a double for the motor set value
-        else                                                                                   // if "i" is odd,
+        else                                                                                   // if "motorState" is odd,
         {
             shooterMotorLeft.set(0.0);                                                         // both motors stop running
-            shooterMotorRight.set(0.0);                                                                     
+            shooterMotorRight.set(0.0);        
         }                                                                                      // *end shooter code* *start piston code*
     }
 

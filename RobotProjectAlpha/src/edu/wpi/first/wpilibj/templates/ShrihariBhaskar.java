@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Accelerometer;
 
 /**
  *
- * @author 05561
+ * @author 3414 Hackbots
  */
 public class ShrihariBhaskar {
     Accelerometer k = new Accelerometer(1);

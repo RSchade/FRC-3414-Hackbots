@@ -17,6 +17,7 @@ import  edu.wpi.first.wpilibj.PIDSource;
 public class Angle extends SensorBase implements PIDSource {
 
     private final double BIAS_VOLTAGE = 2.25;
+    
     private AnalogChannel sinChannel;
     private AnalogChannel cosChannel;
 

@@ -4,6 +4,10 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * 
+ * @author Nathan Peterson
+ */
 public class PhotoSensorNP {
     
     DigitalInput lights = new DigitalInput(1);
@@ -14,7 +18,7 @@ public class PhotoSensorNP {
     }
     
     public void getDashboard(){
-        SmartDashboard.getBoolean("Photosensor value", lights.get());
+        SmartDashboard.putBoolean("Photosensor value", lights.get());
     }
     
 }

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  * @author Rahul Yalamanchili and Shrihari Baskaramurthi
  */
-public class OldRobotShooter {
+public class OldRobotShooter implements IRobot {
     
     Joystick n = new Joystick(1);
     Jaguar k = new Jaguar(1);

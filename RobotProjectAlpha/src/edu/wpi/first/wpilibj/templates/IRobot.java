@@ -6,7 +6,7 @@ package edu.wpi.first.wpilibj.templates;
 
 /**
  *
- * @author Robotics
+ * @author Cooper Riehl
  */
 
 import edu.wpi.first.wpilibj.Joystick;
