@@ -40,6 +40,8 @@ public interface IRobot {
     
     final int DIO_ONE = 1;          //DIO slots
     
+    final int RELAY_ONE = 1;
+    
     final int HORIZ_AXIS = 1;       //Joystick axis
     final int VERTICAL_AXIS = 2;
     

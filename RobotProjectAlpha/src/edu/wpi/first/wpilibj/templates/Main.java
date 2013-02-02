@@ -29,6 +29,7 @@ public class Main extends SimpleRobot implements IRobot {
     LightSensor photosensor = new LightSensor(DIO_ONE, PWM_SLOT_FIVE);
     Shooter myShooter = new Shooter(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
     Screw myScrew = new Screw(PWM_SLOT_SIX);
+    LED myLEDControl = new LED(RELAY_ONE);
 
     
     public void dashboardUpdate() {
@@ -47,26 +48,12 @@ public class Main extends SimpleRobot implements IRobot {
         /**
          * This loops every 10 milliseconds
          */
-        
-        int i = 1;
-        boolean a = true;
-        
         while(isOperatorControl() && isEnabled()) {
             //Set the screw motor
             myScrew.setMotor(leftStick.getRawButton(LEFT_BUTTON_TWO), leftStick.getRawButton(LEFT_BUTTON_THREE));
             
             //Take a picture with the camera for processing
-            if (rightStick.getRawButton(RIGHT_TRIGGER) && a) {
-                myCamera.centerCalculate();
-                a = false;
-            }
-            if (!rightStick.getRawButton(RIGHT_TRIGGER) && !a) {
-                a = true;
-            }
-            i++;
-            if (i==11) {
-                i = 1;
-            }
+            myCamera.update(leftStick.getRawButton(LEFT_TRIGGER));
             
             //Update systems
             myDrive.update(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));

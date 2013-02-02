@@ -14,12 +14,23 @@ public class Camera implements IRobot {
     
     AxisCamera myCamera = AxisCamera.getInstance();
     CriteriaCollection crit = new CriteriaCollection();
-    public ColorImage image;
-    public BinaryImage dataImage;
+    private ColorImage image;
+    private BinaryImage dataImage;
+    private boolean loopControl = true;
 
     public Camera() {
         crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
         crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
+    }
+    
+    public void update(boolean trigger) {
+        if (trigger && loopControl) {
+//            myCamera.centerCalculate();
+            loopControl = false;
+        }
+        if (!trigger && !loopControl) {
+            loopControl = true;
+        }
     }
     
     public void centerCalculate() {
