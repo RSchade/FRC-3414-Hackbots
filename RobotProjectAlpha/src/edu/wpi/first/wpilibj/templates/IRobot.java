@@ -12,6 +12,9 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.Joystick;
 
 public interface IRobot {
+    
+    final double TIME_DELAY = 0.010; // 10 millisecond loop
+    
     final double SPEED_FORWARD_FULL = 1.0;  //Motor speed values
     final double SPEED_FORWARD_HALF = 0.5;
     final double SPEED_STOP = 0.0;
@@ -39,6 +42,9 @@ public interface IRobot {
     
     final int HORIZ_AXIS = 1;       //Joystick axis
     final int VERTICAL_AXIS = 2;
+    
+    final int RIGHT_TRIGGER = 1;       //Joystick buttons
+    final int LEFT_TRIGGER = 1;
     
     final int RED_MIN = 0;          //Threshold levels for Red, Green and Blue
     final int RED_MAX = 45;
