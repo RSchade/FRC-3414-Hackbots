@@ -43,8 +43,11 @@ public interface IRobot {
     final int HORIZ_AXIS = 1;       //Joystick axis
     final int VERTICAL_AXIS = 2;
     
-    final int RIGHT_TRIGGER = 1;       //Joystick buttons
+    final int RIGHT_TRIGGER = 1;    //Joystick buttons
     final int LEFT_TRIGGER = 1;
+    
+    final double MAX_ANGLE = 50.0;  //Shooter angles
+    final double MIN_ANGLE = 0.0;
     
     final int RED_MIN = 0;          //Threshold levels for Red, Green and Blue
     final int RED_MAX = 45;
