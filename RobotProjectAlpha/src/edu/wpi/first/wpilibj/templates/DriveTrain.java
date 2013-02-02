@@ -18,23 +18,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.Talon;
 
 public class DriveTrain implements IRobot {
-
-    Talon leftMotorFront = new Talon(PWM_SLOT_ONE);
-    Talon leftMotorBack = new Talon(PWM_SLOT_THREE);
-    Talon rightMotorFront = new Talon(PWM_SLOT_TWO);
-    Talon rightMotorBack = new Talon(PWM_SLOT_FOUR);
     
-    public void drive() {
-        leftMotorFront.set(leftStick.getRawAxis(VERTICAL_AXIS));
-        leftMotorBack.set(leftStick.getRawAxis(VERTICAL_AXIS));
-        rightMotorFront.set(-1*rightStick.getRawAxis(VERTICAL_AXIS));
-        rightMotorBack.set(-1*rightStick.getRawAxis(VERTICAL_AXIS));
+    Talon leftFrontMotor;
+    Talon rightFrontMotor;
+    Talon leftBackMotor;
+    Talon rightBackMotor;
+    
+    public DriveTrain(int leftFrontSlot, int leftBackSlot, int rightFrontSlot, int rightBackSlot) {
+        leftFrontMotor = new Talon(leftFrontSlot);
+        leftBackMotor = new Talon(leftBackSlot);
+        rightFrontMotor = new Talon(rightFrontSlot);
+        rightBackMotor = new Talon(rightBackSlot);
+    }
+    public DriveTrain() {
+        leftFrontMotor = new Talon(PWM_SLOT_ONE);
+        leftBackMotor = new Talon(PWM_SLOT_THREE);
+        rightFrontMotor = new Talon(PWM_SLOT_TWO);
+        rightBackMotor = new Talon(PWM_SLOT_FOUR);
+    }
+    
+    public void update(double leftSpeed, double rightSpeed) {
+        leftFrontMotor.set(leftSpeed);
+        leftBackMotor.set(leftSpeed);
+        rightFrontMotor.set(rightSpeed);
+        rightBackMotor.set(rightSpeed);
     }
     
     public void getDashboard() {
-        SmartDashboard.putNumber("Left Front Motor", leftMotorFront.get());
-        SmartDashboard.putNumber("Left Back Motor", leftMotorBack.get());
-        SmartDashboard.putNumber("Right Front Motor", rightMotorFront.get());
-        SmartDashboard.putNumber("Right Back Motor", rightMotorBack.get());
+        SmartDashboard.putNumber("Left Front Motor", leftFrontMotor.get());
+        SmartDashboard.putNumber("Left Back Motor", leftFrontMotor.get());
+        SmartDashboard.putNumber("Right Front Motor", rightFrontMotor.get());
+        SmartDashboard.putNumber("Right Back Motor", rightBackMotor.get());
     }
 }

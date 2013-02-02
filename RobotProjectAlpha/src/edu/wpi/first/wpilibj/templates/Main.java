@@ -8,6 +8,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -20,9 +21,13 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Main extends SimpleRobot implements IRobot {
     
-    DriveTrain myDrive = new DriveTrain();
+    Joystick leftStick = new Joystick(USB_ONE);
+    Joystick rightStick = new Joystick(USB_TWO);
+    
+    DriveTrain myDrive = new DriveTrain(1, 3, 2, 4);
     Camera myCamera = new Camera();
     LightSensor photosensor = new LightSensor();
+    Shooter myShooter = new Shooter();
     
     public void dashboardUpdate() {
         photosensor.getDashboard();
@@ -45,9 +50,10 @@ public class Main extends SimpleRobot implements IRobot {
         boolean a = true;
         
         while(isOperatorControl() && isEnabled()) {
-            myDrive.drive();        //Drive Train update
             
-            if (rightStick.getRawButton(RIGHT_TRIGGER) && a) {      //Take a picture
+            
+            // Take a picture with the Camera for processing
+            if (rightStick.getRawButton(RIGHT_TRIGGER) && a) {
                 myCamera.centerCalculate();
                 a = false;
             }
@@ -59,6 +65,24 @@ public class Main extends SimpleRobot implements IRobot {
                 i = 1;
             }
             
+            //Turn the shooter on or off
+            if (leftStick.getRawButton(LEFT_BUTTON_TWO)) {
+                myShooter.startMotor();
+            } else {
+                myShooter.stopMotor();
+            }
+            
+            if (leftStick.getRawButton(LEFT_TRIGGER)) {
+                myShooter.setPiston(EXTENDED);
+            } else {
+                myShooter.setPiston(RETRACTED);
+            }
+            
+            //Update systems
+            myDrive.update(leftStick.getRawAxis(VERTICAL_AXIS), -1*rightStick.getRawAxis(VERTICAL_AXIS));
+            myShooter.update();
+            
+            //Update the dashboard
             dashboardUpdate();
             Timer.delay(TIME_DELAY);
         }

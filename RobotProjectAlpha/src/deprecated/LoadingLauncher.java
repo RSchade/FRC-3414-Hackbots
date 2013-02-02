@@ -1,4 +1,4 @@
-package notes;
+package deprecated;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.templates.IRobot;

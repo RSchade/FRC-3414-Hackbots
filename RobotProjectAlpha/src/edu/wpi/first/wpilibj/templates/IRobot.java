@@ -8,9 +8,6 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Cooper Riehl
  */
-
-import edu.wpi.first.wpilibj.Joystick;
-
 public interface IRobot {
     
     final double TIME_DELAY = 0.010; // 10 millisecond loop
@@ -21,8 +18,8 @@ public interface IRobot {
     final double SPEED_REVERSE_HALF = -0.5;
     final double SPEED_REVERSE_FULL = -1.0;
     
-    final boolean ON = true;        //Solenoid values
-    final boolean OFF = false;
+    final boolean EXTENDED = true;        //Solenoid values
+    final boolean RETRACTED = false;
     
     final int PWM_SLOT_ONE = 1;     //PWM slots
     final int PWM_SLOT_TWO = 2;
@@ -34,6 +31,8 @@ public interface IRobot {
     final int PWM_SLOT_EIGHT = 8;
     final int PWM_SLOT_NINE = 9;
     final int PWM_SLOT_TEN = 10;
+    
+    final int SOLENOID_ONE = 1;     //Solenoid slots
     
     final int USB_ONE = 1;          //USB ports
     final int USB_TWO = 2;
@@ -59,7 +58,4 @@ public interface IRobot {
     final int GRN_MAX = 255;
     final int BLU_MIN = 0;
     final int BLU_MAX = 47;
-    
-    Joystick leftStick = new Joystick(1);
-    Joystick rightStick = new Joystick(2);
 }
