@@ -1,8 +1,7 @@
-package deprecated;                    // Needs to be reset:
+package edu.wpi.first.wpilibj.templates;                    // Needs to be reset:
                                                             // THREE_SECONDS;  solenoid, talon, and joystick buttons need to be changed
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.templates.IRobot;
 
 public class Spinner implements IRobot 
 {
