@@ -1,0 +1,19 @@
+Device          | Class             | Use
+--------------------------------------
+PWM 1-4         | DriveTrain.java   | Drive Train 2x2 gearboxes
+PWM 5           | LightSensor.java  | Loader Wheel
+PWM 6           | Screw.java        | Screw Motor
+PWM 7-8         | Shooter.java      | Shooter Motors
+                |                   |
+Joystick 1-2    | IRobot.java       | Main control sticks
+                |                   |
+RIGHT_TRIGGER   | Main.java         | Take camera image
+RIGHT_BUTTON_TWO| 
+                |                   |
+LEFT_TRIGGER    | Shooter.java      | Extend shooter piston
+LEFT_BUTTON_TWO | Shooter.java      | Turn the shooter motors on
+                |                   |
+DIO 1           | LightSensor.java  | Light Sensor
+                |                   |
+Solenoid 1      | Shooter.java      | Piston shooter arm
+

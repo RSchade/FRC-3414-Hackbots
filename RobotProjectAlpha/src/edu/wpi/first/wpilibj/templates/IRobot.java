@@ -9,8 +9,6 @@ package edu.wpi.first.wpilibj.templates;
  * @author Cooper Riehl
  */
 
-import edu.wpi.first.wpilibj.Joystick;
-
 public interface IRobot {
     
     final double TIME_DELAY = 0.010; // 10 millisecond loop
@@ -59,7 +57,4 @@ public interface IRobot {
     final int GRN_MAX = 255;
     final int BLU_MIN = 0;
     final int BLU_MAX = 47;
-    
-    Joystick leftStick = new Joystick(1);
-    Joystick rightStick = new Joystick(2);
 }

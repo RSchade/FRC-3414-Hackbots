@@ -1,6 +1,7 @@
-package edu.wpi.first.wpilibj.templates;
+package deprecated;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.templates.IRobot;
                                                         // Joystick and Solenoid buttons
 public class ForkLift implements IRobot {
 

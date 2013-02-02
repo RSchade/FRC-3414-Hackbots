@@ -8,6 +8,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -19,10 +20,16 @@ import edu.wpi.first.wpilibj.Timer;
  * directory.
  */
 public class Main extends SimpleRobot implements IRobot {
+
+    Joystick leftStick = new Joystick(USB_ONE);
+    Joystick rightStick = new Joystick(USB_TWO);
     
-    DriveTrain myDrive = new DriveTrain();
+    DriveTrain myDrive = new DriveTrain(PWM_SLOT_ONE, PWM_SLOT_THREE, PWM_SLOT_TWO, PWM_SLOT_FOUR);
     Camera myCamera = new Camera();
-    LightSensor photosensor = new LightSensor();
+    LightSensor photosensor = new LightSensor(DIO_ONE, PWM_SLOT_FIVE);
+//    Shooter myShooter = new Shooter(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
+    Screw myScrew = new Screw(PWM_SLOT_SIX);
+
     
     public void dashboardUpdate() {
         photosensor.getDashboard();
@@ -45,9 +52,11 @@ public class Main extends SimpleRobot implements IRobot {
         boolean a = true;
         
         while(isOperatorControl() && isEnabled()) {
-            myDrive.drive();        //Drive Train update
+            //Set the screw motor
+            myScrew.setMotor(leftStick.getRawButton(LEFT_BUTTON_TWO), leftStick.getRawButton(LEFT_BUTTON_THREE));
             
-            if (rightStick.getRawButton(RIGHT_TRIGGER) && a) {      //Take a picture
+            //Take a picture with the camera for processing
+            if (rightStick.getRawButton(RIGHT_TRIGGER) && a) {
                 myCamera.centerCalculate();
                 a = false;
             }
@@ -59,7 +68,12 @@ public class Main extends SimpleRobot implements IRobot {
                 i = 1;
             }
             
+            //Update systems
+            myDrive.update(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
+            myScrew.update();
             dashboardUpdate();
+            
+            //Loop delay
             Timer.delay(TIME_DELAY);
         }
     }

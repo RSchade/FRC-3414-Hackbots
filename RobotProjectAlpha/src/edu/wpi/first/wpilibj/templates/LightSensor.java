@@ -13,8 +13,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class LightSensor implements IRobot {
     
-    DigitalInput photosensor = new DigitalInput(DIO_ONE);
-    Talon loaderWheel = new Talon(PWM_SLOT_FIVE);
+    DigitalInput photosensor;
+    Talon loaderMotor;
+    
+    public LightSensor(int photosensorSlot, int loaderSlot) {
+        photosensor = new DigitalInput(photosensorSlot);
+        loaderMotor = new Talon(loaderSlot);
+    }
     
     public boolean get() {
         return photosensor.get();
@@ -26,9 +31,9 @@ public class LightSensor implements IRobot {
             
     public void startMotor() {
         if (photosensor.get() == true) {
-            loaderWheel.set(SPEED_FORWARD_HALF);
+            loaderMotor.set(SPEED_FORWARD_HALF);
         } else {
-            loaderWheel.set(SPEED_STOP);
+            loaderMotor.set(SPEED_STOP);
         }
     }
 }

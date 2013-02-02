@@ -19,22 +19,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain implements IRobot {
 
-    Talon leftMotorFront = new Talon(PWM_SLOT_ONE);
-    Talon leftMotorBack = new Talon(PWM_SLOT_THREE);
-    Talon rightMotorFront = new Talon(PWM_SLOT_TWO);
-    Talon rightMotorBack = new Talon(PWM_SLOT_FOUR);
+    Talon leftFrontMotor;
+    Talon rightFrontMotor;
+    Talon leftBackMotor;
+    Talon rightBackMotor;
     
-    public void drive() {
-        leftMotorFront.set(leftStick.getRawAxis(VERTICAL_AXIS));
-        leftMotorBack.set(leftStick.getRawAxis(VERTICAL_AXIS));
-        rightMotorFront.set(-1*rightStick.getRawAxis(VERTICAL_AXIS));
-        rightMotorBack.set(-1*rightStick.getRawAxis(VERTICAL_AXIS));
+    public DriveTrain(int leftFrontSlot, int leftBackSlot, int rightFrontSlot, int rightBackSlot) {
+        leftFrontMotor = new Talon(leftFrontSlot);
+        leftBackMotor = new Talon(leftBackSlot);
+        rightFrontMotor = new Talon(rightFrontSlot);
+        rightBackMotor = new Talon(rightBackSlot);
+    }
+    
+    public void update(double leftSpeed, double rightSpeed) {
+        leftFrontMotor.set(leftSpeed);
+        leftBackMotor.set(leftSpeed);
+        rightFrontMotor.set(rightSpeed);
+        rightBackMotor.set(rightSpeed);
     }
     
     public void getDashboard() {
-        SmartDashboard.putNumber("Left Front Motor", leftMotorFront.get());
-        SmartDashboard.putNumber("Left Back Motor", leftMotorBack.get());
-        SmartDashboard.putNumber("Right Front Motor", rightMotorFront.get());
-        SmartDashboard.putNumber("Right Back Motor", rightMotorBack.get());
+        SmartDashboard.putNumber("Left Front Motor", leftFrontMotor.get());
+        SmartDashboard.putNumber("Left Back Motor", leftBackMotor.get());
+        SmartDashboard.putNumber("Right Front Motor", rightFrontMotor.get());
+        SmartDashboard.putNumber("Right Back Motor", rightBackMotor.get());
     }
 }
