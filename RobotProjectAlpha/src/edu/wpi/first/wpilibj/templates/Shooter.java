@@ -3,7 +3,7 @@ package edu.wpi.first.wpilibj.templates;                    // Needs to be reset
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 
-public class Spinner implements IRobot 
+public class Shooter implements IRobot 
 {
     
     /* Created by Josh Kavner
