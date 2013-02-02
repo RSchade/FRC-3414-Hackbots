@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Talon;
 public class LightSensor {
     
     DigitalInput photosensor = new DigitalInput(1);
-    Talon LoaderWheel = new Talon(1);
+    Talon loaderWheel = new Talon(1);
     
     public boolean get()
     {
@@ -28,7 +28,9 @@ public class LightSensor {
    public void startMotor()
    {
     if (photosensor.get() == true){
-        LoaderWheel.set(0.5);
+        loaderWheel.set(0.5);
+    } else {
+        loaderWheel.set(0.0);
     }
    
    }
