@@ -21,11 +21,11 @@ public class RobotTemplate extends SimpleRobot
 
     private Joystick right_stick = new Joystick(1);
     private Joystick left_stick = new Joystick(2);
-    private Talon firewheel = new Talon(1);
-    private Talon firewheel_2 = new Talon(2);
-    private Talon angler = new Talon(3);
-    private Talon loaderwheel_1 = new Talon(4);
-    private Talon loaderwheel_2 = new Talon(5);
+    private Talon firewheel = new Talon(PWM_SLOT_ONE);
+    private Talon firewheel_2 = new Talon(PWM_SLOT_TWO);
+    private Talon angler = new Talon(PWM_SLOT_THREE);
+    private Talon loaderwheel_1 = new Talon(PWM_SLOT_FOUR);
+    private Talon loaderwheel_2 = new Talon(PWM_SLOT_FIVE);
     private Encoder anglereader[];
     
     private final int CENTER_BUTTON = 3;
@@ -35,7 +35,7 @@ public class RobotTemplate extends SimpleRobot
     private final int OFF = 0;
     private int SHOOTER_ANGLE_VALUE;
     private final int BOTTOM_OUT = 40;  //These constants need 
-    private final int TOP_OUT = -40;    //to be fine tuned
+    private final int TOP_OUT = -40;    //to be fine tuned 
     private final int FULL_FORWARD = 1;
     private final int FULL_REVERSE = -1;
     
@@ -55,6 +55,11 @@ public class RobotTemplate extends SimpleRobot
             controls();
             angle();   
             Timer.delay(0.010);
+            /*
+             * These incorprate the controls method
+             * and the angle limiting method and
+             * update every 10 miliseconds
+             */
         }
 
     }
@@ -101,7 +106,10 @@ public class RobotTemplate extends SimpleRobot
                 && right_stick.getRawButton(CENTER_BUTTON) == false)
         {
             angler.set(OFF);
-        }
+        }/*
+         * this thing just check what buttons are
+         * clicked, and activate what they need
+         */
 
     }
     
@@ -119,7 +127,10 @@ public class RobotTemplate extends SimpleRobot
         if(SHOOTER_ANGLE_VALUE +10 <= BOTTOM_OUT)
         {
             angler.set(OFF);
-        }        
+        }/*
+         * Checks to make sure the encoder
+         * value is within safe limits
+         */        
     }
 
     public void test()
