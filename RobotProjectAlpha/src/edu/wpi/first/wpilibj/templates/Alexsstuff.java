@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Accelerometer;
  * @author Alex S. <3
  */
 
-public class RobotTemplate extends SimpleRobot
+public class Alexsstuff extends SimpleRobot implements IRobot
 {
 
     private Joystick right_stick = new Joystick(1);
