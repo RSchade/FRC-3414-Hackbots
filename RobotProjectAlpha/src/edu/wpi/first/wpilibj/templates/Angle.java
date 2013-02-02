@@ -53,6 +53,4 @@ public class Angle extends SensorBase implements PIDSource {
     {
         return getAngle();
     }
-
-
 }

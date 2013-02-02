@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Talon;
 
 /**
  *
- * @author: rockbanddude a.k.a Ben Feinstein
+ * @author: Ben Feinstein
  */
 public class Screw implements IRobot     //This is the lead screw. It basically uses a motor to move the shooter up and down.
 {
