@@ -1,12 +1,9 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
 
-public class LoadingLauncher {
+public class LoadingLauncher implements IRobot {
 
-    Joystick controller = new Joystick(1);
     Talon testMotor = new Talon(1);
     boolean loaderState = false;
     int loaderPulse = 1;
@@ -14,7 +11,7 @@ public class LoadingLauncher {
     private final int THREE_SECONDS = 300;
 
     public void Loader() {
-        if (controller.getRawButton(JOYSTICK_BUTTON_ONE) == true || loaderState == true)        // if the button is pressed    -or-   "loaderState" = true :                                
+        if (leftStick.getRawButton(JOYSTICK_BUTTON_ONE) == true || loaderState == true)        // if the button is pressed    -or-   "loaderState" = true :                                
         {
             testMotor.set(1.0);                                               // motor is turned on
             loaderPulse++;                                                    // "loaderPulse" increases by 1

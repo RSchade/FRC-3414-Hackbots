@@ -18,30 +18,25 @@ import edu.wpi.first.wpilibj.Timer;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Main extends SimpleRobot implements IRobot
-{
-    public static final double TIME_DELAY = 0.010; // 10 millisecond loop
+public class Main extends SimpleRobot implements IRobot {
     
     DriveTrain myDrive = new DriveTrain();
     Camera myCamera = new Camera();
     LightSensor photosensor = new LightSensor();
     
-    public void dashboardUpdate()
-    {
+    public void dashboardUpdate() {
         photosensor.getDashboard();
         myDrive.getDashboard();
     }
     
-    public void autonomous()
-    {
+    public void autonomous() {
         
     }
 
     /**
      * This function is called once each time the robot enters operator control.
      */
-    public void operatorControl()
-    {
+    public void operatorControl() {
         /**
          * This loops every 10 milliseconds
          */
@@ -49,15 +44,14 @@ public class Main extends SimpleRobot implements IRobot
         int i = 1;
         boolean a = true;
         
-        while(isOperatorControl() && isEnabled())
-        {
+        while(isOperatorControl() && isEnabled()) {
             myDrive.drive();        //Drive Train update
             
-            if (rightStick.getRawButton(1) && a) {      //Take a picture
+            if (rightStick.getRawButton(RIGHT_TRIGGER) && a) {      //Take a picture
                 myCamera.centerCalculate();
                 a = false;
             }
-            if (!rightStick.getRawButton(1) && !a) {
+            if (!rightStick.getRawButton(RIGHT_TRIGGER) && !a) {
                 a = true;
             }
             i++;
@@ -73,8 +67,7 @@ public class Main extends SimpleRobot implements IRobot
     /**
      * This function is called once each time the robot enters test mode.
      */
-    public void test()
-    {
+    public void test() {
 
     }
 }

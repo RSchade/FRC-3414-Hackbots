@@ -10,14 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 
-public class Camera implements IRobot
-{
-    private final int RED_MIN = 0;  //Threshold levels for Red, Green and Blue
-    private final int RED_MAX = 45;
-    private final int GRN_MIN = 25;
-    private final int GRN_MAX = 255;
-    private final int BLU_MIN = 0;
-    private final int BLU_MAX = 47;
+public class Camera implements IRobot {
     
     AxisCamera myCamera = AxisCamera.getInstance();
     CriteriaCollection crit = new CriteriaCollection();
