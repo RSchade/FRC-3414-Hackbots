@@ -5,10 +5,10 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-import  com.sun.squawk.util.MathUtils;
-import  edu.wpi.first.wpilibj.AnalogChannel;
-import  edu.wpi.first.wpilibj.SensorBase;
-import  edu.wpi.first.wpilibj.PIDSource;
+import com.sun.squawk.util.MathUtils;
+import edu.wpi.first.wpilibj.AnalogChannel;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.SensorBase;
 
 /**
  *

@@ -1,10 +1,11 @@
-package edu.wpi.first.wpilibj.templates;
+package notes;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.templates.IRobot;
 
 public class LoadingLauncher implements IRobot {
 
-    Talon testMotor = new Talon(1);
+    Talon testMotor = new Talon(PWM_SLOT_ONE);
     boolean loaderState = false;
     int loaderPulse = 1;
     private final int THREE_SECONDS = 300;

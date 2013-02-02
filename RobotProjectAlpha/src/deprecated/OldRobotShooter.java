@@ -1,9 +1,9 @@
 
-package edu.wpi.first.wpilibj.templates;
+package deprecated;
 
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.templates.IRobot;
 
 /**
  *

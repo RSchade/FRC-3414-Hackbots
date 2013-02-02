@@ -44,7 +44,11 @@ public interface IRobot {
     final int VERTICAL_AXIS = 2;
     
     final int RIGHT_TRIGGER = 1;    //Joystick buttons
+    final int RIGHT_BUTTON_TWO = 2;
+    final int RIGHT_BUTTON_THREE = 3;
     final int LEFT_TRIGGER = 1;
+    final int LEFT_BUTTON_TWO = 2;
+    final int LEFT_BUTTON_THREE = 3;
     
     final double MAX_ANGLE = 50.0;  //Shooter angles
     final double MIN_ANGLE = 0.0;

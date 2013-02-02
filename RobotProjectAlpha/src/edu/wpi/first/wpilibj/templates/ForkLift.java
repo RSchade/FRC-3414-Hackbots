@@ -1,8 +1,6 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SimpleRobot;               // Needs to be reset:
                                                         // Joystick and Solenoid buttons
 public class ForkLift implements IRobot {
 
