@@ -29,7 +29,7 @@ public class Main extends SimpleRobot implements IRobot {
     LightSensor photosensor = new LightSensor(DIO_ONE, PWM_SLOT_FIVE);
     Shooter myShooter = new Shooter(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
     Screw myScrew = new Screw(PWM_SLOT_SIX);
-    LED myLEDControl = new LED(RELAY_ONE);
+    LEDController myLEDControl = new LEDController(RELAY_ONE);
 
     
     public void dashboardUpdate() {
@@ -49,15 +49,14 @@ public class Main extends SimpleRobot implements IRobot {
          * This loops every 10 milliseconds
          */
         while(isOperatorControl() && isEnabled()) {
-            //Set the screw motor
-            myScrew.setMotor(leftStick.getRawButton(LEFT_BUTTON_TWO), leftStick.getRawButton(LEFT_BUTTON_THREE));
             
             //Take a picture with the camera for processing
-            myCamera.update(leftStick.getRawButton(LEFT_TRIGGER));
+            myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
             
             //Update systems
             myDrive.update(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
-            myScrew.update();
+            myScrew.update(leftStick.getRawButton(LEFT_BUTTON_TWO), leftStick.getRawButton(LEFT_BUTTON_THREE));
+            myLEDControl.update(rightStick.getRawButton(RIGHT_TRIGGER));
             dashboardUpdate();
             
             //Loop delay

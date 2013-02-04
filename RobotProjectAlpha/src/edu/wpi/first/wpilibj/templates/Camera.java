@@ -23,9 +23,9 @@ public class Camera implements IRobot {
         crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
     }
     
-    public void update(boolean trigger) {
+    public void takePicture(boolean trigger) {
         if (trigger && loopControl) {
-//            myCamera.centerCalculate();
+            centerCalculate();
             loopControl = false;
         }
         if (!trigger && !loopControl) {

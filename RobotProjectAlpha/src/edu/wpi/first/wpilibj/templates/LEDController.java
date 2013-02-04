@@ -10,24 +10,21 @@ import edu.wpi.first.wpilibj.Relay;
  *
  * @author Robotics
  */
-public class LED {
+public class LEDController {
     Relay lightController;
-    private Relay.Value state = Relay.Value.kOff;
     
-    public LED (int relaySlot) {
+    public LEDController (int relaySlot) {
         lightController = new Relay(relaySlot);
         lightController.setDirection(Relay.Direction.kForward);
     }
     
-    public void setLEDs(boolean setState) {
+    public void update(boolean setState) {
+        Relay.Value state;
         if (setState==true) {
             state = Relay.Value.kOn;
         } else {
             state = Relay.Value.kOff;
         }
-    }
-    
-    public void update() {
         lightController.set(state);
     }
 }

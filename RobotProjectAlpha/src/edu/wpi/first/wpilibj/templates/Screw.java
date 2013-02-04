@@ -17,17 +17,13 @@ public class Screw implements IRobot     //This is the lead screw. It basically 
         screwLift = new Talon(lifterSlot);
     }
     
-    public void setMotor(boolean upButton, boolean downButton) {
+    public void update(boolean upButton, boolean downButton) {
         if (upButton && !downButton && encoder.pidGet()<=MAX_ANGLE) {
-            screwSpeed = SPEED_FORWARD_HALF;
+            screwLift.set(SPEED_FORWARD_HALF);
         } else if (downButton && !upButton && encoder.pidGet()>=MIN_ANGLE) {
-            screwSpeed = SPEED_REVERSE_HALF;
+            screwLift.set(SPEED_REVERSE_HALF);
         } else {
-            screwSpeed = SPEED_STOP;
+            screwLift.set(SPEED_STOP);
         }
-    }
-    
-    public void update() {
-        screwLift.set(screwSpeed);
     }
 }
