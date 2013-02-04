@@ -52,8 +52,8 @@ public interface IRobot {
     final int LEFT_BUTTON_TWO = 2;
     final int LEFT_BUTTON_THREE = 3;
     
-    final double MAX_ANGLE = 50.0;  //Shooter angles
-    final double MIN_ANGLE = 0.0;
+    final double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
+    final double MIN_ENCODER_VALUE = 0.0;
     
     final int RED_MIN = 0;          //Threshold levels for Red, Green and Blue
     final int RED_MAX = 45;
