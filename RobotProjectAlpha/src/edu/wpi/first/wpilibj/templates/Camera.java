@@ -17,7 +17,6 @@ public class Camera implements IRobot {
     private ColorImage image;
     private BinaryImage dataImage;
     private boolean loopControl = true;
-    int redMin = 0, redMax = 45, grnMin = 25, grnMax = 255, bluMin = 0, bluMax = 47;
 
     public Camera() {
         crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
@@ -26,7 +25,7 @@ public class Camera implements IRobot {
     
     public void takePicture(boolean trigger) {
         if (trigger && loopControl) {
-            centerCalculate();
+            findParticles();
             loopControl = false;
         }
         if (!trigger && !loopControl) {
@@ -34,22 +33,10 @@ public class Camera implements IRobot {
         }
     }
     
-    public void setValues() {
-        redMin = (int)SmartDashboard.getNumber("RedMinVal");
-        redMax = (int)SmartDashboard.getNumber("RedMaxVal");
-        grnMin = (int)SmartDashboard.getNumber("GrnMinVal");
-        grnMax = (int)SmartDashboard.getNumber("GrnMaxVal");
-        bluMin = (int)SmartDashboard.getNumber("BluMinVal");
-        bluMax = (int)SmartDashboard.getNumber("BluMaxVal");
-    }
-    
-    public ParticleAnalysisReport centerCalculate() {
-        ParticleAnalysisReport[] particle;
-        int trgCnt;
-        
+    public ParticleAnalysisReport findParticles() {
         try {
             image = myCamera.getImage();
-            dataImage = image.thresholdRGB(redMin, redMax, grnMin, grnMax, bluMin, bluMax);
+            dataImage = image.thresholdRGB(RED_MIN, RED_MAX, BLU_MIN, BLU_MAX, GRN_MIN, GRN_MAX);
             dataImage = dataImage.removeSmallObjects(false, 2);
             dataImage = dataImage.convexHull(true);
             dataImage = dataImage.particleFilter(crit);

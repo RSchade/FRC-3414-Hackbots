@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
  * 
  * @author Josh Kavner and Cooper Riehl
  */
-public class Shooter implements IRobot {
+public class ShooterWheels implements IRobot {
     
     Talon shooterFirstMotor;
     Talon shooterSecondMotor;
@@ -15,7 +15,7 @@ public class Shooter implements IRobot {
     private double firstSpeed, secondSpeed;
     private boolean solenoidPosition;
     
-    public Shooter(int firstMotorSlot, int secondMotorSlot, int solenoidSlot) {
+    public ShooterWheels(int firstMotorSlot, int secondMotorSlot, int solenoidSlot) {
         shooterFirstMotor = new Talon(firstMotorSlot);
         shooterSecondMotor = new Talon(secondMotorSlot);
         shooterPiston = new Solenoid(solenoidSlot);
