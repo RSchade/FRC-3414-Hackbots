@@ -51,6 +51,9 @@ public interface IRobot {
     final int LEFT_TRIGGER = 1;
     final int LEFT_BUTTON_TWO = 2;
     final int LEFT_BUTTON_THREE = 3;
+    final int LEFT_BUTTON_EIGHT = 8;
+    
+    final double PARTICLE_AREA_THRESHOLD = 2000;
     
     final double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
     final double MIN_ENCODER_VALUE = 0.0;

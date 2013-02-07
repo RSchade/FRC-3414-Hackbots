@@ -16,21 +16,15 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class TestPID implements IRobot {
     
-    double Kp, Ki, Kd;
-    int encoderChannelOne, encoderChannelTwo, talonChannel;
+    Encoder testEncoder;
+    Talon output;
+    PIDController testPID;
     
     TestPID(int encoderChannelOne, int encoderChannelTwo, int talonChannel, double Kp, double Ki, double Kd) {
-        this.encoderChannelOne = encoderChannelOne;
-        this.encoderChannelTwo = encoderChannelTwo;
-        this.talonChannel = talonChannel;
-        this.Kp = Kp;
-        this.Ki = Ki;
-        this.Kd = Kd;
+        testEncoder = new Encoder(encoderChannelOne, encoderChannelTwo);
+        output = new Talon(talonChannel);
+        testPID = new PIDController(Kp, Ki, Kd, testEncoder, output);
     }
-    
-    Encoder testEncoder = new Encoder(encoderChannelOne, encoderChannelTwo);
-    Talon output = new Talon(talonChannel);
-    PIDController testPID = new PIDController(Kp, Ki, Kd, testEncoder, output);
     
     public void start() {
         testEncoder.start();
