@@ -17,7 +17,7 @@ public class OperatorControl extends BaseRobot implements IRobot {
 
     public OperatorControl() {
         super();
-        loaderWheel = new Talon(PWM_SLOT_FIVE);
+        loaderWheel = new Talon(PWM_SLOT_NINE);
     }
     
     private void updateDashboard() {

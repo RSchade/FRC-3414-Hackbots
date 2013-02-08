@@ -12,6 +12,7 @@ package edu.wpi.first.wpilibj.templates;
 public interface IRobot {
     
      double TIME_DELAY = 0.010; // 10 millisecond loop
+     boolean CAMERA_ENABLED = true; // Change for debugging without camera
     
      double SPEED_FORWARD_FULL = 1.0;  //Motor speed values
      double SPEED_FORWARD_HALF = 0.5;
@@ -39,6 +40,8 @@ public interface IRobot {
      int USB_TWO = 2;
     
      int DIO_ONE = 1;          //DIO slots
+     int DIO_TWO = 2;
+     int DIO_THREE = 3;
     
      int RELAY_ONE = 1;
     

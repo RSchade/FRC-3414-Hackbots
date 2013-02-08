@@ -8,6 +8,6 @@ package edu.wpi.first.wpilibj.templates;
  *
  * @author Robotics
  */
-public class Autonomous {
+public class Autonomous extends BaseRobot {
     
 }

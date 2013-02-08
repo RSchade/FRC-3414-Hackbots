@@ -12,15 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Camera implements IRobot {
     
-    AxisCamera myCamera = AxisCamera.getInstance();
+    AxisCamera myCamera;
     CriteriaCollection crit = new CriteriaCollection();
     private ColorImage image;
     private BinaryImage dataImage;
     private boolean loopControl = true;
 
     public Camera() {
-        crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
-        crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
+        if (CAMERA_ENABLED) {
+            myCamera = AxisCamera.getInstance();
+            crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
+            crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
+        }
     }
     
     public void takePicture(boolean trigger) {

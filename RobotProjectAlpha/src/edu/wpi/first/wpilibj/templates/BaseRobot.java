@@ -25,8 +25,8 @@ public class BaseRobot implements IRobot {
         rightStick = new Joystick(USB_TWO);
         myDrive = new DriveTrain(PWM_SLOT_ONE, PWM_SLOT_THREE, PWM_SLOT_TWO, PWM_SLOT_FOUR);
         myPhotosensor = new Photosensor(DIO_ONE, PWM_SLOT_FIVE);
+        myShooterScrew = new ShooterScrew(PWM_SLOT_SIX, DIO_TWO, DIO_THREE);
         myShooterWheels = new ShooterWheels(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
-        myShooterScrew = new ShooterScrew(PWM_SLOT_SIX);
         myLEDController = new LEDController(RELAY_ONE);
     }
 }
