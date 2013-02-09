@@ -34,9 +34,9 @@ public class OperatorControl extends BaseRobot implements IRobot {
         
         //Update systems
         myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
-        myShooterScrew.updateManual(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
-        myLEDController.update(rightStick.getRawButton(RIGHT_TRIGGER));
-        myPhotosensor.setMotorSpeed();
+        myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
+        myLEDController.set(rightStick.getRawButton(RIGHT_TRIGGER));
+        myPhotosensor.updateMotorSpeed();
         myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
         
         updateDashboard();

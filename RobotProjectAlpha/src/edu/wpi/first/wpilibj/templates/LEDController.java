@@ -18,7 +18,7 @@ public class LEDController {
         lightController.setDirection(Relay.Direction.kForward);
     }
     
-    public void update(boolean setState) {
+    public void set(boolean setState) {
         Relay.Value state;
         if (setState==true) {
             state = Relay.Value.kOn;

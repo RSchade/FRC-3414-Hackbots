@@ -25,7 +25,7 @@ public class Photosensor implements IRobot {
         return photosensor.get();
     }
             
-    public void setMotorSpeed() {
+    public void updateMotorSpeed() {
         if (photosensor.get()) {
             loaderMotor.set(SPEED_FORWARD_HALF);
         } else {
