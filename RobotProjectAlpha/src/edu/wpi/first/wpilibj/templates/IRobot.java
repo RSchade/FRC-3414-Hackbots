@@ -35,6 +35,7 @@ public interface IRobot {
      int PWM_SLOT_TEN = 10;
     
      int SOLENOID_ONE = 1;     //Solenoid ports
+     int SOLENOID_TWO = 2;
     
      int USB_ONE = 1;          //USB ports
      int USB_TWO = 2;
@@ -57,6 +58,7 @@ public interface IRobot {
      int LEFT_BUTTON_TWO = 2;
      int LEFT_BUTTON_THREE = 3;
      int LEFT_BUTTON_EIGHT = 8;
+     int RIGHT_BUTTON_NINE = 9;
     
      double PARTICLE_AREA_THRESHOLD = 2000;
     
