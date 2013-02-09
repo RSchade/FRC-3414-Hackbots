@@ -14,33 +14,58 @@ import edu.wpi.first.wpilibj.Talon;
  * @version 1.0
  * Jan 26, 2013
  */
-public class TestPID implements IRobot {
+public class PID implements IRobot {
     
-    Encoder testEncoder;
-    Talon output;
-    PIDController testPID;
+    private Encoder encoder;
+    private Talon output;
+    private PIDController controller;
     
-    TestPID(int encoderChannelOne, int encoderChannelTwo, int talonChannel, double Kp, double Ki, double Kd) {
-        testEncoder = new Encoder(encoderChannelOne, encoderChannelTwo);
+    PID(int encoderChannelOne, int encoderChannelTwo, int talonChannel, double Kp, double Ki, double Kd) {
+        encoder = new Encoder(encoderChannelOne, encoderChannelTwo);
+        encoder.start();
+        encoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         output = new Talon(talonChannel);
-        testPID = new PIDController(Kp, Ki, Kd, testEncoder, output);
+        controller = new PIDController(Kp, Ki, Kd, encoder, output);
     }
     
     public void start() {
-        testEncoder.start();
-        testPID.enable();
+        encoder.start();
+        controller.enable();
     }
     
-    public void setTarget(double setpoint, double range) {
-        testPID.setSetpoint(setpoint);
-        testPID.setPercentTolerance(range);
+    public void setTargetEncoderRate(double rateSetpoint, double rateRange) {
+        controller.setSetpoint(rateSetpoint);
+        controller.setPercentTolerance(rateRange);
     }
     
-    public void setTarget(double setpoint) {
-        testPID.setSetpoint(setpoint);
+    public void setTargetEncoderRate(double rateSetpoint) {
+        controller.setSetpoint(rateSetpoint);
+    }
+    
+    public void setTargetMotorSpeed(double speedSetpoint, double speedRange) {
+        double rateSetpoint;
+        double rateRange;
+        
+        /** Convert speed into encoder values (multiply by some stuff relating
+         * to the number of encoder "ticks" per motor revolution and the motor's
+         * target RPM)
+         */
+        
+//        controller.setSetpoint(rateSetpoint, rateRange);
+    }
+    
+    public void setTargetMotorSpeed(double speedSetpoint) {
+        double rateSetpoint;
+        
+        /** Convert speed into encoder values (multiply by some stuff relating
+         * to the number of encoder "ticks" per motor revolution and the motor's
+         * target RPM)
+         */
+        
+//        controller.setSetpoint(rateSetpoint);
     }
     
     public boolean isOnTarget() {
-        return testPID.onTarget();
+        return controller.onTarget();
     }
 }

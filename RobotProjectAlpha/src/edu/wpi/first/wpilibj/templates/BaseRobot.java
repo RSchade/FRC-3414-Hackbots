@@ -5,6 +5,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Talon;
 
 /**
  *
@@ -18,6 +19,7 @@ public class BaseRobot implements IRobot {
     protected ShooterWheels myShooterWheels;
     protected ShooterScrew myShooterScrew;
     protected LEDController myLEDController;
+    protected Talon loaderWheel;
     
     public BaseRobot() {
         myCamera = new Camera();
@@ -27,6 +29,7 @@ public class BaseRobot implements IRobot {
         myPhotosensor = new Photosensor(DIO_ONE, PWM_SLOT_FIVE);
         myShooterScrew = new ShooterScrew(PWM_SLOT_SIX, DIO_TWO, DIO_THREE);
         myShooterWheels = new ShooterWheels(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
+        loaderWheel = new Talon(PWM_SLOT_NINE);
         myLEDController = new LEDController(RELAY_ONE);
     }
 }

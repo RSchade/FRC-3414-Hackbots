@@ -12,12 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Robotics
  */
 public class OperatorControl extends BaseRobot implements IRobot {
-    
-    Talon loaderWheel;
 
     public OperatorControl() {
         super();
-        loaderWheel = new Talon(PWM_SLOT_NINE);
     }
     
     private void updateDashboard() {
@@ -30,22 +27,25 @@ public class OperatorControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Screw Motor", myShooterScrew.getScrewMotor());
     }
     
-    public void loop() {
+    public void tenMSLoop() {
     
         //Take a picture with the camera for processing
         myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
         
         //Update systems
         myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
-        myShooterScrew.updateManual(leftStick.getRawButton(LEFT_BUTTON_TWO), leftStick.getRawButton(LEFT_BUTTON_THREE));
+        myShooterScrew.updateManual(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
         myLEDController.update(rightStick.getRawButton(RIGHT_TRIGGER));
-        
-        if (myPhotosensor.get()) {
-            loaderWheel.set(SPEED_FORWARD_HALF);
-        } else {
-            loaderWheel.set(SPEED_STOP);
-        }
+        myPhotosensor.setMotorSpeed();
         
         updateDashboard();
+    }
+    
+    public void hundredMSLoop() {
+        myCamera.findParticles();
+    }
+    
+    public void thousandMSLoop() {
+        
     }
 }

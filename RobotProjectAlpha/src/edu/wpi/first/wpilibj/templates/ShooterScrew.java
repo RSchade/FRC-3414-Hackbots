@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.Talon;
 public class ShooterScrew implements IRobot     //This is the lead screw. It basically uses a motor to move the shooter up and down.
 {
         
-    Talon screwLift;     //This is the motor that controls the lead screw that controls the shooter movement
-    Encoder encoder;  //This encoder finds the angle of the shooter
+    private Talon screwLift;     //This is the motor that controls the lead screw that controls the shooter movement
+    private Encoder encoder;  //This encoder finds the angle of the shooter
     private double n;
 
     public ShooterScrew(int lifterSlot, int encoderSlotA, int encoderSlotB) {

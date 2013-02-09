@@ -18,9 +18,17 @@ public class Main extends SimpleRobot implements IRobot {
         /**
          * This loop runs every 10 milliseconds
          */
+        int i = 0;
         while (isOperatorControl() && isEnabled()) {
-            myOpControl.loop();
+            myOpControl.tenMSLoop();
+            if (i%10 == 0) {
+                myOpControl.hundredMSLoop();
+            }
+            if (i%100 == 0) {
+                myOpControl.thousandMSLoop();
+            }
             Timer.delay(TIME_DELAY);
+            i++;
         }
     }
     

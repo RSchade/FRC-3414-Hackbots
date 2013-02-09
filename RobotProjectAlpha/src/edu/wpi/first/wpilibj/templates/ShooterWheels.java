@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class ShooterWheels implements IRobot {
     
-    Talon shooterFirstMotor;
-    Talon shooterSecondMotor;
-    Solenoid shooterPiston;
+    private Talon shooterFirstMotor;
+    private Talon shooterSecondMotor;
+    private Solenoid shooterPiston;
     private double firstSpeed, secondSpeed;
     private boolean solenoidPosition;
     
