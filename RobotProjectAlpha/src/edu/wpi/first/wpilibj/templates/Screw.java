@@ -11,7 +11,6 @@ public class Screw implements IRobot     //This is the lead screw. It basically 
         
     Talon screwLift;     //This is the motor that controls the lead screw that controls the shooter movement
     Encoder encoder = new Encoder(1,2);  //This encoder finds the angle of the shooter
-    private double n;
     
     public Screw(int lifterSlot) {
         screwLift = new Talon(lifterSlot);
