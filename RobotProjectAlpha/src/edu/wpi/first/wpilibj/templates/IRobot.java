@@ -11,54 +11,60 @@ package edu.wpi.first.wpilibj.templates;
 
 public interface IRobot {
     
-    final double TIME_DELAY = 0.010; // 10 millisecond loop
+     double TIME_DELAY = 0.010; // 10 millisecond loop
+     boolean CAMERA_ENABLED = true; // Change for debugging without camera
     
-    final double SPEED_FORWARD_FULL = 1.0;  //Motor speed values
-    final double SPEED_FORWARD_HALF = 0.5;
-    final double SPEED_STOP = 0.0;
-    final double SPEED_REVERSE_HALF = -0.5;
-    final double SPEED_REVERSE_FULL = -1.0;
+     double SPEED_FORWARD_FULL = 1.0;  //Motor speed values
+     double SPEED_FORWARD_HALF = 0.5;
+     double SPEED_STOP = 0.0;
+     double SPEED_REVERSE_HALF = -0.5;
+     double SPEED_REVERSE_FULL = -1.0;
     
-    final boolean ON = true;        //Solenoid values
-    final boolean OFF = false;
+     boolean ON = true;        //Solenoid values
+     boolean OFF = false;
     
-    final int PWM_SLOT_ONE = 1;     //PWM slots
-    final int PWM_SLOT_TWO = 2;
-    final int PWM_SLOT_THREE = 3;
-    final int PWM_SLOT_FOUR = 4;
-    final int PWM_SLOT_FIVE = 5;
-    final int PWM_SLOT_SIX = 6;
-    final int PWM_SLOT_SEVEN = 7;
-    final int PWM_SLOT_EIGHT = 8;
-    final int PWM_SLOT_NINE = 9;
-    final int PWM_SLOT_TEN = 10;
+     int PWM_SLOT_ONE = 1;     //PWM slots
+     int PWM_SLOT_TWO = 2;
+     int PWM_SLOT_THREE = 3;
+     int PWM_SLOT_FOUR = 4;
+     int PWM_SLOT_FIVE = 5;
+     int PWM_SLOT_SIX = 6;
+     int PWM_SLOT_SEVEN = 7;
+     int PWM_SLOT_EIGHT = 8;
+     int PWM_SLOT_NINE = 9;
+     int PWM_SLOT_TEN = 10;
     
-    final int SOLENOID_ONE = 1;     //Solenoid ports
+     int SOLENOID_ONE = 1;     //Solenoid ports
     
-    final int USB_ONE = 1;          //USB ports
-    final int USB_TWO = 2;
+     int USB_ONE = 1;          //USB ports
+     int USB_TWO = 2;
     
-    final int DIO_ONE = 1;          //DIO slots
+     int DIO_ONE = 1;          //DIO slots
+     int DIO_TWO = 2;
+     int DIO_THREE = 3;
     
-    final int RELAY_ONE = 1;
+     int RELAY_ONE = 1;
     
-    final int HORIZ_AXIS = 1;       //Joystick axis
-    final int VERTICAL_AXIS = 2;
+     int HORIZ_AXIS = 1;       //Joystick axis
+     int VERTICAL_AXIS = 2;
     
-    final int RIGHT_TRIGGER = 1;    //Joystick buttons
-    final int RIGHT_BUTTON_TWO = 2;
-    final int RIGHT_BUTTON_THREE = 3;
-    final int LEFT_TRIGGER = 1;
-    final int LEFT_BUTTON_TWO = 2;
-    final int LEFT_BUTTON_THREE = 3;
+     int RIGHT_TRIGGER = 1;    //Joystick buttons
+     int RIGHT_BUTTON_TWO = 2;
+     int RIGHT_BUTTON_THREE = 3;
+     int LEFT_TRIGGER = 1;
+     int LEFT_BUTTON_TWO = 2;
+     int LEFT_BUTTON_THREE = 3;
+     int LEFT_BUTTON_EIGHT = 8;
     
-    final double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
-    final double MIN_ENCODER_VALUE = 0.0;
+     double PARTICLE_AREA_THRESHOLD = 2000;
     
-    final int RED_MIN = 0;          //Threshold levels for Red, Green and Blue
-    final int RED_MAX = 45;
-    final int GRN_MIN = 25;
-    final int GRN_MAX = 255;
-    final int BLU_MIN = 0;
-    final int BLU_MAX = 47;
+     double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
+     double MIN_ENCODER_VALUE = 0.0;
+    
+     int RED_MIN = 0;          //Threshold levels for Red, Green and Blue
+     int RED_MAX = 45;
+     int GRN_MIN = 25;
+     int GRN_MAX = 255;
+     int BLU_MIN = 0;
+     int BLU_MAX = 47;
 }

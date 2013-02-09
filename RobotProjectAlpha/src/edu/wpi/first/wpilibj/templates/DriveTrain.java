@@ -31,17 +31,26 @@ public class DriveTrain implements IRobot {
         rightBackMotor = new Talon(rightBackSlot);
     }
     
-    public void update(double leftSpeed, double rightSpeed) {
+    public void setSpeed(double leftSpeed, double rightSpeed) {
         leftFrontMotor.set(leftSpeed);
         leftBackMotor.set(leftSpeed);
         rightFrontMotor.set(rightSpeed);
         rightBackMotor.set(rightSpeed);
     }
     
-    public void getDashboard() {
-        SmartDashboard.putNumber("Left Front Motor", leftFrontMotor.get());
-        SmartDashboard.putNumber("Left Back Motor", leftBackMotor.get());
-        SmartDashboard.putNumber("Right Front Motor", rightFrontMotor.get());
-        SmartDashboard.putNumber("Right Back Motor", rightBackMotor.get());
+    public double getLeftFrontMotor() {
+        return leftFrontMotor.get();
+    }
+    
+    public double getLeftBackMotor() {
+        return leftBackMotor.get();
+    }
+    
+    public double getRightFrontMotor() {
+        return rightFrontMotor.get();
+    }
+    
+    public double getRightBackMotor() {
+        return rightBackMotor.get();
     }
 }
