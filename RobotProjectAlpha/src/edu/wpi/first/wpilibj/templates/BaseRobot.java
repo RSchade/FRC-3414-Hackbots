@@ -16,10 +16,12 @@ public class BaseRobot implements IRobot {
     protected Joystick leftStick, rightStick;
     protected DriveTrain myDrive;
     protected Photosensor myPhotosensor;
-    protected ShooterWheels myShooterWheels;
+    protected ShooterWheel myShooterWheels;
     protected ShooterScrew myShooterScrew;
     protected LEDController myLEDController;
-    protected Talon loaderWheel;
+    protected ShooterPiston myShooterPiston;
+    protected ShooterWheel myShooterWheelOne;
+    protected ShooterWheel myShooterWheelTwo;
     
     public BaseRobot() {
         myCamera = new Camera();
@@ -28,8 +30,9 @@ public class BaseRobot implements IRobot {
         myDrive = new DriveTrain(PWM_SLOT_ONE, PWM_SLOT_THREE, PWM_SLOT_TWO, PWM_SLOT_FOUR);
         myPhotosensor = new Photosensor(DIO_ONE, PWM_SLOT_FIVE);
         myShooterScrew = new ShooterScrew(PWM_SLOT_SIX, DIO_TWO, DIO_THREE);
-        myShooterWheels = new ShooterWheels(PWM_SLOT_SEVEN, PWM_SLOT_EIGHT, SOLENOID_ONE);
-        loaderWheel = new Talon(PWM_SLOT_NINE);
+        myShooterPiston = new ShooterPiston(SOLENOID_ONE);
+        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SLOT_SEVEN, 0.3, 0, 0);
+        myShooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_EIGHT, 0.3, 0, 0);
         myLEDController = new LEDController(RELAY_ONE);
     }
 }

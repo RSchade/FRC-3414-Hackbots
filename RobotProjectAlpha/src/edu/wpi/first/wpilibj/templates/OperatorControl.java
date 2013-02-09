@@ -30,22 +30,23 @@ public class OperatorControl extends BaseRobot implements IRobot {
     public void tenMSLoop() {
     
         //Take a picture with the camera for processing
-        myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
+//        myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
         
         //Update systems
         myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
         myShooterScrew.updateManual(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
         myLEDController.update(rightStick.getRawButton(RIGHT_TRIGGER));
         myPhotosensor.setMotorSpeed();
+        myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
         
         updateDashboard();
     }
     
     public void hundredMSLoop() {
-        myCamera.findParticles();
+        
     }
     
     public void thousandMSLoop() {
-        
+        myCamera.findParticles();
     }
 }

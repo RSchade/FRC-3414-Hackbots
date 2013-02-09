@@ -17,14 +17,11 @@ import edu.wpi.first.wpilibj.Talon;
 public class PID implements IRobot {
     
     private Encoder encoder;
-    private Talon output;
     private PIDController controller;
     
-    PID(int encoderChannelOne, int encoderChannelTwo, int talonChannel, double Kp, double Ki, double Kd) {
+    public PID(int encoderChannelOne, int encoderChannelTwo, Talon output, double Kp, double Ki, double Kd) {
         encoder = new Encoder(encoderChannelOne, encoderChannelTwo);
-        encoder.start();
         encoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-        output = new Talon(talonChannel);
         controller = new PIDController(Kp, Ki, Kd, encoder, output);
     }
     
@@ -33,29 +30,29 @@ public class PID implements IRobot {
         controller.enable();
     }
     
-    public void setTargetEncoderRate(double rateSetpoint, double rateRange) {
+    public void setTargetRate(double rateSetpoint, double percentRange) {
         controller.setSetpoint(rateSetpoint);
-        controller.setPercentTolerance(rateRange);
+        controller.setPercentTolerance(percentRange);
     }
     
-    public void setTargetEncoderRate(double rateSetpoint) {
+    public void setTargetRate(double rateSetpoint) {
         controller.setSetpoint(rateSetpoint);
     }
     
-    public void setTargetMotorSpeed(double speedSetpoint, double speedRange) {
+    public void setTargetSpeed(double speedSetpoint, double speedRange) {
         double rateSetpoint;
-        double rateRange;
+        double rateRange;       //FIXME: Find target RPM
         
         /** Convert speed into encoder values (multiply by some stuff relating
          * to the number of encoder "ticks" per motor revolution and the motor's
          * target RPM)
          */
         
-//        controller.setSetpoint(rateSetpoint, rateRange);
+//        controller.setAbsoluteTolerance(rateRange);
     }
     
-    public void setTargetMotorSpeed(double speedSetpoint) {
-        double rateSetpoint;
+    public void setTargetSpeed(double speedSetpoint) {
+        double rateSetpoint;       //FIXME: Find target RPM
         
         /** Convert speed into encoder values (multiply by some stuff relating
          * to the number of encoder "ticks" per motor revolution and the motor's

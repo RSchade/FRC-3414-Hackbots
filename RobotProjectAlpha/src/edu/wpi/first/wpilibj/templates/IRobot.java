@@ -42,6 +42,8 @@ public interface IRobot {
      int DIO_ONE = 1;          //DIO slots
      int DIO_TWO = 2;
      int DIO_THREE = 3;
+     int DIO_FOUR = 4;
+     int DIO_FIVE = 5;
     
      int RELAY_ONE = 1;
     

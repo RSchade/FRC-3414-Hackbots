@@ -4,7 +4,7 @@ PWM 1           | Drive Train Left Front Motor
 PWM 2           | Drive Train Right Front Motor
 PWM 3           | Drive Train Left Back Motor
 PWM 4           | Drive Train Right Back Motor
-PWM 5           | Loader Wheel
+PWM 5           | Loader Wheel      //spike
 PWM 6           | Screw Motor
 PWM 7           | Shooter First Motor
 PWM 8           | Shooter Second Motor
@@ -22,6 +22,10 @@ _BUTTON_TWO     | Move Shooter down
 _BUTTON_THREE   | Move Shooter up
                 | 
 DIO 1           | Light Sensor
+DIO 2           | Shooter Wheel One Encoder A Channel
+DIO 3           | Shooter Wheel One Encoder B Channel
+DIO 4           | Shooter Wheel Two Encoder A Channel
+DIO 5           | Shooter Wheel Two Encoder B Channel
                 | 
 Solenoid 1      | Piston shooter arm
 
