@@ -45,6 +45,8 @@ public interface IRobot {
      int DIO_THREE = 3;
      int DIO_FOUR = 4;
      int DIO_FIVE = 5;
+     int DIO_SIX = 6;
+     int DIO_SEVEN = 7;
     
      int RELAY_ONE = 1;
     
@@ -54,11 +56,11 @@ public interface IRobot {
      int RIGHT_TRIGGER = 1;    //Joystick buttons
      int RIGHT_BUTTON_TWO = 2;
      int RIGHT_BUTTON_THREE = 3;
+     int RIGHT_BUTTON_NINE = 9;
      int LEFT_TRIGGER = 1;
      int LEFT_BUTTON_TWO = 2;
      int LEFT_BUTTON_THREE = 3;
      int LEFT_BUTTON_EIGHT = 8;
-     int RIGHT_BUTTON_NINE = 9;
     
      double PARTICLE_AREA_THRESHOLD = 2000;
     

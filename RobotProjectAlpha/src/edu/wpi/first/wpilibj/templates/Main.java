@@ -6,14 +6,16 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Main extends SimpleRobot implements IRobot {
     
-    Autonomous myAuto = new Autonomous();
-    OperatorControl myOpControl = new OperatorControl();
+    Autonomous myAuto;
+    OperatorControl myOpControl;
     
     public void autonomous() {
-        
+        myAuto = new Autonomous();
     }
 
     public void operatorControl() {
+        
+        myOpControl = new OperatorControl();
         
         /**
          * This loop runs every 10 milliseconds

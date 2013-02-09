@@ -1,17 +1,17 @@
-///*
-// * To change this template, choose Tools | Templates
-// * and open the template in the editor.
-// */
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Accelerometer;
 
-///**
-// *
-// * @author 3414 Hackbots
- //*/
-public class Accelerometer {
-    Accelerometer k = new Accelerometer(1);
+/**
+ *
+ * @author 3414 Hackbots
+ */
+public class CustomAccelerometer {
+    Accelerometer k = new Accelerometer(6);
     
     //public double setZero(double zero)
     //{
@@ -19,6 +19,7 @@ public class Accelerometer {
     //}
     public double getAcceleration()
     {
+        System.out.println(k.getAcceleration());
         return k.getAcceleration();
     }
     

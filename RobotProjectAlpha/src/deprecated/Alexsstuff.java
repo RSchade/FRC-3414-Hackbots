@@ -2,7 +2,7 @@
 /*                         Shooter/launcher/aimer/ish                         */
 /*                                 Controls                                   */
 /*----------------------------------------------------------------------------*/
-package edu.wpi.first.wpilibj.templates;
+package deprecated;
 
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Accelerometer;
+import edu.wpi.first.wpilibj.templates.IRobot;
 
 /*
  * @author Alex S. <3

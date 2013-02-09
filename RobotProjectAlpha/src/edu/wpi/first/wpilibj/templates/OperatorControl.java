@@ -12,10 +12,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OperatorControl extends BaseRobot implements IRobot {
     
-    boolean wheelLoopControl = false;
+    CustomAccelerometer accel;
 
     public OperatorControl() {
         super();
+        accel = new CustomAccelerometer();
     }
     
     private void updateDashboard() {
@@ -26,13 +27,6 @@ public class OperatorControl extends BaseRobot implements IRobot {
         SmartDashboard.putBoolean("Photosensor", myPhotosensor.get());
         SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getEncoder());
         SmartDashboard.putNumber("Screw Motor", myShooterScrew.getScrewMotor());
-    }
-    
-    private void wheelControl() {
-        if (leftStick.getRawButton(RIGHT_BUTTON_TWO)) {
-            myShooterWheelOne.turnOn();
-            myShooterWheelTwo.turnOn();
-        }
     }
     
     public void tenMSLoop() {
@@ -46,7 +40,6 @@ public class OperatorControl extends BaseRobot implements IRobot {
         myLEDController.set(rightStick.getRawButton(RIGHT_TRIGGER));
         myPhotosensor.updateMotorSpeed();
         myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
-        wheelControl();
         
         updateDashboard();
     }
@@ -56,6 +49,7 @@ public class OperatorControl extends BaseRobot implements IRobot {
     }
     
     public void thousandMSLoop() {
+        accel.getAcceleration();
         myCamera.findParticles();
     }
 }

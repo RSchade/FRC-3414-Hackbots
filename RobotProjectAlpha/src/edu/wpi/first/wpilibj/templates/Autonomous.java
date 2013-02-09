@@ -4,8 +4,6 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.Talon;
-
 /**
  *
  * @author Robotics
