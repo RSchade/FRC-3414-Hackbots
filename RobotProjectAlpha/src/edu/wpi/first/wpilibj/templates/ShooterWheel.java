@@ -20,7 +20,13 @@ public class ShooterWheel implements IRobot {
         wheelID = ID;
     }
     
-    public void setTargetSpeed(double speed) {
-        shooterPID.setTargetSpeed(speed);
+    public void turnOn() {
+        if (wheelID == WHEEL_ONE) {
+            shooterPID.setTargetRate(2000);
+        } else if (wheelID == WHEEL_TWO) {
+            shooterPID.setTargetRate(3000);
+        } else {
+            System.out.println("ERROR in ShooterWheel.java");
+        }
     }
 }

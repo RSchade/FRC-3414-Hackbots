@@ -21,4 +21,8 @@ public class ShooterPiston {
     public void setPosition(boolean position) {
         piston.set(position);
     }
+    
+    public boolean getPosition() {
+        return piston.get();
+    }
 }

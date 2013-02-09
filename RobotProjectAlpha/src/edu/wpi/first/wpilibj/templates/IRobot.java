@@ -47,8 +47,9 @@ public interface IRobot {
      int DIO_FIVE = 5;
      int DIO_SIX = 6;
      int DIO_SEVEN = 7;
+     int DIO_FOURTEEN = 14;
     
-     int RELAY_ONE = 1;
+     int RELAY_ONE = 1;         //Relay channels
     
      int HORIZ_AXIS = 1;       //Joystick axis
      int VERTICAL_AXIS = 2;

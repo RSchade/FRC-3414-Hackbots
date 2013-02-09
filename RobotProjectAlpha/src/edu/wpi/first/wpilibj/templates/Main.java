@@ -8,6 +8,7 @@ public class Main extends SimpleRobot implements IRobot {
     
     Autonomous myAuto;
     OperatorControl myOpControl;
+    CompressorControl myCompressorControl;
     
     public void autonomous() {
         myAuto = new Autonomous();
@@ -20,21 +21,22 @@ public class Main extends SimpleRobot implements IRobot {
         /**
          * This loop runs every 10 milliseconds
          */
-        int i = 0;
+        int loopCount = 0;
         while (isOperatorControl() && isEnabled()) {
-            myOpControl.tenMSLoop();
-            if (i%10 == 0) {
-                myOpControl.hundredMSLoop();
+            myOpControl.tenMSLoop(loopCount);
+            if (loopCount%10 == 0) {
+                myOpControl.hundredMSLoop(loopCount);
             }
-            if (i%100 == 0) {
-                myOpControl.thousandMSLoop();
+            if (loopCount%100 == 0) {
+                myOpControl.thousandMSLoop(loopCount);
             }
             Timer.delay(TIME_DELAY);
-            i++;
+            loopCount++;
         }
     }
     
     public void test() {
-
+        myCompressorControl = new CompressorControl();
+        myCompressorControl.runCompressor();
     }
 }
