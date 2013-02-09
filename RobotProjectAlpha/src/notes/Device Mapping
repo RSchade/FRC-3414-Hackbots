@@ -14,7 +14,7 @@ Joystick 2      | Right Main Control Stick
                 |
 rightStick      | 
 _TRIGGER        | Flash LEDs
-_BUTTON_TWO     | 
+_BUTTON_TWO     | Shooter Wheel Control
                 | 
 leftStick       |
 _TRIGGER        | Extend shooter piston

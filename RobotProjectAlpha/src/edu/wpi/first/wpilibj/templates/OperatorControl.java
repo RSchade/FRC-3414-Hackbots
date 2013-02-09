@@ -4,7 +4,6 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -12,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Robotics
  */
 public class OperatorControl extends BaseRobot implements IRobot {
+    
+    boolean wheelLoopControl = false;
 
     public OperatorControl() {
         super();
@@ -27,6 +28,13 @@ public class OperatorControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Screw Motor", myShooterScrew.getScrewMotor());
     }
     
+    private void wheelControl() {
+        if (leftStick.getRawButton(RIGHT_BUTTON_TWO)) {
+            myShooterWheelOne.turnOn();
+            myShooterWheelTwo.turnOn();
+        }
+    }
+    
     public void tenMSLoop() {
     
         //Take a picture with the camera for processing
@@ -38,6 +46,7 @@ public class OperatorControl extends BaseRobot implements IRobot {
         myLEDController.set(rightStick.getRawButton(RIGHT_TRIGGER));
         myPhotosensor.updateMotorSpeed();
         myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
+        wheelControl();
         
         updateDashboard();
     }

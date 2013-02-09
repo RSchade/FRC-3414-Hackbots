@@ -31,8 +31,8 @@ public class BaseRobot implements IRobot {
         myPhotosensor = new Photosensor(DIO_ONE, PWM_SLOT_FIVE);
         myShooterScrew = new ShooterScrew(PWM_SLOT_SIX, DIO_TWO, DIO_THREE);
         myShooterPiston = new ShooterPiston(SOLENOID_ONE);
-        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SLOT_SEVEN, 0.3, 0, 0);
-        myShooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_EIGHT, 0.3, 0, 0);
+        myShooterWheelOne = new ShooterWheel(WHEEL_ONE, DIO_TWO, DIO_THREE, PWM_SLOT_SEVEN, 0.3, 0, 0);
+        myShooterWheelTwo = new ShooterWheel(WHEEL_TWO, DIO_FOUR, DIO_FIVE, PWM_SLOT_EIGHT, 0.3, 0, 0);
         myLEDController = new LEDController(RELAY_ONE);
     }
 }
