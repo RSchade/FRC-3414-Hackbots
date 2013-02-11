@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
- * @author Shrihari, Alex
+ * @author Shrihari, Alex, Rahul
  */
 
 public class GyroQ extends Main implements IRobot{
