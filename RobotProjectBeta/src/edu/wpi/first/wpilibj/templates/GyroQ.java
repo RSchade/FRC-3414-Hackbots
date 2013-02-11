@@ -26,13 +26,4 @@ public class GyroQ extends Main implements IRobot{
     {
         return myGyro.getAngle();
     }
-    
-    public void loop()
-    {
-        while(isEnabled() && isOperatorControl())
-        {
-            Angle();
-            timer.delay(0.010);
-        }
-    }
 }
