@@ -1,0 +1,36 @@
+Device          | Use
+------------------------------------------
+PWM 1           | Drive Train Left Front Motor
+PWM 2           | Drive Train Right Front Motor
+PWM 3           | Drive Train Left Back Motor
+PWM 4           | Drive Train Right Back Motor
+PWM 5           | Loader Wheel      //spike
+PWM 6           | Screw Motor
+PWM 7           | Shooter First Motor (first motor the frisbees pass through)
+PWM 8           | Shooter Second Motor (second motor the frisbees pass through)
+                | 
+Joystick 1      | Left Main Control Stick
+Joystick 2      | Right Main Control Stick
+                |
+rightStick      | 
+_TRIGGER        | Flash LEDs
+_BUTTON_TWO     | Shooter Wheel Control
+                | 
+leftStick       |
+_TRIGGER        | Extend shooter piston
+_BUTTON_TWO     | Move Shooter down
+_BUTTON_THREE   | Move Shooter up
+                | 
+DIO 1           | Light Sensor
+DIO 2           | Shooter Wheel One Encoder A Channel
+DIO 3           | Shooter Wheel One Encoder B Channel
+DIO 4           | Shooter Wheel Two Encoder A Channel
+DIO 5           | Shooter Wheel Two Encoder B Channel
+DIO 6           | Shooter Screw Encoder A Channel
+DIO 7           | Shooter Screw Encoder B Channel
+DIO 14          | Compressor Pressure Switch
+                | 
+Solenoid 1      | Piston shooter arm
+                |
+Relay 1         | Compressor Spike
+
