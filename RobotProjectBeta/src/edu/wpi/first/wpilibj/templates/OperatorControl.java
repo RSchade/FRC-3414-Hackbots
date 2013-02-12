@@ -47,19 +47,18 @@ public class OperatorControl extends BaseRobot implements IRobot {
         }
         //
         if (loaderControl.timeUp()) {
-            myLoaderWheel.set(SPEED_FORWARD_HALF);
+            myLoaderWheel.set(RELAY_ON);
         } else {
-            myLoaderWheel.set(SPEED_STOP);
+            myLoaderWheel.set(RELAY_OFF);
         }
     }
     
     /**
-     * Updates the 10ms systems
+     * Updates the 10 ms systems
      */
     public void updateSystems() {
         myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
         myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
-        myLEDController.set(rightStick.getRawButton(RIGHT_TRIGGER));
         myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
     }
     
@@ -74,9 +73,10 @@ public class OperatorControl extends BaseRobot implements IRobot {
     }
     
     public void hundredMSLoop() {
-        if (leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
-            myAutoShooter.aim();
-        }
+        //DISABLED for testing
+//        if (leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
+//            myAutoShooter.aim();
+//        }
     }
     
     public void thousandMSLoop() {

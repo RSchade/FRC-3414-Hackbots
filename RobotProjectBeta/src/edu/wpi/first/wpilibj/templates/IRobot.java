@@ -4,6 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.Relay;
+
 /**
  *
  * @author Cooper Riehl
@@ -69,6 +71,9 @@ public interface IRobot {
      double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
      double MIN_ENCODER_VALUE = 0.0;
      double AUTONOMOUS_SET_VALUE = 0.0;
+     
+     Relay.Value RELAY_ON = Relay.Value.kOn;
+     Relay.Value RELAY_OFF = Relay.Value.kOff;
     
      int WHEEL_ONE = 1;         //Shooter wheel IDs
      int WHEEL_TWO = 2;
