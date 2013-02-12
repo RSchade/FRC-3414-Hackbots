@@ -4,10 +4,9 @@ PWM 1           | Drive Train Left Front Motor
 PWM 2           | Drive Train Right Front Motor
 PWM 3           | Drive Train Left Back Motor
 PWM 4           | Drive Train Right Back Motor
-PWM 5           | Loader Wheel      //spike
-PWM 6           | Screw Motor
-PWM 7           | Shooter First Motor (first motor the frisbees pass through)
-PWM 8           | Shooter Second Motor (second motor the frisbees pass through)
+PWM 5           | Screw Motor
+PWM 6           | Shooter First Motor (first motor the frisbees pass through)
+PWM 7           | Shooter Second Motor (second motor the frisbees pass through)
                 | 
 Joystick 1      | Left Main Control Stick
 Joystick 2      | Right Main Control Stick
@@ -31,6 +30,11 @@ DIO 7           | Shooter Screw Encoder B Channel
 DIO 14          | Compressor Pressure Switch
                 | 
 Solenoid 1      | Piston shooter arm
+Solenoid 2      | Double Solenoid 1
+Solenoid 3      | Double Solenoid 2
+Solenoid 4      | Double Solenoid 3
+Solenoid 5      | Double Solenoid 4
                 |
-Relay 1         | Compressor Spike
+Relay 1         | Loader Wheel
+Relay 2         | Compressor Spike
 
