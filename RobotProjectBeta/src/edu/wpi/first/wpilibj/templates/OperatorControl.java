@@ -14,8 +14,7 @@ public class OperatorControl extends BaseRobot implements IRobot {
     
     CustomAccelerometer accel;
     boolean bayIsFull = false;
-    int targetIteration;
-    int currentIteration;
+    Waiter loaderControl = new Waiter();
 
     public OperatorControl() {
         super();
@@ -33,9 +32,12 @@ public class OperatorControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Accelerometer", accel.getAcceleration());
     }
     
+    /**
+     * Updates loader wheel speed based on photosensor input
+     */
     public void updateLoader() {
         if (myPhotosensor.get() && !bayIsFull) {
-            targetIteration = currentIteration + 10;
+            loaderControl.waitXLoops(10);
         }
         //
         if (bayIsFull) {
@@ -44,37 +46,40 @@ public class OperatorControl extends BaseRobot implements IRobot {
             bayIsFull = myPhotosensor.get();
         }
         //
-        if (currentIteration <= targetIteration) {
+        if (loaderControl.timeUp()) {
             myLoaderWheel.set(SPEED_FORWARD_HALF);
         } else {
             myLoaderWheel.set(SPEED_STOP);
         }
     }
     
-    public void tenMSLoop(int loopCount) {
-        
-        currentIteration = loopCount;
-    
-        //Take a picture with the camera for processing
-//        myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
-        
-        //Update the loader wheel based on whether a frisbee is loaded
-        updateLoader();
-        
-        //Update systems
+    /**
+     * Updates the 10ms systems
+     */
+    public void updateSystems() {
         myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
         myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
         myLEDController.set(rightStick.getRawButton(RIGHT_TRIGGER));
         myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
-        
+    }
+    
+    public void tenMSLoop() {
+    
+        //Take a manual picture with the camera for processing
+        myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
+
+        updateLoader();
+        updateSystems();
         updateDashboard();
     }
     
-    public void hundredMSLoop(int loopCount) {
-        
+    public void hundredMSLoop() {
+        if (leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
+            myAutoShooter.aim();
+        }
     }
     
-    public void thousandMSLoop(int loopCount) {
+    public void thousandMSLoop() {
         myCamera.findParticles();
     }
 }

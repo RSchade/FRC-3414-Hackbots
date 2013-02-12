@@ -64,6 +64,7 @@ public interface IRobot {
      int LEFT_BUTTON_EIGHT = 8;
     
      double PARTICLE_AREA_THRESHOLD = 2000;
+     int TRUE_RECT_HEIGHT = 11; //inches
     
      double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
      double MIN_ENCODER_VALUE = 0.0;

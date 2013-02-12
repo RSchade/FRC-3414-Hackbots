@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Talon;
  * @author Robotics
  */
 public class BaseRobot implements IRobot {
+    
     protected Camera myCamera;
     protected Joystick leftStick, rightStick;
     protected DriveTrain myDrive;
@@ -23,6 +24,7 @@ public class BaseRobot implements IRobot {
     protected ShooterWheel myShooterWheelOne;
     protected ShooterWheel myShooterWheelTwo;
     protected Talon myLoaderWheel;
+    protected AutoShooterBut myAutoShooter;
     
     public BaseRobot() {
         myCamera = new Camera();
@@ -36,5 +38,11 @@ public class BaseRobot implements IRobot {
         myShooterWheelOne = new ShooterWheel(WHEEL_ONE, DIO_TWO, DIO_THREE, PWM_SLOT_SEVEN, 0.3, 0, 0);
         myShooterWheelOne = new ShooterWheel(WHEEL_TWO, DIO_FOUR, DIO_FIVE, PWM_SLOT_EIGHT, 0.3, 0, 0);
         myLEDController = new LEDController(RELAY_ONE);
+        myAutoShooter = new AutoShooterBut();
+    }
+    
+    public void turnOnShooterWheels() {
+        myShooterWheelOne.turnOn();
+        myShooterWheelTwo.turnOn();
     }
 }

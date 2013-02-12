@@ -17,19 +17,24 @@ public class Main extends SimpleRobot implements IRobot {
     public void operatorControl() {
         
         myOpControl = new OperatorControl();
-        
-        /**
-         * This loop runs every 10 milliseconds
-         */
         int loopCount = 0;
+        
         while (isOperatorControl() && isEnabled()) {
-            myOpControl.tenMSLoop(loopCount);
+            LoopHandler.updateLoopCount(loopCount);
+            
+            //Runs every 10 milliseconds
+            myOpControl.tenMSLoop();
+            
+            //Runs every 100 milliseconds
             if (loopCount%10 == 0) {
-                myOpControl.hundredMSLoop(loopCount);
+                myOpControl.hundredMSLoop();
             }
+            
+            //Runs every 1000 milliseconds (every second)
             if (loopCount%100 == 0) {
-                myOpControl.thousandMSLoop(loopCount);
+                myOpControl.thousandMSLoop();
             }
+            
             Timer.delay(TIME_DELAY);
             loopCount++;
         }

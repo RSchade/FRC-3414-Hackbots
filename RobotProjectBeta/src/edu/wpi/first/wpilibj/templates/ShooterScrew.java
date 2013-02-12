@@ -27,7 +27,7 @@ public class ShooterScrew implements IRobot     //This is the lead screw. It bas
         }
     }
     
-    public void updateAuto(double speed) {
+    public void setSpeed(double speed) {
         if ((speed < 0 && encoder.get() >= MIN_ENCODER_VALUE) || (speed > 0 && encoder.get() <= MAX_ENCODER_VALUE)) {
             screwLift.set(speed);
         } else {
