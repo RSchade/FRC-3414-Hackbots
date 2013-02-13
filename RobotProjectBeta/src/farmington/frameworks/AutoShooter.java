@@ -35,20 +35,20 @@ public class AutoShooter extends BaseRobot implements IRobot {
     public void aim() {
         target = myCamera.findParticles();
         
-        if (target.center_mass_x_normalized >= 0.95) {
+        if (target.center_mass_x_normalized > 0.05) {
             onTargetX = false;
             myDrive.setSpeed(-0.1, 0.1);
-        } else if (target.center_mass_x_normalized <= 0.95) {
+        } else if (target.center_mass_x_normalized < -0.05) {
             onTargetX = false;
             myDrive.setSpeed(0.1, -0.1);
         } else {
             onTargetX = true;
         }
         
-        if (target.center_mass_y_normalized >= 0.95) {
+        if (target.center_mass_y_normalized > 0.05) {
             onTargetY = false;
             myShooterScrew.setSpeed(-0.1);
-        } else if (target.center_mass_y_normalized <= 0.95) {
+        } else if (target.center_mass_y_normalized < -0.05) {
             onTargetY = false;
             myShooterScrew.setSpeed(0.1);
         } else {
