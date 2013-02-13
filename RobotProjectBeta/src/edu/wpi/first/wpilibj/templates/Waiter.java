@@ -17,8 +17,7 @@ public class Waiter extends LoopHandler {
     }
     
     public boolean timeUp() {
-        int thisLoop = getCurrentIteration();
-        if (thisLoop == targetIteration) {
+        if (getCurrentIteration() == targetIteration) {
             return true;
         }
         return false;

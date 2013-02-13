@@ -11,22 +11,26 @@ public class ShooterWheel implements IRobot {
 
     private PID shooterPID;
     private Talon shooterMotor;
-    private int wheelID;
     
-    public ShooterWheel(int ID, int encoderChannelA, int encoderChannelB, int motorSlot, double Kp, double Ki, double Kd) {
+    public ShooterWheel(int encoderChannelA, int encoderChannelB, int motorSlot, double Kp, double Ki, double Kd) {
         shooterMotor = new Talon(motorSlot);
         shooterPID = new PID(encoderChannelA, encoderChannelB, shooterMotor, Kp, Ki, Kd);
         shooterPID.start();
-        wheelID = ID;
     }
     
-    public void turnOn() {
-        if (wheelID == WHEEL_ONE) {
-            shooterPID.setTargetRate(2000);
-        } else if (wheelID == WHEEL_TWO) {
-            shooterPID.setTargetRate(3000);
-        } else {
-            System.out.println("ERROR in ShooterWheel.java");
-        }
+    public void setRate(int rate) {
+        shooterPID.setTargetRate(rate);
+    }
+    
+    public double getTrueSpeed() {
+        return shooterMotor.get();
+    }
+    
+    public double getRate() {
+        return shooterPID.getRate();
+    }
+    
+    public double getTarget() {
+        return shooterPID.getTarget();
     }
 }

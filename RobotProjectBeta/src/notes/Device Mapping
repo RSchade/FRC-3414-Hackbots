@@ -14,19 +14,23 @@ Joystick 2      | Right Main Control Stick
 rightStick      | 
 _TRIGGER        | Flash LEDs
 _BUTTON_TWO     | Shooter Wheel Control
+_BUTTON_THREE   | Turn on shooter wheels
                 | 
 leftStick       |
 _TRIGGER        | Extend shooter piston
 _BUTTON_TWO     | Move Shooter down
 _BUTTON_THREE   | Move Shooter up
+_BUTTON_EIGHT   | Auto Shooter
                 | 
-DIO 1           | Light Sensor
+DIO 1           | Loading Wheel Sensor
 DIO 2           | Shooter Wheel One Encoder A Channel
 DIO 3           | Shooter Wheel One Encoder B Channel
 DIO 4           | Shooter Wheel Two Encoder A Channel
 DIO 5           | Shooter Wheel Two Encoder B Channel
 DIO 6           | Shooter Screw Encoder A Channel
 DIO 7           | Shooter Screw Encoder B Channel
+DIO 8           | Shooter Screw Low Sensor
+DIO 9           | Shooter Screw High Sensor
 DIO 14          | Compressor Pressure Switch
                 | 
 Solenoid 1      | Piston shooter arm

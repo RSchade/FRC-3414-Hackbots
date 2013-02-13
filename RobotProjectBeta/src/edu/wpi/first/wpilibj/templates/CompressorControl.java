@@ -13,20 +13,14 @@ import edu.wpi.first.wpilibj.Timer;
  * @author Robotics
  */
 public class CompressorControl implements IRobot {
-    
-    private Joystick leftStick;
+
     private Compressor myCompressor;
     
-    public CompressorControl() {
-        leftStick = new Joystick(USB_ONE);
-        myCompressor = new Compressor(DIO_FOURTEEN, RELAY_ONE);
+    public CompressorControl(int pressureSensorSlot, int compressorRelay) {
+        myCompressor = new Compressor(pressureSensorSlot, compressorRelay);
     }
     
     public void runCompressor() {
         myCompressor.start();
-        while(!leftStick.getRawButton(LEFT_TRIGGER)) {
-            Timer.delay(0.010);
-        }
-        myCompressor.stop();
     }
 }

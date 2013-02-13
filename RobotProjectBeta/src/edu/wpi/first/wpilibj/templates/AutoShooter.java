@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
  *
  * @author Robotics
  */
-public class AutoShooterBut extends BaseRobot implements IRobot {
+public class AutoShooter extends BaseRobot implements IRobot {
 
     ParticleAnalysisReport target;
     boolean onTargetX;
@@ -20,7 +20,7 @@ public class AutoShooterBut extends BaseRobot implements IRobot {
     Waiter wheelControl;
     Waiter pistonControl;
     
-    public AutoShooterBut() {
+    public AutoShooter() {
         onTargetX = false;
         onTargetY = false;
         hasTarget = false;

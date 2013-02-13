@@ -4,7 +4,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 
-public class RobotTemplate extends SimpleRobot implements IRobot {
+public class Main extends SimpleRobot implements IRobot {
     
     Autonomous myAuto;
     OperatorControl myOpControl;
@@ -35,13 +35,13 @@ public class RobotTemplate extends SimpleRobot implements IRobot {
                 myOpControl.thousandMSLoop();
             }
             
-            Timer.delay(TIME_DELAY);
             loopCount++;
+            Timer.delay(TIME_DELAY);
         }
     }
     
     public void test() {
-        myCompressorControl = new CompressorControl();
+        myCompressorControl = new CompressorControl(DIO_FOURTEEN, RELAY_TWO);
         myCompressorControl.runCompressor();
     }
 }

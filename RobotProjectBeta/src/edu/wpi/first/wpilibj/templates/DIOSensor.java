@@ -9,16 +9,15 @@ import edu.wpi.first.wpilibj.DigitalInput;
  *
  * created by: Rahul Yalamanchili and Cooper Riehl. and SB
  */
-public class Photosensor implements IRobot {
+public class DIOSensor implements IRobot {
     
-    private DigitalInput photosensor;
+    private DigitalInput sensor;
     
-    
-    public Photosensor(int photosensorSlot) {
-        photosensor = new DigitalInput(photosensorSlot);
+    public DIOSensor(int DIOSlot) {
+        sensor = new DigitalInput(DIOSlot);
     }
     
     public boolean get() {
-        return photosensor.get();
+        return sensor.get();
     }
 }

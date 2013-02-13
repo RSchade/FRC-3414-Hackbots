@@ -21,6 +21,8 @@ public interface IRobot {
      double SPEED_STOP = 0.0;
      double SPEED_REVERSE_HALF = -0.5;
      double SPEED_REVERSE_FULL = -1.0;
+     double SPEED_FORWARD_TESTING = 0.05;
+     double SPEED_REVERSE_TESTING = -0.05;
     
      boolean ON = true;        //Solenoid values
      boolean OFF = false;
@@ -49,9 +51,12 @@ public interface IRobot {
      int DIO_FIVE = 5;
      int DIO_SIX = 6;
      int DIO_SEVEN = 7;
+     int DIO_EIGHT = 8;
+     int DIO_NINE = 9;
      int DIO_FOURTEEN = 14;
     
      int RELAY_ONE = 1;         //Relay channels
+     int RELAY_TWO = 2;
     
      int HORIZ_AXIS = 1;       //Joystick axis
      int VERTICAL_AXIS = 2;

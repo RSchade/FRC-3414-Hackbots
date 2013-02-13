@@ -65,4 +65,12 @@ public class PID implements IRobot {
     public boolean isOnTarget() {
         return controller.onTarget();
     }
+    
+    public double getRate() {
+        return controller.get();
+    }
+    
+    public double getTarget() {
+        return controller.getSetpoint();
+    }
 }
