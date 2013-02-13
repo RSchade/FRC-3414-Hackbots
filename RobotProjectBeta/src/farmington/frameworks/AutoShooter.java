@@ -10,8 +10,10 @@ import farmington.ultimateascent.IRobot;
 
 
 /**
- *
- * @author Robotics
+ * Takes control of the bot and automagically aims at a target.
+ * 
+ * @author Cooper Riehl
+ * @version 1.0
  */
 public class AutoShooter extends BaseRobot implements IRobot {
 
