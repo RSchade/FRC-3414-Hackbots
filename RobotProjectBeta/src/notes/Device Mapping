@@ -34,10 +34,10 @@ DIO 9           | Shooter Screw High Sensor
 DIO 14          | Compressor Pressure Switch
                 | 
 Solenoid 1      | Piston shooter arm
-Solenoid 2      | Double Solenoid 1
-Solenoid 3      | Double Solenoid 2
-Solenoid 4      | Double Solenoid 3
-Solenoid 5      | Double Solenoid 4
+Solenoid 2      | Double Solenoid 1 channel 1
+Solenoid 3      | Double Solenoid 1 channel 2
+Solenoid 4      | Double Solenoid 2 channel 1
+Solenoid 5      | Double Solenoid 2 channel 2
                 |
 Relay 1         | Loader Wheel
 Relay 2         | Compressor Spike

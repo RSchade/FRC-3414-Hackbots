@@ -1,5 +1,5 @@
 
-package farmington.frameworks;
+package deprecated;
 
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Timer;
