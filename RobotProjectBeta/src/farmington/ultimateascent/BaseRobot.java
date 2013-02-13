@@ -4,14 +4,14 @@
  */
 package farmington.ultimateascent;
 
-import farmington.frameworks.ShooterPiston;
-import farmington.frameworks.ShooterWheel;
-import farmington.frameworks.ShooterScrew;
+import edu.wpi.first.wpilibj.Joystick;
 import farmington.frameworks.AutoShooter;
 import farmington.frameworks.Camera;
-import farmington.frameworks.ShooterLoader;
 import farmington.frameworks.DriveTrain;
-import edu.wpi.first.wpilibj.Joystick;
+import farmington.frameworks.ShooterLoader;
+import farmington.frameworks.ShooterPiston;
+import farmington.frameworks.ShooterScrew;
+import farmington.frameworks.ShooterWheel;
 
 /**
  *
