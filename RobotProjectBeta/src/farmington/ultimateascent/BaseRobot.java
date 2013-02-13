@@ -2,8 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates;
+package farmington.ultimateascent;
 
+import farmington.frameworks.ShooterPiston;
+import farmington.frameworks.ShooterWheel;
+import farmington.frameworks.ShooterScrew;
+import farmington.frameworks.AutoShooter;
+import farmington.frameworks.Camera;
+import farmington.frameworks.ShooterLoader;
+import farmington.frameworks.DriveTrain;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**

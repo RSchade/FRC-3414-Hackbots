@@ -1,8 +1,10 @@
 
-package edu.wpi.first.wpilibj.templates;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import farmington.ultimateascent.BaseRobot;
+import farmington.ultimateascent.IRobot;
 
 
 /*

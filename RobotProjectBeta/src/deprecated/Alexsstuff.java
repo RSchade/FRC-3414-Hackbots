@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Accelerometer;
-import edu.wpi.first.wpilibj.templates.IRobot;
+import farmington.ultimateascent.IRobot;
 
 /*
  * @author Alex S. <3

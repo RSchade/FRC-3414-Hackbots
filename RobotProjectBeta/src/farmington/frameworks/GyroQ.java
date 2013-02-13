@@ -1,8 +1,9 @@
 
-package edu.wpi.first.wpilibj.templates;
+package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Timer;
+import farmington.ultimateascent.IRobot;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

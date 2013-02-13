@@ -3,7 +3,7 @@
  * and open the template in the editor.
  * Created by Shrihari Bhaskaramurthi
  */
-package edu.wpi.first.wpilibj.templates;
+package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.Accelerometer;
 

@@ -3,6 +3,11 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
+import farmington.frameworks.CompressorControl;
+import farmington.frameworks.LoopHandler;
+import farmington.ultimateascent.Autonomous;
+import farmington.ultimateascent.IRobot;
+import farmington.ultimateascent.OperatorControl;
 
 public class Main extends SimpleRobot implements IRobot {
     

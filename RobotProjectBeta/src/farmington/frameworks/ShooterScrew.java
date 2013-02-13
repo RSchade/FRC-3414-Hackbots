@@ -1,8 +1,9 @@
-package edu.wpi.first.wpilibj.templates;
+package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import farmington.ultimateascent.IRobot;
 /**
  *
  * @author: Ben Feinstein

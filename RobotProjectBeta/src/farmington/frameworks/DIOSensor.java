@@ -1,9 +1,10 @@
 /*
  * Digital Input
  */
-package edu.wpi.first.wpilibj.templates;
+package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import farmington.ultimateascent.IRobot;
 
 /**
  *
