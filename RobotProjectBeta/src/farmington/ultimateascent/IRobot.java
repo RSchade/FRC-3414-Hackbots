@@ -75,7 +75,6 @@ public interface IRobot {
     
      double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
      double MIN_ENCODER_VALUE = 0.0;
-     double AUTONOMOUS_SET_VALUE = 0.0;
      
      Relay.Value RELAY_ON = Relay.Value.kOn;
      Relay.Value RELAY_OFF = Relay.Value.kOff;
