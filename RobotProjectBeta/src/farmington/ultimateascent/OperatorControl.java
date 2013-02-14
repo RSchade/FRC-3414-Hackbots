@@ -50,7 +50,6 @@ public class OperatorControl extends BaseRobot implements IRobot {
     
     public void hundredMSLoop() {
         if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
-            myAutoShooter.aim();
         } else {
             if (rightStick.getRawButton(RIGHT_BUTTON_THREE)) {
                 turnOnShooterWheels();

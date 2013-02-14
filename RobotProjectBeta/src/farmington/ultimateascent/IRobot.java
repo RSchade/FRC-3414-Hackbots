@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Relay;
 
 public interface IRobot {
     
-     double TIME_DELAY = 0.010; // 10 millisecond loop
+     double TIME_DELAY = 0.020; // 20 millisecond loop
      boolean CAMERA_ENABLED = false; // Change for debugging without camera
     
      double SPEED_FORWARD_FULL = 1.0;  //Motor speed values

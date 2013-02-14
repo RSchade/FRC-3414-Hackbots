@@ -5,7 +5,6 @@
 package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.Joystick;
-import farmington.frameworks.AutoShooter;
 import farmington.frameworks.Camera;
 import farmington.frameworks.DriveTrain;
 import farmington.frameworks.ShooterLoader;
@@ -26,7 +25,6 @@ public class BaseRobot implements IRobot {
     protected ShooterPiston myShooterPiston;
     protected ShooterWheel myShooterWheelOne;
     protected ShooterWheel myShooterWheelTwo;
-    protected AutoShooter myAutoShooter;
     protected ShooterLoader myShooterLoader;
     
     public BaseRobot() {
@@ -38,7 +36,6 @@ public class BaseRobot implements IRobot {
         myShooterPiston = new ShooterPiston(SOLENOID_ONE);
         myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SLOT_SIX, 0.3, 0, 0);
         myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_SEVEN, 0.3, 0, 0);
-        myAutoShooter = new AutoShooter();
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
     }
     
@@ -56,7 +53,6 @@ public class BaseRobot implements IRobot {
         myShooterPiston = null;
         myShooterWheelOne = null;
         myShooterWheelTwo = null;
-        myAutoShooter = null;
         myShooterLoader = null;
         
     }
