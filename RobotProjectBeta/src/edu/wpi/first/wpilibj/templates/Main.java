@@ -5,19 +5,15 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import farmington.frameworks.CompressorControl;
 import farmington.frameworks.LoopHandler;
-import farmington.ultimateascent.AutonomousTry;
 import farmington.ultimateascent.IRobot;
 import farmington.ultimateascent.OperatorControl;
 
 public class Main extends SimpleRobot implements IRobot {
     
-    AutonomousTry myAuto;
     OperatorControl myOpControl;
     CompressorControl myCompressorControl;
     
     public void autonomous() {
-        myAuto = new AutonomousTry();
-        myAuto.doStuff();
     }
 
     public void operatorControl() {
@@ -28,8 +24,8 @@ public class Main extends SimpleRobot implements IRobot {
         while (isOperatorControl() && isEnabled()) {
             LoopHandler.updateLoopCount(loopCount);
             
-            //Runs every 10 milliseconds
-            myOpControl.tenMSLoop();
+            //Runs every 20 milliseconds
+            myOpControl.twentyMSLoop();
             
             //Runs every 100 milliseconds
             if (loopCount%10 == 0) {
@@ -44,6 +40,10 @@ public class Main extends SimpleRobot implements IRobot {
             loopCount++;
             Timer.delay(TIME_DELAY);
         }
+    }
+    
+    public void disabled() {
+        myOpControl.free();
     }
     
     public void test() {

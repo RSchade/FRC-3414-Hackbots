@@ -37,7 +37,7 @@ public class BaseRobot implements IRobot {
         myShooterScrew = new ShooterScrew(PWM_SLOT_FIVE, DIO_SIX, DIO_SEVEN, DIO_EIGHT, DIO_NINE);
         myShooterPiston = new ShooterPiston(SOLENOID_ONE);
         myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SLOT_SIX, 0.3, 0, 0);
-        myShooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_SEVEN, 0.3, 0, 0);
+        myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_SEVEN, 0.3, 0, 0);
         myAutoShooter = new AutoShooter();
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
     }
@@ -45,5 +45,19 @@ public class BaseRobot implements IRobot {
     public void turnOnShooterWheels() {
         myShooterWheelOne.setRate(3000);
         myShooterWheelTwo.setRate(3000);
+    }
+    
+    public void free() {
+        myCamera = null;
+        leftStick = null;
+        rightStick = null;
+        myDrive = null;
+        myShooterScrew = null;
+        myShooterPiston = null;
+        myShooterWheelOne = null;
+        myShooterWheelTwo = null;
+        myAutoShooter = null;
+        myShooterLoader = null;
+        
     }
 }

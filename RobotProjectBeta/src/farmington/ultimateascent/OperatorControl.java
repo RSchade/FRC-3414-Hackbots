@@ -29,15 +29,17 @@ public class OperatorControl extends BaseRobot implements IRobot {
         SmartDashboard.putBoolean("Screw Sensor High", myShooterScrew.getSensorHighValue());
         SmartDashboard.putBoolean("Shooter Piston", myShooterPiston.getPosition());
         SmartDashboard.putNumber("Current Loop Iteration", LoopHandler.getCurrentIteration());
-        SmartDashboard.putNumber("Shooter Wheel One True Speed", myShooterWheelOne.getTrueSpeed());
-        SmartDashboard.putNumber("Shooter Wheel Two True Speed", myShooterWheelTwo.getTrueSpeed());
     }
     
-    public void tenMSLoop() {
+    public void free() {
+        super.free();
+    }
+    
+    public void twentyMSLoop() {
     
         //Take a manual picture with the camera for processing
         myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
-
+        
         myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
         myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
         myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
@@ -47,8 +49,7 @@ public class OperatorControl extends BaseRobot implements IRobot {
     }
     
     public void hundredMSLoop() {
-        //DISABLED for testing
-        if (leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
+        if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
             myAutoShooter.aim();
         } else {
             if (rightStick.getRawButton(RIGHT_BUTTON_THREE)) {

@@ -4,8 +4,6 @@
  */
 package farmington.ultimateascent;
 
-import farmington.ultimateascent.BaseRobot;
-
 /**
  *
  * @author Robotics

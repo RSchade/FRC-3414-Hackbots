@@ -11,15 +11,15 @@ import farmington.ultimateascent.IRobot;
 public class ShooterScrew implements IRobot     //This is the lead screw. It basically uses a motor to move the shooter up and down.
 {
         
-    private Talon screwLift;     //This is the motor that controls the lead screw that controls the shooter movement
-    private Encoder encoder;  //This encoder finds the angle of the shooter
+    private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
+    PID angleController;
 
     public ShooterScrew(int lifterSlot, int encoderSlotA, int encoderSlotB, int dioSlotLow, int dioSlotHigh) {
         screwLift = new Talon(lifterSlot);
-        encoder = new Encoder(encoderSlotA, encoderSlotB);
         sensorLow = new DigitalInput(dioSlotLow);
         sensorHigh = new DigitalInput(dioSlotHigh);
+        angleController = new PID(encoderSlotA, encoderSlotB, screwLift, 0.0, 0.0, 0.0);
     }
     
     public void setMovement(boolean upButton, boolean downButton) {
@@ -40,20 +40,8 @@ public class ShooterScrew implements IRobot     //This is the lead screw. It bas
         }
     }
     
-    public void setAngle(double speed) {
-        if ((speed > 0) && !sensorHigh.get() && (encoder.get() <= AUTONOMOUS_SET_VALUE)) {
-            screwLift.set(speed);
-        } else if ((speed < 0) && !sensorLow.get() && (encoder.get() >= AUTONOMOUS_SET_VALUE)) {
-            screwLift.set(speed);
-        } else {
-            screwLift.set(0);
-        }        
-        
-        
-    }
-    
-    public int getEncoderValue() {
-        return encoder.get();
+    public double getEncoderValue() {
+        return angleController.getRate();
     }
     
     public double getScrewMotorSpeed() {
