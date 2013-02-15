@@ -31,7 +31,9 @@ public class Main extends SimpleRobot implements IRobot {
             LoopHandler.updateLoopCount(loopCount);
             
             //Runs every 20 milliseconds
-            myOpControl.twentyMSLoop();
+            if (loopCount%2 == 0) {
+                myOpControl.twentyMSLoop();
+            }
             
             //Runs every 100 milliseconds
             if (loopCount%10 == 0) {

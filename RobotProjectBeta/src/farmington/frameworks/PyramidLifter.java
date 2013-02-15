@@ -20,13 +20,21 @@ public class PyramidLifter {
         liftArmB = new DoubleSolenoid(liftArmBForwardChannel, liftArmBReverseChannel);
     }
     
-    public void goUp() {
+    private void goUp() {
         liftArmA.set(DoubleSolenoid.Value.kForward);
         liftArmB.set(DoubleSolenoid.Value.kForward);
     }
     
-    public void goDown() {
+    private void goDown() {
         liftArmA.set(DoubleSolenoid.Value.kReverse);
         liftArmB.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+    public void update(boolean up) {
+        if (up) {
+            goUp();
+        } else {
+            goDown();
+        }
     }
 }

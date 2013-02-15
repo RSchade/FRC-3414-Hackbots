@@ -36,24 +36,24 @@ public class OperatorControl extends BaseRobot implements IRobot {
     }
     
     public void twentyMSLoop() {
-    
-        //Take a manual picture with the camera for processing
-        myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
+        if (!leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {   //Locks us out of control
+            
+            //Take a manual picture with the camera for processing
+            myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
         
-        myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
-        myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
-        myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
-        myShooterLoader.updateLoader(myShooterPiston.getPosition());
+            myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
+            myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
+            myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
+            myShooterLoader.updateLoader(myShooterPiston.getPosition());
+            super.turnOnShooterWheels(rightStick.getRawButton(RIGHT_BUTTON_THREE));
         
-        updateDashboard();
+            updateDashboard();
+        }
     }
     
     public void hundredMSLoop() {
         if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
-        } else {
-            if (rightStick.getRawButton(RIGHT_BUTTON_THREE)) {
-                turnOnShooterWheels();
-            }
+            //Auto Shoot
         }
     }
     

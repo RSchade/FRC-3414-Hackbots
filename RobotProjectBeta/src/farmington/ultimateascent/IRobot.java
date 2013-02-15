@@ -40,6 +40,9 @@ public interface IRobot {
     
      int SOLENOID_ONE = 1;     //Solenoid ports
      int SOLENOID_TWO = 2;
+     int SOLENOID_THREE = 3;
+     int SOLENOID_FOUR = 4;
+     int SOLENOID_FIVE = 5;
     
      int USB_ONE = 1;          //USB ports
      int USB_TWO = 2;

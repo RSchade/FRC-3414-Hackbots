@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
@@ -14,7 +11,7 @@ import farmington.frameworks.Waiter;
  * @author Cooper Riehl
  * @version 1.0
  */
-public class Autonomous extends BaseRobot implements IRobot {
+public class AutoShooter extends BaseRobot implements IRobot {
 
     ParticleAnalysisReport target;
     boolean onTargetX;
@@ -23,7 +20,8 @@ public class Autonomous extends BaseRobot implements IRobot {
     Waiter wheelControl;
     Waiter pistonControl;
     
-    public Autonomous() {
+    public AutoShooter() {
+        super();
         onTargetX = false;
         onTargetY = false;
         hasTarget = false;
@@ -31,7 +29,7 @@ public class Autonomous extends BaseRobot implements IRobot {
         pistonControl = new Waiter();
     }
     
-    public void aim() {
+    protected void aim() {
         target = myCamera.findParticles();
         
         if (target.center_mass_x_normalized > 0.05) {

@@ -7,6 +7,7 @@ package farmington.ultimateascent;
 import edu.wpi.first.wpilibj.Joystick;
 import farmington.frameworks.Camera;
 import farmington.frameworks.DriveTrain;
+import farmington.frameworks.PyramidLifter;
 import farmington.frameworks.ShooterLoader;
 import farmington.frameworks.ShooterPiston;
 import farmington.frameworks.ShooterScrew;
@@ -26,6 +27,7 @@ public class BaseRobot implements IRobot {
     protected ShooterWheel myShooterWheelOne;
     protected ShooterWheel myShooterWheelTwo;
     protected ShooterLoader myShooterLoader;
+    protected PyramidLifter myPyramidLifter;
     
     public BaseRobot() {
         myCamera = new Camera();
@@ -37,11 +39,17 @@ public class BaseRobot implements IRobot {
         myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SLOT_SIX, 0.3, 0, 0);
         myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_SEVEN, 0.3, 0, 0);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
+        myPyramidLifter = new PyramidLifter(SOLENOID_TWO, SOLENOID_THREE, SOLENOID_FOUR, SOLENOID_FIVE);
     }
     
-    public void turnOnShooterWheels() {
-        myShooterWheelOne.setRate(3000);
-        myShooterWheelTwo.setRate(3000);
+    protected void turnOnShooterWheels(boolean control) {
+        if (control) {
+            myShooterWheelOne.setRate(3000);
+            myShooterWheelTwo.setRate(3000);
+        } else {
+            myShooterWheelOne.setRate(0);
+            myShooterWheelTwo.setRate(0);
+        }
     }
     
     public void free() {
@@ -54,6 +62,5 @@ public class BaseRobot implements IRobot {
         myShooterWheelOne = null;
         myShooterWheelTwo = null;
         myShooterLoader = null;
-        
     }
 }
