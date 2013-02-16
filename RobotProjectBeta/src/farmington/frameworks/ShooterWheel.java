@@ -42,4 +42,8 @@ public class ShooterWheel implements IRobot {
     public double getTarget() {
         return shooterPID.getTarget();
     }
+    
+    public boolean isOnTarget() {
+        return shooterPID.isOnTarget();
+    }
 }

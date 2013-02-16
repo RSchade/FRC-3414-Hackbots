@@ -4,6 +4,7 @@
  */
 package farmington.ultimateascent;
 
+import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.frameworks.LoopHandler;
 
@@ -32,15 +33,12 @@ public class RobotControl extends BaseRobot implements IRobot {
     }
     
     public void autoAim() {
-        myAutoShooter.aim();
+        
     }
     
     public void twentyMSLoop() {
-        if (!leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {   //Locks us out of control
-            
-            //Take a manual picture with the camera for processing
-            myCamera.takePicture(leftStick.getRawButton(LEFT_TRIGGER));
-        
+        //This locks us out of control if autoAim is active
+        if (!leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
             myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
             myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
@@ -51,8 +49,33 @@ public class RobotControl extends BaseRobot implements IRobot {
     }
     
     public void hundredMSLoop() {
+        boolean onTargetX = false;
+        boolean onTargetY = false;
+        
         if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
-            autoAim();
+            ParticleAnalysisReport target = myCamera.findParticles();
+            
+            if (myAutoShooter.aimX(target) == 1) {
+                myDrive.setSpeed(-0.1, 0.1);
+            } else if (myAutoShooter.aimX(target) == -1) {
+                myDrive.setSpeed(0.1, -0.1);
+            } else {
+                onTargetX = true;
+                myDrive.setSpeed(0.0, 0.0);
+            }
+            
+            if (myAutoShooter.aimY(target) == 1) {
+                myShooterScrew.setSpeed(-0.1);
+            } else if (myAutoShooter.aimY(target) == -1) {
+                myShooterScrew.setSpeed(0.1);
+            } else {
+                onTargetY = true;
+                myShooterScrew.setSpeed(0.0);
+            }
+            
+            if (onTargetX && onTargetY) {
+                //doStuff
+            }
         }
     }
     

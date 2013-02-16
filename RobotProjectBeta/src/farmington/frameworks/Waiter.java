@@ -16,8 +16,15 @@ public class Waiter extends LoopHandler {
         this.targetIteration = getCurrentIteration() + waitTime;
     }
     
+    public boolean isWaiting() {
+        if (getCurrentIteration() < targetIteration) {
+            return true;
+        }
+        return false;
+    }
+    
     public boolean timeUp() {
-        if (getCurrentIteration() == targetIteration) {
+        if (getCurrentIteration() >= targetIteration) {
             return true;
         }
         return false;

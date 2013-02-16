@@ -1,8 +1,5 @@
 To-do notes:
 
-1. Restructure Autonomous (wheel control PID)
-2. Fix AutoShooter so it doesn't extend BaseRobot
-
 
 We want the following values:
 
