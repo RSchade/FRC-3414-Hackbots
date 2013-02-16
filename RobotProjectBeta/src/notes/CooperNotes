@@ -1,12 +1,4 @@
-List of ???
-
-1.  Can we put finals in IRobot to use elsewhere? i.e PWN_SLOT_ONE and PWM_SLOT_TWO, BUTTON_ONE, etc
-2.  What does Angle.java actually do?
-
-
-
 To-do notes:
 
-1.  3x Solenoids, one for shooter and two for Pyramid lifter
-2.  Manual control of all automated systems as a backup
-3.  
+1. Restructure Autonomous (wheel control PID)
+2. Fix AutoShooter so it doesn't extend BaseRobot

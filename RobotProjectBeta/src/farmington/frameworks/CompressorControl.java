@@ -5,8 +5,6 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
 import farmington.ultimateascent.IRobot;
 
 /**

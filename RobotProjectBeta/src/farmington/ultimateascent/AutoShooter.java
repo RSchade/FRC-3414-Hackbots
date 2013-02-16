@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package farmington.frameworks;
+
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-import farmington.ultimateascent.BaseRobot;
-import farmington.ultimateascent.IRobot;
+import farmington.frameworks.Waiter;
 
 
 /**
@@ -25,6 +21,7 @@ public class AutoShooter extends BaseRobot implements IRobot {
     Waiter pistonControl;
     
     public AutoShooter() {
+        super();
         onTargetX = false;
         onTargetY = false;
         hasTarget = false;
@@ -32,7 +29,7 @@ public class AutoShooter extends BaseRobot implements IRobot {
         pistonControl = new Waiter();
     }
     
-    public void aim() {
+    protected void aim() {
         target = myCamera.findParticles();
         
         if (target.center_mass_x_normalized > 0.05) {
@@ -57,12 +54,12 @@ public class AutoShooter extends BaseRobot implements IRobot {
         
         if (onTargetX && onTargetY && !hasTarget) {
             hasTarget = true;
-            turnOnShooterWheels();
+            super.turnOnShooterWheels(true);
             wheelControl.waitXLoops(100);
         }
         
         if (hasTarget) {
-            turnOnShooterWheels();
+            super.turnOnShooterWheels(true);
             if (wheelControl.timeUp()) {
                 myShooterPiston.setPosition(true);
                 pistonControl.waitXLoops(50);
