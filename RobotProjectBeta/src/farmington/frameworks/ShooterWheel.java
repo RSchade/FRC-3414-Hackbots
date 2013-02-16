@@ -19,6 +19,14 @@ public class ShooterWheel implements IRobot {
         shooterPID.start();
     }
     
+    public void turnOn(boolean control) {
+        if (control) {
+            shooterPID.setTargetRate(SHOOTER_SPEED);
+        } else {
+            shooterPID.setTargetRate(0);
+        }
+    }
+    
     public void setRate(int rate) {
         shooterPID.setTargetRate(rate);
     }
@@ -33,5 +41,9 @@ public class ShooterWheel implements IRobot {
     
     public double getTarget() {
         return shooterPID.getTarget();
+    }
+    
+    public boolean isOnTarget() {
+        return shooterPID.isOnTarget();
     }
 }

@@ -40,29 +40,6 @@ public class PID implements IRobot {
         controller.setSetpoint(rateSetpoint);
     }
     
-    public void setTargetSpeed(double speedSetpoint, double speedRange) {
-        double rateSetpoint;
-        double rateRange;       //FIXME: Find target RPM
-        
-        /** Convert speed into encoder values (multiply by some stuff relating
-         * to the number of encoder "ticks" per motor revolution and the motor's
-         * target RPM)
-         */
-        
-//        controller.setAbsoluteTolerance(rateRange);
-    }
-    
-    public void setTargetSpeed(double speedSetpoint) {
-        double rateSetpoint;       //FIXME: Find target RPM
-        
-        /** Convert speed into encoder values (multiply by some stuff relating
-         * to the number of encoder "ticks" per motor revolution and the motor's
-         * target RPM)
-         */
-        
-//        controller.setSetpoint(rateSetpoint);
-    }
-    
     public boolean isOnTarget() {
         return controller.onTarget();
     }
