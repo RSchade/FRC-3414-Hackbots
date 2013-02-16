@@ -18,11 +18,11 @@ public class ShooterLoader implements IRobot {
     boolean bayIsFull;
     Waiter loaderControl;
     
-    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot) {
+    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot) {      //relay1, dio1
         loaderWheel = new Relay(loaderWheelRelay);
         loaderSensor = new DIOSensor(loaderSensorSlot);
         bayIsFull = false;
-        loaderControl = new Waiter();
+        loaderControl = new Waiter();           //do we need this line?
     }
     
     public void updateLoader(boolean pistonIsExtended) {

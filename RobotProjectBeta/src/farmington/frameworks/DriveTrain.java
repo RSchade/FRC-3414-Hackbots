@@ -24,7 +24,7 @@ public class DriveTrain implements IRobot {
     Talon leftBackMotor;
     Talon rightBackMotor;
     
-    public DriveTrain(int leftFrontSlot, int leftBackSlot, int rightFrontSlot, int rightBackSlot) {
+    public DriveTrain(int leftFrontSlot, int leftBackSlot, int rightFrontSlot, int rightBackSlot) {       //why does it take from BaseRobot if it doesn't say: myDrive.DriveTrain()
         leftFrontMotor = new Talon(leftFrontSlot);
         leftBackMotor = new Talon(leftBackSlot);
         rightFrontMotor = new Talon(rightFrontSlot);
@@ -32,8 +32,8 @@ public class DriveTrain implements IRobot {
     }
     
     public void setSpeed(double leftSpeedInverse, double rightSpeedInverse) {
-        double leftSpeed = -leftSpeedInverse;
-        double rightSpeed = -rightSpeedInverse;
+        double leftSpeed = -leftSpeedInverse;           //-(leftSpeedInverse);
+        double rightSpeed = -rightSpeedInverse;         //-(rightSpeedInverse);
         leftFrontMotor.set(leftSpeed);
         leftBackMotor.set(leftSpeed);
         rightFrontMotor.set(rightSpeed);
