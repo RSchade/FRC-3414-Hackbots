@@ -28,7 +28,6 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Left Back Motor", myDrive.getLeftBackMotor());
         SmartDashboard.putNumber("Right Front Motor", myDrive.getRightFrontMotor());
         SmartDashboard.putNumber("Right Back Motor", myDrive.getRightBackMotor());
-        SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getEncoderValue());
         SmartDashboard.putBoolean("Screw Sensor Sensor Low", myShooterScrew.getSensorLowValue());
         SmartDashboard.putBoolean("Screw Sensor Sensor High", myShooterScrew.getSensorHighValue());
         SmartDashboard.putBoolean("Loader Sensor", myShooterLoader.getFrisbeeSensor());
@@ -67,12 +66,18 @@ public class RobotControl extends BaseRobot implements IRobot {
     public void twentyMSLoop() {
         //This locks us out of control if autoAim is active
         if (!leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
+            
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
             myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
             myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
-            myShooterWheelOne.turnOn(rightStick.getRawButton(RIGHT_TRIGGER));
-            myShooterWheelTwo.turnOn(rightStick.getRawButton(RIGHT_TRIGGER));
+            if (rightStick.getRawButton(RIGHT_TRIGGER)) {
+                myShooterWheelOne.setRate(-3000);
+                myShooterWheelTwo.setRate(3000);
+            } else {
+                myShooterWheelOne.setRate(0);
+                myShooterWheelTwo.setRate(0);
+            }
             
             updateDashboard();
         }

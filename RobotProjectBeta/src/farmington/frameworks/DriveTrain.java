@@ -31,13 +31,25 @@ public class DriveTrain implements IRobot {
         rightBackMotor = new Talon(rightBackSlot);
     }
     
-    public void setSpeed(double leftSpeedInverse, double rightSpeedInverse) {
-        double leftSpeed = -leftSpeedInverse;
-        double rightSpeed = -rightSpeedInverse;
-        leftFrontMotor.set(leftSpeed);
-        leftBackMotor.set(leftSpeed);
-        rightFrontMotor.set(rightSpeed);
-        rightBackMotor.set(rightSpeed);
+    public void setSpeed(double leftSpeedInverse, double rightSpeed) {
+        double leftSpeed = -1*leftSpeedInverse;
+        
+        //deadzone
+        if (leftSpeed < -0.1 || leftSpeed > 0.1) {
+            leftFrontMotor.set(leftSpeed);
+            leftBackMotor.set(leftSpeed);
+        } else {
+            leftFrontMotor.set(0);
+            leftBackMotor.set(0);
+        }
+        
+        if (rightSpeed < -0.1 || rightSpeed > 0.1) {
+            rightFrontMotor.set(rightSpeed);
+            rightBackMotor.set(rightSpeed);
+        } else {
+            rightFrontMotor.set(0);
+            rightBackMotor.set(0);
+        }
     }
     
     public double getLeftFrontMotor() {

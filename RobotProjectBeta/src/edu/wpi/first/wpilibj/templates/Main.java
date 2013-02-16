@@ -1,9 +1,9 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
-import farmington.frameworks.CompressorControl;
 import farmington.frameworks.LoopHandler;
 import farmington.ultimateascent.IRobot;
 import farmington.ultimateascent.RobotControl;
@@ -11,10 +11,15 @@ import farmington.ultimateascent.RobotControl;
 public class Main extends SimpleRobot implements IRobot {
     
     RobotControl myRobotControl;
-    CompressorControl myCompressorControl;
+    Compressor myCompressor;
+    
+    public Main() {
+        myRobotControl = new RobotControl();
+        myCompressor = new Compressor(DIO_FOURTEEN, RELAY_TWO);
+    }
     
     public void robotInit() {
-        myRobotControl = new RobotControl();
+        myCompressor.start();
     }
     
     public void autonomous() {
@@ -49,11 +54,12 @@ public class Main extends SimpleRobot implements IRobot {
     }
     
     public void disabled() {
+        System.out.println("Robot has been disabled");
         myRobotControl.free();
+        System.out.println("Memory has been freed");
     }
     
     public void test() {
-        myCompressorControl = new CompressorControl(DIO_FOURTEEN, RELAY_TWO);
-        myCompressorControl.runCompressor();
+        
     }
 }
