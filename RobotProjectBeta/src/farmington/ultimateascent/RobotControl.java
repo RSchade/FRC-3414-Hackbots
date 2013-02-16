@@ -50,12 +50,12 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
         
         if (myAutoShooter.aimY(target) == 1) {
-            myShooterScrew.setSpeed(-0.1);
+            myShooterScrew.setMovement(false, true);
         } else if (myAutoShooter.aimY(target) == -1) {
-            myShooterScrew.setSpeed(0.1);
+            myShooterScrew.setMovement(true, false);
         } else {
             onTargetY = true;
-            myShooterScrew.setSpeed(0.0);
+            myShooterScrew.setMovement(false, false);
         }
     }
     
@@ -71,6 +71,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
             myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
+            myPyramidLifter.update(rightStick.getRawButton(RIGHT_BUTTON_TWO));
             if (rightStick.getRawButton(RIGHT_TRIGGER)) {
                 myShooterWheelOne.setRate(-3000);
                 myShooterWheelTwo.setRate(3000);

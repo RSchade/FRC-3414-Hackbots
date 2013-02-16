@@ -23,7 +23,6 @@ public class Main extends SimpleRobot implements IRobot {
     }
     
     public void autonomous() {
-        
     }
 
     public void operatorControl() {
@@ -51,15 +50,12 @@ public class Main extends SimpleRobot implements IRobot {
             loopCount++;
             Timer.delay(TIME_DELAY);
         }
+        myRobotControl.free();
     }
     
     public void disabled() {
-        System.out.println("Robot has been disabled");
-        myRobotControl.free();
-        System.out.println("Memory has been freed");
     }
     
     public void test() {
-        
     }
 }

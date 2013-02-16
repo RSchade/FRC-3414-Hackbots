@@ -13,13 +13,13 @@ public class ShooterScrew implements IRobot     //This is the lead screw. It bas
         
     private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
-    //PID angleController;
+    PID angleController;
 
     public ShooterScrew(int lifterSlot, int encoderSlotA, int encoderSlotB, int dioSlotLow, int dioSlotHigh) {
         screwLift = new Talon(lifterSlot);
         sensorLow = new DigitalInput(dioSlotLow);
         sensorHigh = new DigitalInput(dioSlotHigh);
-        //angleController = new PID(encoderSlotA, encoderSlotB, screwLift, 0.0, 0.0, 0.0);
+        angleController = new PID(encoderSlotA, encoderSlotB, screwLift, 0.0, 0.0, 0.0);
     }
     
     public void setMovement(boolean upButton, boolean downButton) {
@@ -32,16 +32,6 @@ public class ShooterScrew implements IRobot     //This is the lead screw. It bas
         }
     }
     
-//    public void setMovement(boolean upButton, boolean downButton) {
-//        if (upButton && !downButton && sensorHigh.get()) {
-//            angleController.setTargetRate(2000);
-//        } else if (downButton && !upButton && sensorLow.get()) {
-//            angleController.setTargetRate(-2000);
-//        } else {
-//            angleController.setTargetRate(0);
-//        }
-//    }
-    
     public void setSpeed(double speed) {
         if ((speed < 0 && !sensorLow.get()) || (speed > 0 && !sensorHigh.get())) {
             screwLift.set(speed);
@@ -50,9 +40,9 @@ public class ShooterScrew implements IRobot     //This is the lead screw. It bas
         }
     }
     
-//    public double getEncoderValue() {
-//        return angleController.getRate();
-//    }
+    public double getEncoderValue() {
+        return angleController.getRate();
+    }
     
     public double getScrewMotorSpeed() {
         return screwLift.get();
