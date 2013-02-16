@@ -30,7 +30,7 @@ public class ShooterLoader implements IRobot {
             loaderWheel.set(RELAY_ON);
             loaderControl.waitXLoops(20);   //FIXME: this value needs to be tuned for X number of ticks for one frisbee to be loaded
         }
-        //
+        
         if (bayIsFull) {
             bayIsFull = !pistonIsExtended;
         } else {
@@ -42,5 +42,9 @@ public class ShooterLoader implements IRobot {
         } else {
             loaderWheel.set(RELAY_ON);
         }
+    }
+    
+    public boolean getFrisbeeSensor() {
+        return loaderSensor.get();
     }
 }

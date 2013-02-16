@@ -11,10 +11,10 @@ import farmington.frameworks.LoopHandler;
  *
  * @author Robotics
  */
-public class OperatorControl extends BaseRobot implements IRobot {
+public class RobotControl extends BaseRobot implements IRobot {
     
 
-    public OperatorControl() {
+    public RobotControl() {
         super();
     }
     
@@ -24,15 +24,15 @@ public class OperatorControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Right Front Motor", myDrive.getRightFrontMotor());
         SmartDashboard.putNumber("Right Back Motor", myDrive.getRightBackMotor());
         SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getEncoderValue());
-        SmartDashboard.putNumber("Screw Motor", myShooterScrew.getScrewMotorSpeed());
-        SmartDashboard.putBoolean("Screw Sensor Low", myShooterScrew.getSensorLowValue());
-        SmartDashboard.putBoolean("Screw Sensor High", myShooterScrew.getSensorHighValue());
+        SmartDashboard.putBoolean("Screw Sensor Sensor Low", myShooterScrew.getSensorLowValue());
+        SmartDashboard.putBoolean("Screw Sensor Sensor High", myShooterScrew.getSensorHighValue());
+        SmartDashboard.putBoolean("Loader Sensor", myShooterLoader.getFrisbeeSensor());
         SmartDashboard.putBoolean("Shooter Piston", myShooterPiston.getPosition());
         SmartDashboard.putNumber("Current Loop Iteration", LoopHandler.getCurrentIteration());
     }
     
-    public void free() {
-        super.free();
+    public void autoAim() {
+        myAutoShooter.aim();
     }
     
     public void twentyMSLoop() {
@@ -45,7 +45,6 @@ public class OperatorControl extends BaseRobot implements IRobot {
             myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
             myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
-            super.turnOnShooterWheels(rightStick.getRawButton(RIGHT_BUTTON_THREE));
         
             updateDashboard();
         }
@@ -53,7 +52,7 @@ public class OperatorControl extends BaseRobot implements IRobot {
     
     public void hundredMSLoop() {
         if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
-            //Auto Shoot
+            autoAim();
         }
     }
     

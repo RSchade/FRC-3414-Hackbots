@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package farmington.ultimateascent;
+
+package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-import farmington.frameworks.Waiter;
+import farmington.ultimateascent.IRobot;
 
 
 /**
@@ -14,7 +11,7 @@ import farmington.frameworks.Waiter;
  * @author Cooper Riehl
  * @version 1.0
  */
-public class Autonomous extends BaseRobot implements IRobot {
+public class AutoShooter implements IRobot {
 
     ParticleAnalysisReport target;
     boolean onTargetX;
@@ -22,52 +19,68 @@ public class Autonomous extends BaseRobot implements IRobot {
     boolean hasTarget;
     Waiter wheelControl;
     Waiter pistonControl;
+    Camera autoCamera;
+    DriveTrain autoDrive;
+    ShooterScrew autoShooterScrew;
+    ShooterPiston autoShooterPiston;
+    ShooterWheel autoShooterWheelOne;
+    ShooterWheel autoShooterWheelTwo;
     
-    public Autonomous() {
+    
+    public AutoShooter(Camera setCamera, DriveTrain setDrive, ShooterScrew setScrew, ShooterPiston setPiston, ShooterWheel setWheelOne, ShooterWheel setWheelTwo) {
+        super();
         onTargetX = false;
         onTargetY = false;
         hasTarget = false;
         wheelControl = new Waiter();
         pistonControl = new Waiter();
+        autoCamera = setCamera;
+        autoDrive = setDrive;
+        autoShooterScrew = setScrew;
+        autoShooterPiston = setPiston;
+        autoShooterWheelOne = setWheelOne;
+        autoShooterWheelTwo = setWheelTwo;
     }
     
     public void aim() {
-        target = myCamera.findParticles();
+        target = autoCamera.findParticles();
         
         if (target.center_mass_x_normalized > 0.05) {
             onTargetX = false;
-            myDrive.setSpeed(-0.1, 0.1);
+            autoDrive.setSpeed(-0.1, 0.1);
         } else if (target.center_mass_x_normalized < -0.05) {
             onTargetX = false;
-            myDrive.setSpeed(0.1, -0.1);
+            autoDrive.setSpeed(0.1, -0.1);
         } else {
             onTargetX = true;
         }
         
         if (target.center_mass_y_normalized > 0.05) {
             onTargetY = false;
-            myShooterScrew.setSpeed(-0.1);
+            autoShooterScrew.setSpeed(-0.1);
         } else if (target.center_mass_y_normalized < -0.05) {
             onTargetY = false;
-            myShooterScrew.setSpeed(0.1);
+            autoShooterScrew.setSpeed(0.1);
         } else {
             onTargetY = true;
         }
         
         if (onTargetX && onTargetY && !hasTarget) {
             hasTarget = true;
-            super.turnOnShooterWheels(true);
+            autoShooterWheelOne.turnOn(true);
+            autoShooterWheelTwo.turnOn(true);
             wheelControl.waitXLoops(100);
         }
         
         if (hasTarget) {
-            super.turnOnShooterWheels(true);
+            autoShooterWheelOne.turnOn(true);
+            autoShooterWheelTwo.turnOn(true);
             if (wheelControl.timeUp()) {
-                myShooterPiston.setPosition(true);
+                autoShooterPiston.setPosition(true);
                 pistonControl.waitXLoops(50);
             }
             if (pistonControl.timeUp()) {
-                myShooterPiston.setPosition(false);
+                autoShooterPiston.setPosition(false);
                 hasTarget = false;
             }
         }

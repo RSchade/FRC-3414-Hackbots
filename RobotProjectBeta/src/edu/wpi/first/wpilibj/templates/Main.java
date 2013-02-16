@@ -5,26 +5,30 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import farmington.frameworks.CompressorControl;
 import farmington.frameworks.LoopHandler;
-import farmington.ultimateascent.Autonomous;
 import farmington.ultimateascent.IRobot;
-import farmington.ultimateascent.OperatorControl;
+import farmington.ultimateascent.RobotControl;
 
 public class Main extends SimpleRobot implements IRobot {
     
-    Autonomous myAutonomous;
-    OperatorControl myOpControl;
+    RobotControl myRobotControl;
     CompressorControl myCompressorControl;
     
+    public void robotInit() {
+        myRobotControl = new RobotControl();
+    }
+    
     public void autonomous() {
+        
+        int loopCount = 0;
+        
         while (isAutonomous() && isEnabled()) {
-            myAutonomous.aim();
-            Timer.delay(TIME_DELAY);
+            LoopHandler.updateLoopCount(loopCount);
+            myRobotControl.autoAim();
         }
     }
 
     public void operatorControl() {
         
-        myOpControl = new OperatorControl();
         int loopCount = 0;
         
         while (isOperatorControl() && isEnabled()) {
@@ -32,17 +36,17 @@ public class Main extends SimpleRobot implements IRobot {
             
             //Runs every 20 milliseconds
             if (loopCount%2 == 0) {
-                myOpControl.twentyMSLoop();
+                myRobotControl.twentyMSLoop();
             }
             
             //Runs every 100 milliseconds
             if (loopCount%10 == 0) {
-                myOpControl.hundredMSLoop();
+                myRobotControl.hundredMSLoop();
             }
             
             //Runs every 1000 milliseconds (every second)
             if (loopCount%100 == 0) {
-                myOpControl.thousandMSLoop();
+                myRobotControl.thousandMSLoop();
             }
             
             loopCount++;
@@ -51,7 +55,7 @@ public class Main extends SimpleRobot implements IRobot {
     }
     
     public void disabled() {
-        myOpControl.free();
+        myRobotControl.free();
     }
     
     public void test() {
