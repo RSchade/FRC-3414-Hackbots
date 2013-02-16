@@ -5,18 +5,16 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import farmington.frameworks.CompressorControl;
 import farmington.frameworks.LoopHandler;
-import farmington.ultimateascent.Autonomous;
 import farmington.ultimateascent.IRobot;
 import farmington.ultimateascent.RobotControl;
 
 public class Main extends SimpleRobot implements IRobot {
     
     RobotControl myRobotControl;
-    Autonomous myAutonomous;
     CompressorControl myCompressorControl;
     
     public void robotInit() {
-        myAutonomous = new Autonomous;
+        myRobotControl = new RobotControl();
     }
     
     public void autonomous() {

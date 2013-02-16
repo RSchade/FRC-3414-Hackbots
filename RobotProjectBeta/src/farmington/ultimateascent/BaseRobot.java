@@ -4,6 +4,7 @@
  */
 package farmington.ultimateascent;
 
+import farmington.frameworks.AutoShooter;
 import edu.wpi.first.wpilibj.Joystick;
 import farmington.frameworks.Camera;
 import farmington.frameworks.DriveTrain;
@@ -43,7 +44,7 @@ public class BaseRobot implements IRobot {
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
         myPyramidLifter = new PyramidLifter(SOLENOID_TWO, SOLENOID_THREE, SOLENOID_FOUR, SOLENOID_FIVE);
         myAutoShooter = new AutoShooter();
-        myAutonomous = new Autonomous(myCamera, myDrive, myShooterScrew, myShooterPiston, myShooterWheelOne, myShooterWheelTwo);
+        myAutonomous = new Autonomous(myCamera, myDrive, myShooterScrew, myShooterPiston, myShooterWheelOne, myShooterWheelTwo, myAutoShooter);
     }
     
     public void free() {

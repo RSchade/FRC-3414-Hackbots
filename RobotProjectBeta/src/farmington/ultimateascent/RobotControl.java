@@ -14,9 +14,13 @@ import farmington.frameworks.LoopHandler;
  */
 public class RobotControl extends BaseRobot implements IRobot {
     
+    boolean onTargetX;
+    boolean onTargetY;
 
     public RobotControl() {
         super();
+        onTargetX = false;
+        onTargetY = false;
     }
     
     private void updateDashboard() {
@@ -33,7 +37,31 @@ public class RobotControl extends BaseRobot implements IRobot {
     }
     
     public void autoAim() {
+        onTargetX = false;
+        onTargetY = false;
+        ParticleAnalysisReport target = myCamera.findParticles();
+            
+        if (myAutoShooter.aimX(target) == 1) {
+            myDrive.setSpeed(-0.1, 0.1);
+        } else if (myAutoShooter.aimX(target) == -1) {
+            myDrive.setSpeed(0.1, -0.1);
+        } else {
+            onTargetX = true;
+            myDrive.setSpeed(0.0, 0.0);
+        }
         
+        if (myAutoShooter.aimY(target) == 1) {
+            myShooterScrew.setSpeed(-0.1);
+        } else if (myAutoShooter.aimY(target) == -1) {
+            myShooterScrew.setSpeed(0.1);
+        } else {
+            onTargetY = true;
+            myShooterScrew.setSpeed(0.0);
+        }
+    }
+    
+    public void autonomous() {
+        myAutonomous.mainControl();
     }
     
     public void twentyMSLoop() {
@@ -43,38 +71,20 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
             myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
-        
+            myShooterWheelOne.turnOn(rightStick.getRawButton(RIGHT_TRIGGER));
+            myShooterWheelTwo.turnOn(rightStick.getRawButton(RIGHT_TRIGGER));
+            
             updateDashboard();
         }
     }
     
     public void hundredMSLoop() {
-        boolean onTargetX = false;
-        boolean onTargetY = false;
-        
         if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
-            ParticleAnalysisReport target = myCamera.findParticles();
-            
-            if (myAutoShooter.aimX(target) == 1) {
-                myDrive.setSpeed(-0.1, 0.1);
-            } else if (myAutoShooter.aimX(target) == -1) {
-                myDrive.setSpeed(0.1, -0.1);
-            } else {
-                onTargetX = true;
-                myDrive.setSpeed(0.0, 0.0);
-            }
-            
-            if (myAutoShooter.aimY(target) == 1) {
-                myShooterScrew.setSpeed(-0.1);
-            } else if (myAutoShooter.aimY(target) == -1) {
-                myShooterScrew.setSpeed(0.1);
-            } else {
-                onTargetY = true;
-                myShooterScrew.setSpeed(0.0);
-            }
-            
+            autoAim();
             if (onTargetX && onTargetY) {
-                //doStuff
+                SmartDashboard.putBoolean("Ready for shooting!?", true);
+            } else {
+                SmartDashboard.putBoolean("Ready for shooting!?", false);
             }
         }
     }
