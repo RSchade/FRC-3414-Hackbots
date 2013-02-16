@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package farmington.frameworks;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import edu.wpi.first.wpilibj.camera.AxisCamera;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import edu.wpi.first.wpilibj.image.*;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import farmington.ultimateascent.IRobot;<a name="line.6"></a>
+<span class="sourceLineNo">007</span><a name="line.7"></a>
+<span class="sourceLineNo">008</span>/**<a name="line.8"></a>
+<span class="sourceLineNo">009</span> *<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * @author RSchade and CRiehl<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>public class Camera implements IRobot {<a name="line.14"></a>
+<span class="sourceLineNo">015</span>    <a name="line.15"></a>
+<span class="sourceLineNo">016</span>    AxisCamera myCamera;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>    CriteriaCollection crit = new CriteriaCollection();<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    private ColorImage image;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>    private BinaryImage dataImage;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    private boolean loopControl = true;<a name="line.20"></a>
+<span class="sourceLineNo">021</span><a name="line.21"></a>
+<span class="sourceLineNo">022</span>    public Camera() {<a name="line.22"></a>
+<span class="sourceLineNo">023</span>        if (CAMERA_ENABLED) {<a name="line.23"></a>
+<span class="sourceLineNo">024</span>            myCamera = AxisCamera.getInstance();<a name="line.24"></a>
+<span class="sourceLineNo">025</span>            crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);<a name="line.25"></a>
+<span class="sourceLineNo">026</span>            crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        }<a name="line.27"></a>
+<span class="sourceLineNo">028</span>    }<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    <a name="line.29"></a>
+<span class="sourceLineNo">030</span>    public void takePicture(boolean trigger) {<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        if (trigger &amp;&amp; loopControl) {<a name="line.31"></a>
+<span class="sourceLineNo">032</span>            findParticles();<a name="line.32"></a>
+<span class="sourceLineNo">033</span>            loopControl = false;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        }<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        if (!trigger &amp;&amp; !loopControl) {<a name="line.35"></a>
+<span class="sourceLineNo">036</span>            loopControl = true;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        }<a name="line.37"></a>
+<span class="sourceLineNo">038</span>    }<a name="line.38"></a>
+<span class="sourceLineNo">039</span>    <a name="line.39"></a>
+<span class="sourceLineNo">040</span>    public ParticleAnalysisReport findParticles() {<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        try {<a name="line.41"></a>
+<span class="sourceLineNo">042</span>            image = myCamera.getImage();<a name="line.42"></a>
+<span class="sourceLineNo">043</span>            dataImage = image.thresholdRGB(RED_MIN, RED_MAX, BLU_MIN, BLU_MAX, GRN_MIN, GRN_MAX);<a name="line.43"></a>
+<span class="sourceLineNo">044</span>            dataImage = dataImage.removeSmallObjects(false, 2);<a name="line.44"></a>
+<span class="sourceLineNo">045</span>            dataImage = dataImage.convexHull(true);<a name="line.45"></a>
+<span class="sourceLineNo">046</span>            dataImage = dataImage.particleFilter(crit);<a name="line.46"></a>
+<span class="sourceLineNo">047</span>            ParticleAnalysisReport[] reports = dataImage.getOrderedParticleAnalysisReports();<a name="line.47"></a>
+<span class="sourceLineNo">048</span>            for(int i=0; i &lt; reports.length; i++) {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>                System.out.println("Rectangle number " + i + " found! Output: " + reports[i].particleArea);<a name="line.49"></a>
+<span class="sourceLineNo">050</span>                SmartDashboard.putNumber("Camera Output", reports[i].particleArea);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>                if (reports[i].particleArea &gt;= PARTICLE_AREA_THRESHOLD) {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>                    return reports[i];<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                }<a name="line.53"></a>
+<span class="sourceLineNo">054</span>            }<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        } catch(Exception ex) {<a name="line.55"></a>
+<span class="sourceLineNo">056</span>            ex.printStackTrace();<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        }<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        <a name="line.58"></a>
+<span class="sourceLineNo">059</span>        try {<a name="line.59"></a>
+<span class="sourceLineNo">060</span>            image = null;<a name="line.60"></a>
+<span class="sourceLineNo">061</span>            dataImage = null;<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        } catch(Exception ex) {<a name="line.62"></a>
+<span class="sourceLineNo">063</span>            ex.printStackTrace();<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        }<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        return null;<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    }<a name="line.66"></a>
+<span class="sourceLineNo">067</span>}<a name="line.67"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
