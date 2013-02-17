@@ -21,7 +21,7 @@ import farmington.frameworks.ShooterWheel;
 public class BaseRobot implements IRobot {
     
     protected Camera myCamera;
-    protected Joystick leftStick, rightStick;
+    protected Joystick leftStick, rightStick, gamepad;
     protected DriveTrain myDrive;
     protected ShooterScrew myShooterScrew;
     protected ShooterPiston myShooterPiston;
@@ -39,11 +39,12 @@ public class BaseRobot implements IRobot {
         myCamera = new Camera();
         leftStick = new Joystick(USB_ONE);
         rightStick = new Joystick(USB_TWO);
-        myDrive = new DriveTrain(PWM_SLOT_ONE, PWM_SLOT_THREE, PWM_SLOT_TWO, PWM_SLOT_FOUR);
-        myShooterScrew = new ShooterScrew(PWM_SLOT_FIVE, DIO_SIX, DIO_SEVEN, DIO_EIGHT, DIO_NINE);
+        gamepad = new Joystick(USB_THREE);
+        myDrive = new DriveTrain(PWM_ONE, PWM_THREE, PWM_TWO, PWM_FOUR);
+        myShooterScrew = new ShooterScrew(PWM_FIVE, DIO_SIX, DIO_SEVEN, DIO_EIGHT, DIO_NINE);
         myShooterPiston = new ShooterPiston(SOLENOID_ONE);
-        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SLOT_SIX, 0.3, 0, 0);
-        myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SLOT_SEVEN, 0.3, 0, 0);
+        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SIX, 0.3, 0, 0);
+        myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SEVEN, 0.3, 0, 0);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
         myPyramidLifter = new PyramidLifter(SOLENOID_TWO, SOLENOID_THREE, SOLENOID_FOUR, SOLENOID_FIVE);
         myAutoShooter = new AutoShooter();

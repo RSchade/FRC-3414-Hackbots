@@ -22,11 +22,11 @@ public class Alexsstuff extends SimpleRobot implements IRobot
 
     private Joystick right_stick = new Joystick(1);
     private Joystick left_stick = new Joystick(2);
-    private Talon firewheel = new Talon(PWM_SLOT_ONE);
-    private Talon firewheel_2 = new Talon(PWM_SLOT_TWO);
-    private Talon angler = new Talon(PWM_SLOT_THREE);
-    private Talon loaderwheel_1 = new Talon(PWM_SLOT_FOUR);
-    private Talon loaderwheel_2 = new Talon(PWM_SLOT_FIVE);
+    private Talon firewheel = new Talon(PWM_ONE);
+    private Talon firewheel_2 = new Talon(PWM_TWO);
+    private Talon angler = new Talon(PWM_THREE);
+    private Talon loaderwheel_1 = new Talon(PWM_FOUR);
+    private Talon loaderwheel_2 = new Talon(PWM_FIVE);
     private Encoder anglereader[];
     
     private final int CENTER_BUTTON = 3;

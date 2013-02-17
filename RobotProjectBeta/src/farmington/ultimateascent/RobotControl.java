@@ -80,19 +80,16 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public void twentyMSLoop() {
         //This locks us out of control if autoAim is active
-        if (!leftStick.getRawButton(BUTTON_EIGHT)) {
+        if (!gamepad.getRawButton(BUTTON_NINE)) {
             
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
-            myShooterScrew.setMovement(leftStick.getRawButton(BUTTON_THREE), leftStick.getRawButton(BUTTON_TWO));
-            myShooterPiston.setPosition(leftStick.getRawButton(TRIGGER));
+            myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO));
+            myShooterPiston.setPosition(gamepad.getRawButton(BUTTON_EIGHT));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
-            myPyramidLifter.update(rightStick.getRawButton(BUTTON_TWO));
-            if (rightStick.getRawButton(TRIGGER) && !rightStick.getRawButton(BUTTON_FIVE)) {
+            myPyramidLifter.update(rightStick.getRawButton(BUTTON_SIX));    //FIXME modify pyramid lifter to be a toggle button up/down
+            if (rightStick.getRawButton(BUTTON_SEVEN)) {
                 myShooterWheelOne.setRate(-3000);
                 myShooterWheelTwo.setRate(3000);
-            } else if (!rightStick.getRawButton(TRIGGER) && rightStick.getRawButton(BUTTON_FIVE)) {
-                myShooterWheelOne.turnOnMaxSpeed(true);
-                myShooterWheelTwo.turnOnMaxSpeed(true);
             } else {
                 myShooterWheelOne.setRate(0);
                 myShooterWheelTwo.setRate(0);
