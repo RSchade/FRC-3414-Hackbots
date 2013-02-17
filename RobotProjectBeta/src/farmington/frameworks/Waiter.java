@@ -6,7 +6,7 @@ package farmington.frameworks;
 
 /**
  *
- * @author Robotics
+ * @author 3414
  */
 public class Waiter extends LoopHandler {
     

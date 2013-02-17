@@ -12,7 +12,7 @@ import farmington.frameworks.LoopHandler;
 
 /**
  * The main robot class, runs on startup.
- * @author Riehl
+ * @author 3414
  */
 public class Main extends SimpleRobot implements IRobot {
     

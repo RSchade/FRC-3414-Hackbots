@@ -6,11 +6,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.ultimateascent.IRobot;
 
 /**
- *
- * @author RSchade and CRiehl
+ * Camera processing.
+ * @author 3414
  */
-
-
 public class Camera implements IRobot {
     
     AxisCamera myCamera;
@@ -19,6 +17,9 @@ public class Camera implements IRobot {
     private BinaryImage dataImage;
     private boolean loopControl = true;
 
+    /**
+     * Main constructor for Camera.
+     */
     public Camera() {
         if (CAMERA_ENABLED) {
             myCamera = AxisCamera.getInstance();
@@ -27,6 +28,10 @@ public class Camera implements IRobot {
         }
     }
     
+    /**
+     * Calls findParticles() once each time this is true.
+     * @param trigger button to be pressed for picture taking
+     */
     public void takePicture(boolean trigger) {
         if (trigger && loopControl) {
             findParticles();
@@ -37,6 +42,10 @@ public class Camera implements IRobot {
         }
     }
     
+    /**
+     * Looks for rectangular reflective tape and processes.
+     * @return the targetted rectangular image
+     */
     public ParticleAnalysisReport findParticles() {
         try {
             image = myCamera.getImage();

@@ -1,11 +1,11 @@
 
 package farmington.ultimateascent;
 
-import farmington.frameworks.AutoShooter;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+import farmington.frameworks.AutoShooter;
 import farmington.frameworks.Camera;
 import farmington.frameworks.DriveTrain;
-import farmington.frameworks.ShooterPiston;
 import farmington.frameworks.ShooterScrew;
 import farmington.frameworks.ShooterWheel;
 import farmington.frameworks.Waiter;
@@ -13,7 +13,7 @@ import farmington.frameworks.Waiter;
 
 /**
  * Handles all autonomous control systems.
- * @author Cooper Riehl
+ * @author 3414
  */
 public class Autonomous implements IRobot {
 
@@ -26,7 +26,7 @@ public class Autonomous implements IRobot {
     Camera autoCamera;
     DriveTrain autoDrive;
     ShooterScrew autoShooterScrew;
-    ShooterPiston autoShooterPiston;
+    Solenoid autoShooterPiston;
     ShooterWheel autoShooterWheelOne;
     ShooterWheel autoShooterWheelTwo;
     AutoShooter autoAutoShooter;
@@ -41,7 +41,7 @@ public class Autonomous implements IRobot {
      * @param setWheelTwo   pre-initialized second shooter wheel
      * @param setAutoShooter pre-initialized AutoShooter
      */
-    public Autonomous(Camera setCamera, DriveTrain setDrive, ShooterScrew setScrew, ShooterPiston setPiston, ShooterWheel setWheelOne, ShooterWheel setWheelTwo, AutoShooter setAutoShooter) {
+    public Autonomous(Camera setCamera, DriveTrain setDrive, ShooterScrew setScrew, Solenoid setPiston, ShooterWheel setWheelOne, ShooterWheel setWheelTwo, AutoShooter setAutoShooter) {
         onTargetX = false;
         onTargetY = false;
         control = false;

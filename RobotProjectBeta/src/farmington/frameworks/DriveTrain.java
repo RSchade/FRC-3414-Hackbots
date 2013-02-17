@@ -5,7 +5,7 @@ import farmington.ultimateascent.IRobot;
 
 /**
  * This class controls all four Talons on the drive train.
- * @author Cooper Riehl
+ * @author 3414
  */
 public class DriveTrain implements IRobot {
 

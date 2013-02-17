@@ -1,12 +1,11 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import farmington.ultimateascent.IRobot;
 /**
  *
- * @author: Ben Feinstein
+ * @author: 3414
  */
 public class ShooterScrew implements IRobot     //This is the lead screw. It basically uses a motor to move the shooter up and down.
 {

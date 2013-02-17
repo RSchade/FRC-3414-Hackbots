@@ -10,7 +10,7 @@ import farmington.frameworks.LoopHandler;
 
 /**
  * The main control class for our robot.
- * @author Robotics
+ * @author 3414
  */
 public class RobotControl extends BaseRobot implements IRobot {
     
@@ -30,14 +30,10 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Puts all information we need to see in the Driver Station on the SmartDashboard.
      */
     private void updateDashboard() {
-        SmartDashboard.putNumber("Left Front Motor", myDrive.getLeftFrontMotor());
-        SmartDashboard.putNumber("Left Back Motor", myDrive.getLeftBackMotor());
-        SmartDashboard.putNumber("Right Front Motor", myDrive.getRightFrontMotor());
-        SmartDashboard.putNumber("Right Back Motor", myDrive.getRightBackMotor());
         SmartDashboard.putBoolean("Screw Sensor Sensor Low", myShooterScrew.getSensorLowValue());
         SmartDashboard.putBoolean("Screw Sensor Sensor High", myShooterScrew.getSensorHighValue());
         SmartDashboard.putBoolean("Loader Sensor", myShooterLoader.getFrisbeeSensor());
-        SmartDashboard.putBoolean("Shooter Piston", myShooterPiston.getPosition());
+        SmartDashboard.putBoolean("Shooter Piston", myShooterPiston.get());
         SmartDashboard.putNumber("Current Loop Iteration", LoopHandler.getCurrentIteration());
     }
     
@@ -84,8 +80,8 @@ public class RobotControl extends BaseRobot implements IRobot {
             
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
             myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO));
-            myShooterPiston.setPosition(gamepad.getRawButton(BUTTON_EIGHT));
-            myShooterLoader.updateLoader(myShooterPiston.getPosition());
+            myShooterPiston.set(gamepad.getRawButton(BUTTON_EIGHT));
+            myShooterLoader.updateLoader(myShooterPiston.get());
             myPyramidLifter.update(rightStick.getRawButton(BUTTON_SIX));    //FIXME modify pyramid lifter to be a toggle button up/down
             if (rightStick.getRawButton(BUTTON_SEVEN)) {
                 myShooterWheelOne.setRate(-3000);

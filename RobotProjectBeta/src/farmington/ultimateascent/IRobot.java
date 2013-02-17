@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Relay;
 
 /**
  * Global variables used throughout the project are initialized here.
- * @author Cooper Riehl
+ * @author 3414
  */
 public interface IRobot {
     
@@ -98,5 +98,7 @@ public interface IRobot {
      
      //Relay constants
      Relay.Value RELAY_ON = Relay.Value.kOn;
+     Relay.Value RELAY_FORWARD = Relay.Value.kForward;
+     Relay.Value RELAY_REVERSE = Relay.Value.kReverse;
      Relay.Value RELAY_OFF = Relay.Value.kOff;
 }

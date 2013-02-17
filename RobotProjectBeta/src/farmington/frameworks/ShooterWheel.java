@@ -5,7 +5,7 @@ import farmington.ultimateascent.IRobot;
 
 /**
  * Each instance of this class controls one wheel on the shooter.
- * @author Josh Kavner and Cooper Riehl
+ * @author 3414
  */
 public class ShooterWheel implements IRobot {
 
