@@ -13,7 +13,7 @@ public class ShooterWheel implements IRobot {
     private Talon shooterMotor;
     
     /**
-     * 
+     * Main constructor for ShooterWheel.
      * @param encoderChannelA   DIO A-channel for the encoder attached to the wheel
      * @param encoderChannelB   DIO B-channel for the encoder attached to the wheel
      * @param motorSlot         PWM slot for the motor Talon

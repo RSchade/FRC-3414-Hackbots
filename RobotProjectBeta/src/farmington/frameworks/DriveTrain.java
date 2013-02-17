@@ -1,22 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.Talon;
 import farmington.ultimateascent.IRobot;
 
-
-
 /**
- *
+ * This class controls all four Talons on the drive train.
  * @author Cooper Riehl
  */
-
-// import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj.Talon;
-
 public class DriveTrain implements IRobot {
 
     Talon leftFrontMotor;
@@ -24,6 +14,13 @@ public class DriveTrain implements IRobot {
     Talon leftBackMotor;
     Talon rightBackMotor;
     
+    /**
+     * Main constructor for DriveTrain.
+     * @param leftFrontSlot     PWM slot for the front-left Talon.
+     * @param leftBackSlot      PWM slot for the back-left Talon.
+     * @param rightFrontSlot    PWM slot for the front-right Talon.
+     * @param rightBackSlot     PWM slot for the back-right Talon.
+     */
     public DriveTrain(int leftFrontSlot, int leftBackSlot, int rightFrontSlot, int rightBackSlot) {
         leftFrontMotor = new Talon(leftFrontSlot);
         leftBackMotor = new Talon(leftBackSlot);
@@ -31,11 +28,20 @@ public class DriveTrain implements IRobot {
         rightBackMotor = new Talon(rightBackSlot);
     }
     
-    public void setSpeed(double leftSpeedInverse, double rightSpeed) {
-        double leftSpeed = -1*leftSpeedInverse;
+    /**
+     * Sets the speed of the left and right sides relative to battery voltage.
+     * @param leftSpeed     
+     * @param rightSpeed    
+     */
+    public void setSpeed(double leftSpeed, double rightSpeed) {
         
-        //deadzone
-        if (leftSpeed < -0.1 || leftSpeed > 0.1) {
+        /*
+         * Since the left side Talons are backwards, we need to invert the
+         * input value.
+         */
+        leftSpeed = -leftSpeed;
+        
+        if (leftSpeed < -JOYSTICK_DEADZONE || leftSpeed > JOYSTICK_DEADZONE) {
             leftFrontMotor.set(leftSpeed);
             leftBackMotor.set(leftSpeed);
         } else {
@@ -43,7 +49,7 @@ public class DriveTrain implements IRobot {
             leftBackMotor.set(0);
         }
         
-        if (rightSpeed < -0.1 || rightSpeed > 0.1) {
+        if (rightSpeed < -JOYSTICK_DEADZONE || rightSpeed > JOYSTICK_DEADZONE) {
             rightFrontMotor.set(rightSpeed);
             rightBackMotor.set(rightSpeed);
         } else {
@@ -52,18 +58,34 @@ public class DriveTrain implements IRobot {
         }
     }
     
+    /**
+     * 
+     * @return the speed of the front-left motor relative to battery voltage
+     */
     public double getLeftFrontMotor() {
         return leftFrontMotor.get();
     }
     
+    /**
+     * 
+     * @return the speed of the back-left motor relative to battery voltage
+     */
     public double getLeftBackMotor() {
         return leftBackMotor.get();
     }
     
+    /**
+     * 
+     * @return the speed of the front-right motor relative to battery voltage
+     */
     public double getRightFrontMotor() {
         return rightFrontMotor.get();
     }
     
+    /**
+     * 
+     * @return the speed of the back-right motor relative to battery voltage
+     */
     public double getRightBackMotor() {
         return rightBackMotor.get();
     }

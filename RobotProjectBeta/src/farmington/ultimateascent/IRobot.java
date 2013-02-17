@@ -16,6 +16,7 @@ public interface IRobot {
      double TIME_DELAY = 0.020; // 20 millisecond loop
      boolean CAMERA_ENABLED = true; // Change for debugging without camera
      int SHOOTER_SPEED = -3000;
+     double JOYSTICK_DEADZONE = 0.1;
     
      double SPEED_FORWARD_FULL = 1.0;  //Motor speed values
      double SPEED_FORWARD_HALF = 0.5;
