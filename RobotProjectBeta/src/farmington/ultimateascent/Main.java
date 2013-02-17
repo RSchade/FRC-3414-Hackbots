@@ -25,12 +25,13 @@ public class Main extends SimpleRobot implements IRobot {
     }
     
     /**
-     * Runs once when robot turns on.
+     * Runs once when the robot turns on.
      */
     public void robotInit() {
         System.out.println("DEBUG: robot intialized"); //DEBUG
         myCompressor.start();
         SmartDashboard.putBoolean("Compressor state", myCompressor.enabled()); //DEBUG
+        SmartDashboard.putBoolean("Pressure Switch value", myCompressor.getPressureSwitchValue()); //DEBUG
     }
     
     /**
@@ -49,6 +50,8 @@ public class Main extends SimpleRobot implements IRobot {
         
         //Main control loop.
         while (isOperatorControl() && isEnabled()) {
+            SmartDashboard.putBoolean("Compressor state", myCompressor.enabled()); //DEBUG
+            SmartDashboard.putBoolean("Pressure Switch value", myCompressor.getPressureSwitchValue()); //DEBUG
             
             //Updates the global loop handler with our current loop iteration.
             LoopHandler.updateLoopCount(loopCount);
@@ -75,13 +78,13 @@ public class Main extends SimpleRobot implements IRobot {
     }
     
     /**
-     * Runs periodically while the bot is disabled.
+     * Runs periodically while the robot is disabled.
      */
     public void disabled() {
     }
     
     /**
-     * Runs like operatorControl(), but in test mode only.
+     * Runs once each time the robot enters test mode.
      */
     public void test() {
     }

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.frameworks.LoopHandler;
 
 /**
- *
+ * The main control class for our robot.
  * @author Robotics
  */
 public class RobotControl extends BaseRobot implements IRobot {
@@ -17,12 +17,18 @@ public class RobotControl extends BaseRobot implements IRobot {
     boolean onTargetX;
     boolean onTargetY;
 
+    /**
+     * Main constructor for RobotControl.
+     */
     public RobotControl() {
         super();
         onTargetX = false;
         onTargetY = false;
     }
     
+    /**
+     * Puts all information we need to see in the Driver Station on the SmartDashboard.
+     */
     private void updateDashboard() {
         SmartDashboard.putNumber("Left Front Motor", myDrive.getLeftFrontMotor());
         SmartDashboard.putNumber("Left Back Motor", myDrive.getLeftBackMotor());
@@ -35,6 +41,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Current Loop Iteration", LoopHandler.getCurrentIteration());
     }
     
+    /**
+     * Updates systems based on the camera rectangle target.
+     */
     public void autoAim() {
         onTargetX = false;
         onTargetY = false;
@@ -59,23 +68,29 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
     }
     
+    /**
+     * Redirect method for autonomous control.
+     */
     public void autonomous() {
         myAutonomous.mainControl();
     }
     
+    /**
+     * Updates important systems, called every 20 milliseconds in Main.java.
+     */
     public void twentyMSLoop() {
         //This locks us out of control if autoAim is active
-        if (!leftStick.getRawButton(LEFT_BUTTON_EIGHT)) {
+        if (!leftStick.getRawButton(BUTTON_EIGHT)) {
             
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
-            myShooterScrew.setMovement(leftStick.getRawButton(LEFT_BUTTON_THREE), leftStick.getRawButton(LEFT_BUTTON_TWO));
-            myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
+            myShooterScrew.setMovement(leftStick.getRawButton(BUTTON_THREE), leftStick.getRawButton(BUTTON_TWO));
+            myShooterPiston.setPosition(leftStick.getRawButton(TRIGGER));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
-            myPyramidLifter.update(rightStick.getRawButton(RIGHT_BUTTON_TWO));
-            if (rightStick.getRawButton(RIGHT_TRIGGER) && !rightStick.getRawButton(RIGHT_BUTTON_FIVE)) {
+            myPyramidLifter.update(rightStick.getRawButton(BUTTON_TWO));
+            if (rightStick.getRawButton(TRIGGER) && !rightStick.getRawButton(BUTTON_FIVE)) {
                 myShooterWheelOne.setRate(-3000);
                 myShooterWheelTwo.setRate(3000);
-            } else if (!rightStick.getRawButton(RIGHT_TRIGGER) && rightStick.getRawButton(RIGHT_BUTTON_FIVE)) {
+            } else if (!rightStick.getRawButton(TRIGGER) && rightStick.getRawButton(BUTTON_FIVE)) {
                 myShooterWheelOne.turnOnMaxSpeed(true);
                 myShooterWheelTwo.turnOnMaxSpeed(true);
             } else {
@@ -87,8 +102,12 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
     }
     
+    /**
+     * Called every 100 milliseconds in Main.java.
+     */
     public void hundredMSLoop() {
-        if (leftStick.getRawButton(LEFT_BUTTON_EIGHT) && CAMERA_ENABLED) {
+        //AutoAim logic goes here because it involves camera logic.
+        if (leftStick.getRawButton(BUTTON_EIGHT) && CAMERA_ENABLED) {
             autoAim();
             if (onTargetX && onTargetY) {
                 SmartDashboard.putBoolean("Ready for shooting!?", true);
@@ -98,7 +117,11 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
     }
     
+    /**
+     * Called every second in Main.java.
+     */
     public void thousandMSLoop() {
+        //Camera updating goes here so as not to lag the robot.
         myCamera.findParticles();
     }
 }

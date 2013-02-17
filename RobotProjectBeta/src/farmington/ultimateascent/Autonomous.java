@@ -12,9 +12,8 @@ import farmington.frameworks.Waiter;
 
 
 /**
- * 
+ * Handles all autonomous control systems.
  * @author Cooper Riehl
- * @version 1.0
  */
 public class Autonomous implements IRobot {
 
@@ -32,9 +31,17 @@ public class Autonomous implements IRobot {
     ShooterWheel autoShooterWheelTwo;
     AutoShooter autoAutoShooter;
     
-    
+    /**
+     * Main constructor for Autonomous.
+     * @param setCamera     pre-initialized camera
+     * @param setDrive      pre-initialized drive train
+     * @param setScrew      pre-initialized shooter screw
+     * @param setPiston     pre-initialized shooter piston
+     * @param setWheelOne   pre-initialized first shooter wheel
+     * @param setWheelTwo   pre-initialized second shooter wheel
+     * @param setAutoShooter pre-initialized AutoShooter
+     */
     public Autonomous(Camera setCamera, DriveTrain setDrive, ShooterScrew setScrew, ShooterPiston setPiston, ShooterWheel setWheelOne, ShooterWheel setWheelTwo, AutoShooter setAutoShooter) {
-        super();
         onTargetX = false;
         onTargetY = false;
         control = false;
@@ -50,6 +57,9 @@ public class Autonomous implements IRobot {
         autoAutoShooter = setAutoShooter;
     }
     
+    /**
+     * Main control loop, called in Main.java.
+     */
     public void mainControl() {
         autoAim();
         if (onTargetX && onTargetY) {
@@ -57,6 +67,9 @@ public class Autonomous implements IRobot {
         }
     }
     
+    /**
+     * Auto aiming system.
+     */
     public void autoAim() {
         onTargetX = false;
         onTargetY = false;

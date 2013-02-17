@@ -15,7 +15,7 @@ import farmington.frameworks.ShooterScrew;
 import farmington.frameworks.ShooterWheel;
 
 /**
- *
+ * Main class which initializes all necessary systems.
  * @author Robotics
  */
 public class BaseRobot implements IRobot {
@@ -32,6 +32,9 @@ public class BaseRobot implements IRobot {
     protected AutoShooter myAutoShooter;
     protected Autonomous myAutonomous;
     
+    /**
+     * Main constructor for BaseRobot.
+     */
     public BaseRobot() {
         myCamera = new Camera();
         leftStick = new Joystick(USB_ONE);
@@ -47,6 +50,9 @@ public class BaseRobot implements IRobot {
         myAutonomous = new Autonomous(myCamera, myDrive, myShooterScrew, myShooterPiston, myShooterWheelOne, myShooterWheelTwo, myAutoShooter);
     }
     
+    /**
+     * Frees all memory.
+     */
     public void free() {
         myCamera = null;
         leftStick = null;

@@ -7,10 +7,9 @@ package farmington.ultimateascent;
 import edu.wpi.first.wpilibj.Relay;
 
 /**
- *
+ * Global variables used throughout the project are initialized here.
  * @author Cooper Riehl
  */
-
 public interface IRobot {
     
      double TIME_DELAY = 0.020; // 20 millisecond loop
@@ -66,32 +65,27 @@ public interface IRobot {
      int HORIZ_AXIS = 1;       //Joystick axis
      int VERTICAL_AXIS = 2;
     
-     int RIGHT_TRIGGER = 1;    //Joystick buttons
-     int RIGHT_BUTTON_TWO = 2;
-     int RIGHT_BUTTON_THREE = 3;
-     int RIGHT_BUTTON_FIVE = 5;
-     int RIGHT_BUTTON_NINE = 9;
-     int LEFT_TRIGGER = 1;
-     int LEFT_BUTTON_TWO = 2;
-     int LEFT_BUTTON_THREE = 3;
-     int LEFT_BUTTON_EIGHT = 8;
+     //Joystick buttons
+     int TRIGGER = 1;
+     int BUTTON_TWO = 2;
+     int BUTTON_THREE = 3;
+     int BUTTON_FIVE = 5;
+     int BUTTON_EIGHT = 8;
+     int BUTTON_NINE = 9;
     
+     //Camera stuff
      double PARTICLE_AREA_THRESHOLD = 2000;
      int TRUE_RECT_HEIGHT = 11; //inches
-    
-     double MAX_ENCODER_VALUE = 1000.0;  //Encoder values
-     double MIN_ENCODER_VALUE = 0.0;
      
-     Relay.Value RELAY_ON = Relay.Value.kOn;
-     Relay.Value RELAY_OFF = Relay.Value.kOff;
-    
-     int WHEEL_ONE = 1;         //Shooter wheel IDs
-     int WHEEL_TWO = 2;
-     
-     int RED_MIN = 0;          //Threshold levels for Red, Green and Blue
+     //Camera threshold levels for RGB
+     int RED_MIN = 0;
      int RED_MAX = 45;
      int GRN_MIN = 25;
      int GRN_MAX = 255;
      int BLU_MIN = 0;
      int BLU_MAX = 47;
+     
+     //Relay constants
+     Relay.Value RELAY_ON = Relay.Value.kOn;
+     Relay.Value RELAY_OFF = Relay.Value.kOff;
 }
