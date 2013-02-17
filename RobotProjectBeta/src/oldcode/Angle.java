@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package deprecated;
+package oldcode;
 
 import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.AnalogChannel;

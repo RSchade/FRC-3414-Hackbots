@@ -2,7 +2,7 @@
 /*                         Shooter/launcher/aimer/ish                         */
 /*                                 Controls                                   */
 /*----------------------------------------------------------------------------*/
-package deprecated;
+package oldcode;
 
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Joystick;

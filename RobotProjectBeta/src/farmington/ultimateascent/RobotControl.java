@@ -72,9 +72,12 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterPiston.setPosition(leftStick.getRawButton(LEFT_TRIGGER));
             myShooterLoader.updateLoader(myShooterPiston.getPosition());
             myPyramidLifter.update(rightStick.getRawButton(RIGHT_BUTTON_TWO));
-            if (rightStick.getRawButton(RIGHT_TRIGGER)) {
+            if (rightStick.getRawButton(RIGHT_TRIGGER) && !rightStick.getRawButton(RIGHT_BUTTON_FIVE)) {
                 myShooterWheelOne.setRate(-3000);
                 myShooterWheelTwo.setRate(3000);
+            } else if (!rightStick.getRawButton(RIGHT_TRIGGER) && rightStick.getRawButton(RIGHT_BUTTON_FIVE)) {
+                myShooterWheelOne.turnOnMaxSpeed(true);
+                myShooterWheelTwo.turnOnMaxSpeed(true);
             } else {
                 myShooterWheelOne.setRate(0);
                 myShooterWheelTwo.setRate(0);

@@ -18,16 +18,13 @@ public class Main extends SimpleRobot implements IRobot {
         myCompressor = new Compressor(DIO_FOURTEEN, RELAY_TWO);
     }
     
-    public void robotInit() {
-        myCompressor.start();
-    }
-    
     public void autonomous() {
     }
 
     public void operatorControl() {
         
         int loopCount = 0;
+        myCompressor.start();
         
         while (isOperatorControl() && isEnabled()) {
             LoopHandler.updateLoopCount(loopCount);
@@ -50,7 +47,6 @@ public class Main extends SimpleRobot implements IRobot {
             loopCount++;
             Timer.delay(TIME_DELAY);
         }
-        myRobotControl.free();
     }
     
     public void disabled() {

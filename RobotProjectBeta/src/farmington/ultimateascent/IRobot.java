@@ -68,6 +68,7 @@ public interface IRobot {
      int RIGHT_TRIGGER = 1;    //Joystick buttons
      int RIGHT_BUTTON_TWO = 2;
      int RIGHT_BUTTON_THREE = 3;
+     int RIGHT_BUTTON_FIVE = 5;
      int RIGHT_BUTTON_NINE = 9;
      int LEFT_TRIGGER = 1;
      int LEFT_BUTTON_TWO = 2;

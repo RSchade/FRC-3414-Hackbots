@@ -27,6 +27,12 @@ public class ShooterWheel implements IRobot {
         }
     }
     
+    public void turnOnMaxSpeed(boolean on) {
+        if (on) {
+            shooterMotor.set(1.0);
+        }
+    }
+    
     public void setRate(int rate) {
         shooterPID.setTargetRate(rate);
     }

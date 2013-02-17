@@ -1,5 +1,5 @@
 
-package deprecated;
+package oldcode;
 
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Timer;

@@ -16,6 +16,7 @@ public class ShooterLoader implements IRobot {
     Relay loaderWheel;
     DIOSensor loaderSensor;
     boolean bayIsFull;
+    boolean isFrisbeePassing;
     Waiter loaderControl;
     
     public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot) {
@@ -26,7 +27,11 @@ public class ShooterLoader implements IRobot {
     }
     
     public void updateLoader(boolean pistonIsExtended) {
-        if (loaderSensor.get() && !bayIsFull) {
+        //Inverts input from the loader sensor
+        isFrisbeePassing = !loaderSensor.get();
+        
+        
+        if (isFrisbeePassing && !bayIsFull) {
             loaderWheel.set(RELAY_ON);
             loaderControl.waitXLoops(20);   //FIXME: this value needs to be tuned for X number of ticks for one frisbee to be loaded
         }
@@ -34,7 +39,7 @@ public class ShooterLoader implements IRobot {
         if (bayIsFull) {
             bayIsFull = !pistonIsExtended;
         } else {
-            bayIsFull = loaderSensor.get();
+            bayIsFull = isFrisbeePassing;
         }
         
         if (loaderControl.timeUp()) {
