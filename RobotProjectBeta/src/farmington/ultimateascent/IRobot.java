@@ -20,11 +20,9 @@ public interface IRobot {
     
      //Motor speed values
      double SPEED_FORWARD_FULL = 1.0;
-     double SPEED_FORWARD_THREE_QUARTERS = .75;
      double SPEED_FORWARD_HALF = 0.5;
      double SPEED_STOP = 0.0;
      double SPEED_REVERSE_HALF = -0.5;
-     double SPEED_REVERSE_QUARTER = -0.25;
      double SPEED_REVERSE_FULL = -1.0;
      double SPEED_FORWARD_TESTING = 0.05;
      double SPEED_REVERSE_TESTING = -0.05;

@@ -19,6 +19,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     boolean onTargetY;
     boolean liftIsUp;
     boolean liftControl;
+    boolean winning;
 
     /**
      * Main constructor for RobotControl.
@@ -29,6 +30,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         onTargetY = false;
         liftIsUp = false;
         liftControl = false;
+        winning = false;
     }
     
     /**
@@ -108,6 +110,7 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public void twentyMSLoop() {
         //This locks us out of control if autoAim is active
+        if (!winning) {
         if (!gamepad.getRawButton(BUTTON_NINE)) {
             
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
@@ -139,6 +142,19 @@ public class RobotControl extends BaseRobot implements IRobot {
             }
             
             updateDashboard();
+            
+            //WINNING
+            if (rightStick.getRawButton(BUTTON_ELEVEN)) {
+                winning = true;
+            }
+        }
+        } else {
+            myShooterScrew.win();
+            myDrive.win();
+            
+            if (rightStick.getRawButton(BUTTON_ELEVEN)) {
+                winning = false;
+            }
         }
     }
     
