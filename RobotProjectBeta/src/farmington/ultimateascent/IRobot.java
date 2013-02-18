@@ -20,13 +20,15 @@ public interface IRobot {
     
      //Motor speed values
      double SPEED_FORWARD_FULL = 1.0;
+     double SPEED_FORWARD_THREE_QUARTERS = .75;
      double SPEED_FORWARD_HALF = 0.5;
      double SPEED_STOP = 0.0;
      double SPEED_REVERSE_HALF = -0.5;
+     double SPEED_REVERSE_QUARTER = -0.25;
      double SPEED_REVERSE_FULL = -1.0;
      double SPEED_FORWARD_TESTING = 0.05;
      double SPEED_REVERSE_TESTING = -0.05;
-    
+     
      //PWM slots
      int PWM_ONE = 1;
      int PWM_TWO = 2;
@@ -67,6 +69,7 @@ public interface IRobot {
      int BUTTON_EIGHT = 8;
      int BUTTON_NINE = 9;
      int BUTTON_TEN = 10;
+     int BUTTON_ELEVEN = 11;
      
      //DIO slots
      int DIO_ONE = 1;
