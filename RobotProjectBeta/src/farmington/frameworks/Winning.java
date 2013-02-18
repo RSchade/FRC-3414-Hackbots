@@ -11,9 +11,11 @@ public class Winning extends BaseRobot implements IRobot {
     int STILL = 1;
     Talon screwLift = new Talon(PWM_FIVE);
     WinningMoving moving = new WinningMoving();
+    Strobe light = new Strobe();
 
     public void Spinning() {
         moving.Movement();
+        light.lights();
         while (true) {
             if (leftStick.getRawButton(BUTTON_ELEVEN) == true) {
                 STILL = 0;
