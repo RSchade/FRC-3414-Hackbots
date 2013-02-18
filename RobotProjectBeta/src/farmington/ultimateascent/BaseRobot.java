@@ -30,7 +30,6 @@ public class BaseRobot implements IRobot {
     protected ShooterLoader myShooterLoader;
     protected PyramidLifter myPyramidLifter;
     protected AutoShooter myAutoShooter;
-    protected Autonomous myAutonomous;
     
     /**
      * Main constructor for BaseRobot.
@@ -46,23 +45,7 @@ public class BaseRobot implements IRobot {
         myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SIX, 0.3, 0, 0);
         myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SEVEN, 0.3, 0, 0);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
-        myPyramidLifter = new PyramidLifter(SOLENOID_TWO, SOLENOID_THREE, SOLENOID_FOUR, SOLENOID_FIVE);
+        myPyramidLifter = new PyramidLifter(SOLENOID_TWO, SOLENOID_THREE);
         myAutoShooter = new AutoShooter();
-        myAutonomous = new Autonomous(myCamera, myDrive, myShooterScrew, myShooterPiston, myShooterWheelOne, myShooterWheelTwo, myAutoShooter);
-    }
-    
-    /**
-     * Frees all memory.
-     */
-    public void free() {
-        myCamera = null;
-        leftStick = null;
-        rightStick = null;
-        myDrive = null;
-        myShooterScrew = null;
-        myShooterPiston = null;
-        myShooterWheelOne = null;
-        myShooterWheelTwo = null;
-        myShooterLoader = null;
     }
 }

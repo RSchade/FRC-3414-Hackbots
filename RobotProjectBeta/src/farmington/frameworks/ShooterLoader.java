@@ -14,11 +14,16 @@ import farmington.ultimateascent.IRobot;
  */
 public class ShooterLoader implements IRobot {
     
-    Relay loaderWheel;
-    DigitalInput loaderSensor;
-    boolean bayIsFull;
-    boolean isFrisbeeDetected;
-    Waiter loaderControl;
+    private Relay loaderWheel;
+    private DigitalInput loaderSensor;
+    private boolean bayIsFull;
+    private boolean frisbeeIsDetected;
+    private boolean logicControlA;
+    //state: 0 = inactive, 1 = waiting for frisbee, 2 = loading
+    private int state;
+    private Waiter loaderControl;
+    private boolean logicControlB;
+    private boolean logicControlC;
     
     /**
      * Main constructor for ShooterLoader.
@@ -29,7 +34,11 @@ public class ShooterLoader implements IRobot {
         loaderWheel = new Relay(loaderWheelRelay);
         loaderSensor = new DigitalInput(loaderSensorSlot);
         bayIsFull = false;
+        logicControlA = false;
+        state = 0;
         loaderControl = new Waiter();
+        logicControlB = false;
+        logicControlC = true;
     }
     
     /**
@@ -38,24 +47,35 @@ public class ShooterLoader implements IRobot {
      */
     public void updateLoader(boolean pistonIsExtended) {
         //Inverts input from the loader sensor because sensor normally returns true.
-        isFrisbeeDetected = !loaderSensor.get();
+        frisbeeIsDetected = !loaderSensor.get();
         
-        
-        if (isFrisbeeDetected && !bayIsFull) {
-            loaderWheel.set(RELAY_ON);
-            loaderControl.waitXLoops(20);   //FIXME: this value needs to be tuned for X number of ticks for one frisbee to be loaded
-        }
-        
-        if (bayIsFull) {
-            bayIsFull = !pistonIsExtended;
+        if (pistonIsExtended) {
+            logicControlA = true;
+            logicControlC = false;
         } else {
-            bayIsFull = isFrisbeeDetected;
-        }
-        
-        if (loaderControl.timeUp()) {
-            loaderWheel.set(RELAY_OFF);
-        } else {
-            loaderWheel.set(RELAY_FORWARD);
+            if (logicControlA) {
+                loaderControl.waitXLoops(30);
+                state = 0;
+                logicControlA = false;
+                logicControlB = true;
+            }
+            if (logicControlB) {
+                if (loaderControl.timeUp()) {
+                    state = 1;
+                    logicControlB = false;
+                    logicControlC = true;
+                }
+            }
+            if (logicControlC) {
+                if (state == 1 && frisbeeIsDetected) {
+                    loaderWheel.set(RELAY_ON);
+                    loaderControl.waitXLoops(20);
+                    state = 2;
+                } else if (loaderControl.timeUp() && state == 2) {
+                    loaderWheel.set(RELAY_OFF);
+                    state = 0;
+                }
+            }
         }
     }
     

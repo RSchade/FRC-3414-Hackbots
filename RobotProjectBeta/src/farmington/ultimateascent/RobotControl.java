@@ -16,6 +16,8 @@ public class RobotControl extends BaseRobot implements IRobot {
     
     boolean onTargetX;
     boolean onTargetY;
+    boolean liftIsUp;
+    boolean liftControl;
 
     /**
      * Main constructor for RobotControl.
@@ -24,6 +26,8 @@ public class RobotControl extends BaseRobot implements IRobot {
         super();
         onTargetX = false;
         onTargetY = false;
+        liftIsUp = false;
+        liftControl = false;
     }
     
     /**
@@ -68,7 +72,6 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
-        myAutonomous.mainControl();
     }
     
     /**
@@ -80,15 +83,30 @@ public class RobotControl extends BaseRobot implements IRobot {
             
             myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
             myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO));
-            myShooterPiston.set(gamepad.getRawButton(BUTTON_EIGHT));
+            myShooterPiston.set(!gamepad.getRawButton(BUTTON_EIGHT));
             myShooterLoader.updateLoader(myShooterPiston.get());
-            myPyramidLifter.update(rightStick.getRawButton(BUTTON_SIX));    //FIXME modify pyramid lifter to be a toggle button up/down
-            if (rightStick.getRawButton(BUTTON_SEVEN)) {
+            
+            //Shooter Wheel control
+            if (gamepad.getRawButton(BUTTON_SEVEN)) {
                 myShooterWheelOne.setRate(-3000);
                 myShooterWheelTwo.setRate(3000);
             } else {
                 myShooterWheelOne.setRate(0);
                 myShooterWheelTwo.setRate(0);
+            }
+            
+            //Pyramid lifter logic
+            if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {
+                liftIsUp = !liftIsUp;
+                liftControl = false;
+            }
+            if (!rightStick.getRawButton(BUTTON_EIGHT)) {
+                liftControl = true;
+            }
+            if (liftIsUp) {
+                myPyramidLifter.goUp();
+            } else {
+                myPyramidLifter.goDown();
             }
             
             updateDashboard();

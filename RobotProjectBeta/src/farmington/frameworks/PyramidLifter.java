@@ -12,46 +12,28 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  */
 public class PyramidLifter {
     
-    DoubleSolenoid liftArmA;
-    DoubleSolenoid liftArmB;
+    DoubleSolenoid liftArm;
     
     /**
      * Main constructor for PyramidLifter.
-     * @param liftArmAForwardChannel forward solenoid channel for first piston
-     * @param liftArmAReverseChannel reverse solenoid channel for first piston
-     * @param liftArmBForwardChannel forward solenoid channel for second piston
-     * @param liftArmBReverseChannel reverse solenoid channel for second piston
+     * @param liftArmForwardChannel forward solenoid channel for first piston
+     * @param liftArmReverseChannel reverse solenoid channel for first piston
      */
-    public PyramidLifter(int liftArmAForwardChannel, int liftArmAReverseChannel, int liftArmBForwardChannel, int liftArmBReverseChannel) {
-        liftArmA = new DoubleSolenoid(liftArmAForwardChannel, liftArmAReverseChannel);
-        liftArmB = new DoubleSolenoid(liftArmBForwardChannel, liftArmBReverseChannel);
+    public PyramidLifter(int liftArmForwardChannel, int liftArmReverseChannel) {
+        liftArm = new DoubleSolenoid(liftArmForwardChannel, liftArmReverseChannel);
     }
     
     /**
      * Moves the lifter arm up.
      */
-    private void goUp() {
-        liftArmA.set(DoubleSolenoid.Value.kForward);
-        liftArmB.set(DoubleSolenoid.Value.kForward);
+    public void goUp() {
+        liftArm.set(DoubleSolenoid.Value.kForward);
     }
     
     /**
      * Moves the lifter arm down.
      */
-    private void goDown() {
-        liftArmA.set(DoubleSolenoid.Value.kReverse);
-        liftArmB.set(DoubleSolenoid.Value.kReverse);
-    }
-    
-    /**
-     * Sets the lifter to the value of a button.
-     * @param up joystick button connected to on/off value
-     */
-    public void update(boolean up) {
-        if (up) {
-            goUp();
-        } else {
-            goDown();
-        }
+    public void goDown() {
+        liftArm.set(DoubleSolenoid.Value.kReverse);
     }
 }
