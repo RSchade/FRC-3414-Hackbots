@@ -1,0 +1,9 @@
+To-do notes:
+
+
+We want the following values:
+
+Screw Sensor Low: False when safe, true when screw is at low value
+Screw Sensor High: False when safe, true when screw is at high value
+Shooter Piston: True when extended, False when retracted
+Loader Sensor: True when encountering a frisbee, False when clear
