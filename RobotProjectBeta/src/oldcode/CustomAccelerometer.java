@@ -3,7 +3,7 @@
  * and open the template in the editor.
  * Created by Shrihari Bhaskaramurthi
  */
-package deprecated;
+package oldcode;
 
 import edu.wpi.first.wpilibj.Accelerometer;
 

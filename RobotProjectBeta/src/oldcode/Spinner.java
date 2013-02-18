@@ -1,4 +1,4 @@
-package deprecated;                    // Needs to be reset:
+package oldcode;                    // Needs to be reset:
                                                             // THREE_SECONDS;  solenoid, talon, and joystick buttons need to be changed
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
