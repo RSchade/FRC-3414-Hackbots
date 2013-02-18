@@ -4,6 +4,7 @@
  */
 package farmington.ultimateascent;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.frameworks.LoopHandler;
@@ -72,6 +73,34 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
+        double time = 0.0;
+        while (!onTargetX || !onTargetY){
+           autoAim();
+           Timer.delay(0.020);
+           time += 0.020;
+           if (time >= 5.0) {
+               onTargetX = true;
+               onTargetY = true;
+           }
+        }
+        myShooterWheelOne.setRate(-3000);
+        myShooterWheelTwo.setRate(3000);
+        while(!myShooterWheelOne.isOnTarget() && !myShooterWheelTwo.isOnTarget())
+        {
+            
+        }
+        int shootingCount = 1;
+        while (shootingCount < 3){
+            myShooterPiston.set(false);
+            Timer.delay(0.5);
+            myShooterPiston.set(true);
+            Timer.delay(0.5);
+            myShooterLoader.turnOn();
+            Timer.delay(1.0);
+            myShooterLoader.turnOff();
+            //Shoot 3 times and turns off 3 times//
+            shootingCount++;
+        }
     }
     
     /**
@@ -118,7 +147,7 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public void hundredMSLoop() {
         //AutoAim logic goes here because it involves camera logic.
-        if (leftStick.getRawButton(BUTTON_EIGHT) && CAMERA_ENABLED) {
+        if (gamepad.getRawButton(BUTTON_NINE) && CAMERA_ENABLED) {
             autoAim();
             if (onTargetX && onTargetY) {
                 SmartDashboard.putBoolean("Ready for shooting!?", true);

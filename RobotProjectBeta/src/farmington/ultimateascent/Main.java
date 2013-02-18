@@ -38,6 +38,7 @@ public class Main extends SimpleRobot implements IRobot {
      * Runs once each time the robot enters autonomous mode.
      */
     public void autonomous() {
+        myRobotControl.autonomous();
     }
 
     /**

@@ -11,16 +11,19 @@ PWM 7           | Shooter Second Motor (second motor the frisbees pass through)
 Joystick 1      | Left Main Control Stick
 Joystick 2      | Right Main Control Stick
                 |
-rightStick      | 
-_TRIGGER        | Flash LEDs
-_BUTTON_TWO     | Shooter Wheel Control
-_BUTTON_THREE   | Turn on shooter wheels
+rightStick      |
+AXIS            | Right side drive train
+BUTTON_EIGHT    | Pyramid Lifter
                 | 
 leftStick       |
-_TRIGGER        | Extend shooter piston
-_BUTTON_TWO     | Move Shooter down
-_BUTTON_THREE   | Move Shooter up
-_BUTTON_EIGHT   | Auto Shooter
+AXIS            | Left side drive train
+                |
+gamepad         |
+BUTTON_FOUR     | Move shooter screw up
+BUTTON_TWO      | Move shooter screw down
+BUTTON_NINE     | Auto Aim
+BUTTON_SEVEN    | Shooter Wheels On
+BUTTON_EIGHT    | Shooter Piston
                 | 
 DIO 1           | Loading Wheel Sensor
 DIO 2           | Shooter Wheel One Encoder A Channel

@@ -79,6 +79,14 @@ public class ShooterLoader implements IRobot {
         }
     }
     
+    public void turnOn() {
+        loaderWheel.set(RELAY_ON);
+    }
+    
+    public void turnOff() {
+        loaderWheel.set(RELAY_OFF);
+    }
+    
     /**
      * Checks to see if there is a frisbee waiting to be loaded.
      * @return true if the limit switch is tripped
