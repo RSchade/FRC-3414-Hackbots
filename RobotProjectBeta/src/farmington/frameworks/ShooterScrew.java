@@ -14,6 +14,7 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
     private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
     PID angleController;
+    double winningSpeed;
 
     /**
      * Main constructor for ShooterScrew.
@@ -28,6 +29,7 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
         sensorLow = new DigitalInput(dioSlotLow);
         sensorHigh = new DigitalInput(dioSlotHigh);
         angleController = new PID(encoderSlotA, encoderSlotB, screwLift, 0.0, 0.0, 0.0);
+        winningSpeed = SPEED_FORWARD_FULL;
     }
     
     /**
@@ -55,6 +57,15 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
         } else {
             screwLift.set(SPEED_STOP);
         }
+    }
+    
+    public void win() {
+        if (sensorHigh.get() == true) {
+            winningSpeed = SPEED_REVERSE_FULL;
+        } else if (sensorLow.get() == true) {
+            winningSpeed = SPEED_FORWARD_FULL;
+        }
+        this.setSpeed(winningSpeed);
     }
     
     public double getEncoderValue() {

@@ -58,6 +58,13 @@ public class DriveTrain implements IRobot {
         }
     }
     
+    public void win() {
+        leftFrontMotor.set(0.5);
+        leftBackMotor.set(0.5);
+        rightFrontMotor.set(-0.5);
+        rightBackMotor.set(-0.5);
+    }
+    
     /**
      * 
      * @return the speed of the front-left motor relative to battery voltage
