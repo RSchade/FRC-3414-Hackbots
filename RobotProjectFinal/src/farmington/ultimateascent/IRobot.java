@@ -20,8 +20,8 @@ public interface IRobot {
      
      //PID tuning values
      double PID_TOLERANCE = 0.02; //2% tolerance
-     double KP = 100.0;
-     double KI = 0.0;
+     double KP = 0.1;
+     double KI = 0.001;
      double KD = 0.0;
     
      //Motor speed values
@@ -88,6 +88,8 @@ public interface IRobot {
      int DIO_SEVEN = 7;
      int DIO_EIGHT = 8;
      int DIO_NINE = 9;
+     int DIO_TWELVE = 12;
+     int DIO_THIRTEEN = 13;
      int DIO_FOURTEEN = 14;
       
      //Relay channels

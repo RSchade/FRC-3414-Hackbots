@@ -52,7 +52,7 @@ public class ShooterLoader implements IRobot {
             logicControlC = false;
         } else {
             if (logicControlA) {
-                loaderControl.waitXLoops(25);   //Waits 500 ms for the loading bay to be ready
+                loaderControl.waitXLoops(22);   //Waits 440 ms for the loading bay to be ready
                 state = 0;
                 logicControlA = false;
                 logicControlB = true;
@@ -71,6 +71,11 @@ public class ShooterLoader implements IRobot {
                 if (loaderControl.timeUp() && state == 2) {
                     this.turnOff();
                     state = 0;
+                }
+                if (manualTrigger) {
+                    this.turnOn();
+                } else {
+                    this.turnOff();
                 }
             }
         }

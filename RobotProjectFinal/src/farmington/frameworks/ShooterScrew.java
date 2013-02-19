@@ -2,7 +2,6 @@ package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
 import farmington.ultimateascent.IRobot;
 
@@ -15,7 +14,6 @@ public class ShooterScrew implements IRobot {
     private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
     Encoder screwEncoder;
-    PIDController screwPID;
 
     /**
      * Main constructor for ShooterScrew.

@@ -40,6 +40,8 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Shooter Wheel One Rate", myShooterWheelOne.getRate());
         SmartDashboard.putNumber("Shooter Wheel Two Rate", myShooterWheelTwo.getRate());
         SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getAngle());
+        SmartDashboard.putBoolean("Screw Limit High", myShooterScrew.getSensorHighValue());
+        SmartDashboard.putBoolean("Screw Limit Low", myShooterScrew.getSensorLowValue());
     }
     
     /**
@@ -143,19 +145,21 @@ public class RobotControl extends BaseRobot implements IRobot {
             
             //Shooter Wheel control
             //DEBUG uncomment this when you have encoders fixed
-            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-                myShooterWheelOne.setRate(-3000);
-                myShooterWheelTwo.setRate(3000);
-            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-                myShooterWheelOne.setRate(-1500);
-                myShooterWheelTwo.setRate(1500);
-            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
-                myShooterWheelOne.setRate(-1);
-                myShooterWheelTwo.setRate(1);
-            } else {
-                myShooterWheelOne.setRate(0);
-                myShooterWheelTwo.setRate(0);
-            }
+//            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
+//                myShooterWheelOne.setRate(-12.0);
+//                myShooterWheelTwo.setRate(12.0);
+//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
+//                myShooterWheelOne.setRate(-6.0);
+//                myShooterWheelTwo.setRate(6.0);
+//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
+//                myShooterWheelOne.setTrueSpeed(-1.0);
+//                myShooterWheelTwo.setTrueSpeed(1.0);
+//            } else {
+//                myShooterWheelOne.setRate(-0.1);
+//                myShooterWheelTwo.setRate(0.1);
+//            }
+            myShooterWheelOne.setRate(0.0);
+            myShooterWheelTwo.setRate(0.0);
             
 //            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
 //                myShooterWheelOne.setTrueSpeed(-1.0);

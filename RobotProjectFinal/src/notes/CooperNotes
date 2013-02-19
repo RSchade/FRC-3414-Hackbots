@@ -20,3 +20,7 @@ ShooterScrew - Make it return the correct values for encoder stuff
 
 Put the camera image on the smart dashboard instead of random other dashboard.
 Should the lifter start up or down?
+
+
+wheelOne 1:1
+wheelTwo 1:1.2

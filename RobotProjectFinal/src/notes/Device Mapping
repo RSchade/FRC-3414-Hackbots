@@ -30,10 +30,10 @@ DIO 2           | Shooter Wheel One Encoder A Channel
 DIO 3           | Shooter Wheel One Encoder B Channel
 DIO 4           | Shooter Wheel Two Encoder A Channel
 DIO 5           | Shooter Wheel Two Encoder B Channel
-DIO 6           | Shooter Screw Encoder A Channel
-DIO 7           | Shooter Screw Encoder B Channel
 DIO 8           | Shooter Screw Low Sensor
 DIO 9           | Shooter Screw High Sensor
+DIO 12          | Shooter Screw Encoder A Channel
+DIO 13          | Shooter Screw Encoder B Channel
 DIO 14          | Compressor Pressure Switch
                 | 
 Solenoid 1      | Piston Shooter channel 1

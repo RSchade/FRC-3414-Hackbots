@@ -27,42 +27,27 @@ public class ShooterWheel implements IRobot {
     public ShooterWheel(int encoderChannelA, int encoderChannelB, int motorSlot, double Kp, double Ki, double Kd) {
         shooterMotor = new Talon(motorSlot);
         shooterEncoder = new Encoder(encoderChannelA, encoderChannelB);
-        shooterEncoder.setDistancePerPulse(1);        //DEBUG change this to an angular value
-        shooterEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         shooterEncoder.start();
+        shooterEncoder.setDistancePerPulse(0.000623);        //DEBUG change this to the correct value
+        shooterEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
+        //DEBUG reenable PID
         shooterPID = new PIDController(KP, KI, KD, shooterEncoder, shooterMotor);
         shooterPID.enable();
         shooterPID.setPercentTolerance(PID_TOLERANCE);
-    }
-    
-    /**
-     * True sets the PID setpoint to a predefined speed in IRobot.
-     * @param control joystick button which controls the wheel
-     */
-    public void turnOn(boolean control) {
-        if (control) {
-            shooterPID.setSetpoint(SHOOTER_SPEED);
-        } else {
-            shooterPID.setSetpoint(0);
-        }
-    }
-    
-    /**
-     * True runs the wheel with maximum voltage.
-     * @param on joystick button which controls max speed
-     */
-    public void turnOnMaxSpeed(boolean on) {
-        if (on) {
-            shooterMotor.set(1.0);
-        }
+        shooterPID.setSetpoint(0.0);
     }
     
     /**
      * Sets a custom PID rate for the wheel.
      * @param rate the target encoder rate
      */
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         shooterPID.setSetpoint(rate);
+    }
+    
+    public void turnOff() {
+        shooterPID.setSetpoint(0.0);
+        shooterMotor.set(0.0);
     }
     
     public void setTrueSpeed(double speed) {
@@ -82,7 +67,7 @@ public class ShooterWheel implements IRobot {
      * @return the encoder rate of the wheel
      */
     public double getRate() {
-        return shooterEncoder.pidGet();
+        return shooterEncoder.getRate();
     }
     
     /**
