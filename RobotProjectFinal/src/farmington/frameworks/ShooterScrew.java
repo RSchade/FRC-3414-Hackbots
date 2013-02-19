@@ -1,8 +1,8 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
 import farmington.ultimateascent.IRobot;
 
@@ -10,32 +10,28 @@ import farmington.ultimateascent.IRobot;
  * Controls the up/down screw system.
  * @author: 3414
  */
-public class ShooterScrew implements IRobot//This is the lead screw. It basically uses a motor to move the shooter up and down.
-{
+public class ShooterScrew implements IRobot {
         
     private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
-    Counter screwCounter;
+    Encoder screwEncoder;
+    PIDController screwPID;
 
     /**
      * Main constructor for ShooterScrew.
      * @param lifterSlot    PWM slot for lifter talon
-     * @param encoderSlotA  A-channel DIO for encoder
-     * @param encoderSlotB  B-channel DIO for encoder
+     * @param encoderChannelA  A-channel DIO for encoder
+     * @param encoderChannelB  B-channel DIO for encoder
      * @param dioSlotLow    DIO slot for back limit switch
      * @param dioSlotHigh   Dio slot for front limit switch
      */
-    public ShooterScrew(int lifterSlot, int encoderSlotA, int encoderSlotB, int dioSlotLow, int dioSlotHigh) {
+    public ShooterScrew(int lifterSlot, int encoderChannelA, int encoderChannelB, int dioSlotLow, int dioSlotHigh) {
         screwLift = new Talon(lifterSlot);
         sensorLow = new DigitalInput(dioSlotLow);
         sensorHigh = new DigitalInput(dioSlotHigh);
-        DigitalInput encoderA = new DigitalInput(encoderSlotA);
-        DigitalInput encoderB = new DigitalInput(encoderSlotB);
-        screwCounter = new Counter(CounterBase.EncodingType.k2X, encoderA, encoderB, false);
-    }
-    
-    public void start() {
-        screwCounter.start();
+        screwEncoder = new Encoder(encoderChannelA, encoderChannelB);
+        screwEncoder.start();
+        screwEncoder.setDistancePerPulse(0.000623);        //DEBUG change this to an angular value
     }
     
     /**
@@ -65,8 +61,8 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
         }
     }
     
-    public int getEncoderValue() {
-        return screwCounter.get();
+    public double getAngle() {
+        return screwEncoder.getDistance();
     }
     
     public double getScrewMotorSpeed() {
@@ -79,7 +75,8 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
     
     public boolean getSensorHighValue() {
         if (sensorHigh.get()) {
-            screwCounter.reset();
+            screwEncoder.stop();
+            screwEncoder.reset();
         }
         return sensorHigh.get();
     }

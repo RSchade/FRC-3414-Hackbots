@@ -1,7 +1,8 @@
 package farmington.frameworks;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.ultimateascent.IRobot;
 
 /**
@@ -10,8 +11,9 @@ import farmington.ultimateascent.IRobot;
  */
 public class ShooterWheel implements IRobot {
 
-    private PID shooterPID;
+    private PIDController shooterPID;
     private Talon shooterMotor;
+    private Encoder shooterEncoder;
     
     /**
      * Main constructor for ShooterWheel.
@@ -24,11 +26,13 @@ public class ShooterWheel implements IRobot {
      */
     public ShooterWheel(int encoderChannelA, int encoderChannelB, int motorSlot, double Kp, double Ki, double Kd) {
         shooterMotor = new Talon(motorSlot);
-        shooterPID = new PID(encoderChannelA, encoderChannelB, shooterMotor, Kp, Ki, Kd);
-    }
-    
-    public void start() {
-        shooterPID.start();
+        shooterEncoder = new Encoder(encoderChannelA, encoderChannelB);
+        shooterEncoder.setDistancePerPulse(1);        //DEBUG change this to an angular value
+        shooterEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
+        shooterEncoder.start();
+        shooterPID = new PIDController(KP, KI, KD, shooterEncoder, shooterMotor);
+        shooterPID.enable();
+        shooterPID.setPercentTolerance(PID_TOLERANCE);
     }
     
     /**
@@ -37,9 +41,9 @@ public class ShooterWheel implements IRobot {
      */
     public void turnOn(boolean control) {
         if (control) {
-            shooterPID.setTargetRate(SHOOTER_SPEED);
+            shooterPID.setSetpoint(SHOOTER_SPEED);
         } else {
-            shooterPID.setTargetRate(0);
+            shooterPID.setSetpoint(0);
         }
     }
     
@@ -53,19 +57,12 @@ public class ShooterWheel implements IRobot {
         }
     }
     
-    public void tune() {
-        double Kp = SmartDashboard.getNumber("Kp");
-        double Ki = SmartDashboard.getNumber("Ki");
-        double Kd = SmartDashboard.getNumber("Kd");
-        shooterPID.tune(Kp, Ki, Kd);
-    }
-    
     /**
      * Sets a custom PID rate for the wheel.
      * @param rate the target encoder rate
      */
     public void setRate(int rate) {
-        shooterPID.setTargetRate(rate);
+        shooterPID.setSetpoint(rate);
     }
     
     public void setTrueSpeed(double speed) {
@@ -85,15 +82,7 @@ public class ShooterWheel implements IRobot {
      * @return the encoder rate of the wheel
      */
     public double getRate() {
-        return shooterPID.getRate();
-    }
-    
-    /**
-     * Returns the current target encoder rate.
-     * @return the current encoder rate setpoint
-     */
-    public double getTarget() {
-        return shooterPID.getTarget();
+        return shooterEncoder.pidGet();
     }
     
     /**
@@ -101,6 +90,6 @@ public class ShooterWheel implements IRobot {
      * @return true if the encoder rate is within its tolerance around the target rate
      */
     public boolean isOnTarget() {
-        return shooterPID.isOnTarget();
+        return shooterPID.onTarget();
     }
 }

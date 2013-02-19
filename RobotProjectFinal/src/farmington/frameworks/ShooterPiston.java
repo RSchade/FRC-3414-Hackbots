@@ -53,6 +53,6 @@ public class ShooterPiston {
     }
     
     public void reset() {
-        shootControl.waitXLoops(0);
+        shootControl.reset();
     }
 }

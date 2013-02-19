@@ -43,8 +43,8 @@ public class ShooterLoader implements IRobot {
      * Controls the loader wheel based on logic.
      * @param pistonIsExtended piston.get() method from the shooter piston
      */
-    public void updateLoader(boolean pistonIsExtended) {
-        //Inverts input from the loader sensor because sensor normally returns true.
+    public void updateLoader(boolean pistonIsExtended, boolean manualTrigger) {
+        //Inverts input from the loader sensor because sensor returns false when a frisbee is detected.
         frisbeeIsDetected = !loaderSensor.get();
         
         if (pistonIsExtended) {
@@ -85,7 +85,7 @@ public class ShooterLoader implements IRobot {
     }
     
     public void reset() {
-        loaderControl.waitXLoops(0);
+        loaderControl.reset();
     }
     
     /**

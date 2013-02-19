@@ -17,6 +17,12 @@ public interface IRobot {
      boolean CAMERA_ENABLED = true; // Set to false for testing without camera
      int SHOOTER_SPEED = -3000;
      double JOYSTICK_DEADZONE = 0.1;
+     
+     //PID tuning values
+     double PID_TOLERANCE = 0.02; //2% tolerance
+     double KP = 100.0;
+     double KI = 0.0;
+     double KD = 0.0;
     
      //Motor speed values
      double SPEED_FORWARD_FULL = 1.0;

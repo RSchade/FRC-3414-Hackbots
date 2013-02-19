@@ -4,11 +4,13 @@
  */
 package farmington.frameworks;
 
+import farmington.ultimateascent.Main;
+
 /**
  *
  * @author 3414
  */
-public class Waiter extends LoopHandler {
+public class Waiter {
     
     private int targetIteration;
     
@@ -18,6 +20,14 @@ public class Waiter extends LoopHandler {
     
     public void waitXLoops(int waitTime) {
         this.targetIteration = getCurrentIteration() + waitTime;
+    }
+    
+    public int getCurrentIteration() {
+        return Main.loopCount;
+    }
+    
+    public void reset() {
+        this.targetIteration = -1;
     }
     
     public boolean isWaiting() {

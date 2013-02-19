@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import farmington.frameworks.LoopHandler;
 
 /**
  * The main robot class, runs on startup.
@@ -18,6 +17,7 @@ public class Main extends SimpleRobot implements IRobot {
     
     RobotControl myRobotControl;
     Compressor myCompressor;
+    public static int loopCount;
     
     public Main() {
         myRobotControl = new RobotControl();
@@ -30,9 +30,6 @@ public class Main extends SimpleRobot implements IRobot {
     public void robotInit() {
         System.out.println("Welcome to HACKBOTS code v1.0 final");
         myCompressor.start();
-        SmartDashboard.putNumber("Kp", 100.000);
-        SmartDashboard.putNumber("Ki", 0.000);
-        SmartDashboard.putNumber("Kd", 0.000);
     }
     
     /**
@@ -47,16 +44,15 @@ public class Main extends SimpleRobot implements IRobot {
      */
     public void operatorControl() {
         
+        System.out.println("DEBUG: Entering teleop mode");
+        
         //Initialized a counter to keep track of current loop.
-        int loopCount = 0;
+        loopCount = 0;
         myRobotControl.resetSystems();
         
         //Main control loop.
         while (isOperatorControl() && isEnabled()) {
             SmartDashboard.putNumber("Current Loop Iteration", loopCount);
-            
-            //Updates the global loop handler with our current loop iteration.
-            LoopHandler.updateLoopCount(loopCount);
             
             /* 
              * Each individual loop updates the bot at 20, 100 and 1000

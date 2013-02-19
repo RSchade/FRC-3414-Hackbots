@@ -18,6 +18,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     boolean onTargetY;
     boolean liftIsUp;
     boolean liftControl;
+    double driveScaling;
 
     /**
      * Main constructor for RobotControl.
@@ -28,21 +29,17 @@ public class RobotControl extends BaseRobot implements IRobot {
         onTargetY = false;
         liftIsUp = false;
         liftControl = false;
+        driveScaling = 1.0;
     }
     
     /**
      * Puts all information we need to see in the Driver Station on the SmartDashboard.
      */
     private void updateDashboard() {
-        SmartDashboard.putBoolean("Screw Sensor Sensor Low", myShooterScrew.getSensorLowValue());
-        SmartDashboard.putBoolean("Screw Sensor Sensor High", myShooterScrew.getSensorHighValue());
         SmartDashboard.putBoolean("Loader Sensor", myShooterLoader.getFrisbeeSensor());
-        SmartDashboard.putBoolean("Shooter Piston", myShooterPiston.get());
         SmartDashboard.putNumber("Shooter Wheel One Rate", myShooterWheelOne.getRate());
         SmartDashboard.putNumber("Shooter Wheel Two Rate", myShooterWheelTwo.getRate());
-        SmartDashboard.putNumber("Shooter Wheel One Target", myShooterWheelOne.getTarget());
-        SmartDashboard.putNumber("Shooter Wheel Two Target", myShooterWheelTwo.getTarget());
-        SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getEncoderValue());
+        SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getAngle());
     }
     
     /**
@@ -117,59 +114,62 @@ public class RobotControl extends BaseRobot implements IRobot {
         //This locks us out of control if autoAim is active
         if (!gamepad.getRawButton(BUTTON_NINE)) {
             
-            myShooterWheelOne.tune();
-            myShooterWheelTwo.tune();
-            
-            if (rightStick.getRawButton(TRIGGER)) {
-                myDrive.setSpeed(rightStick.getRawAxis(VERTICAL_AXIS));
+            //Drive speed scaling
+            if (leftStick.getRawButton(BUTTON_TWO)) {
+                driveScaling = 0.5;
             } else {
-                myDrive.setSpeed(leftStick.getRawAxis(VERTICAL_AXIS), rightStick.getRawAxis(VERTICAL_AXIS));
+                driveScaling = 1.0;
             }
             
+            //Drive Train
+            if (rightStick.getRawButton(TRIGGER)) {
+                myDrive.setSpeed(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            } else {
+                myDrive.setSpeed(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            }
+            
+            //Screw
             myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO));
+            
+            //Piston
             if (gamepad.getRawButton(BUTTON_EIGHT)) {
                 myShooterPiston.set(true);      //DEBUG: revert to setWithMinTime(); once that is fixed
             } else {
                 myShooterPiston.set(false);
             }
             
-            myShooterLoader.updateLoader(myShooterPiston.get());
+            //Automatic loader update
+            myShooterLoader.updateLoader(myShooterPiston.get(), gamepad.getRawButton(BUTTON_SIX));
             
             //Shooter Wheel control
             //DEBUG uncomment this when you have encoders fixed
-//            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setRate(-3000);
-//                myShooterWheelTwo.setRate(3000);
-//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setRate(-1500);
-//                myShooterWheelTwo.setRate(1500);
-//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setRate(-1);
-//                myShooterWheelTwo.setRate(1);
-//            } else {
-//                myShooterWheelOne.setRate(0);
-//                myShooterWheelTwo.setRate(0);
-//            }
-            
             if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-                myShooterWheelOne.setTrueSpeed(-1.0);
-                myShooterWheelTwo.setTrueSpeed(1.0);
+                myShooterWheelOne.setRate(-3000);
+                myShooterWheelTwo.setRate(3000);
             } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-                myShooterWheelOne.setTrueSpeed(-0.75);
-                myShooterWheelTwo.setTrueSpeed(0.75);
+                myShooterWheelOne.setRate(-1500);
+                myShooterWheelTwo.setRate(1500);
             } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
-                myShooterWheelOne.setTrueSpeed(-0.5);
-                myShooterWheelTwo.setTrueSpeed(0.5);
+                myShooterWheelOne.setRate(-1);
+                myShooterWheelTwo.setRate(1);
             } else {
-                myShooterWheelOne.setTrueSpeed(0.0);
-                myShooterWheelTwo.setTrueSpeed(0.0);
+                myShooterWheelOne.setRate(0);
+                myShooterWheelTwo.setRate(0);
             }
             
-            if (gamepad.getRawButton(BUTTON_SIX)) {
-                myShooterLoader.turnOn();
-            } else {
-                myShooterLoader.turnOff();
-            }
+//            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
+//                myShooterWheelOne.setTrueSpeed(-1.0);
+//                myShooterWheelTwo.setTrueSpeed(1.0);
+//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
+//                myShooterWheelOne.setTrueSpeed(-0.75);
+//                myShooterWheelTwo.setTrueSpeed(0.75);
+//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
+//                myShooterWheelOne.setTrueSpeed(-0.5);
+//                myShooterWheelTwo.setTrueSpeed(0.5);
+//            } else {
+//                myShooterWheelOne.setTrueSpeed(0.0);
+//                myShooterWheelTwo.setTrueSpeed(0.0);
+//            }
             
             //Pyramid lifter logic
             if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {
@@ -184,7 +184,7 @@ public class RobotControl extends BaseRobot implements IRobot {
                 myPyramidLifter.goUp();
             }
             
-            updateDashboard();
+            this.updateDashboard();
         }
     }
     
