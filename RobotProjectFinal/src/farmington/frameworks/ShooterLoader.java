@@ -5,9 +5,7 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.ultimateascent.IRobot;
 
 /**
@@ -18,7 +16,6 @@ public class ShooterLoader implements IRobot {
     
     private Relay loaderWheel;
     private DigitalInput loaderSensor;
-    private boolean bayIsFull;
     private boolean frisbeeIsDetected;
     private boolean logicControlA;
     //state: 0 = inactive, 1 = waiting for frisbee, 2 = loading
@@ -35,10 +32,9 @@ public class ShooterLoader implements IRobot {
     public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot) {
         loaderWheel = new Relay(loaderWheelRelay);
         loaderSensor = new DigitalInput(loaderSensorSlot);
-        bayIsFull = false;
-        logicControlA = false;
         state = 0;
         loaderControl = new Waiter();
+        logicControlA = false;
         logicControlB = false;
         logicControlC = true;
     }
@@ -56,24 +52,23 @@ public class ShooterLoader implements IRobot {
             logicControlC = false;
         } else {
             if (logicControlA) {
-                loaderControl.waitXLoops(15);   //Waits 300 ms for the loading bay to be ready
+                loaderControl.waitXLoops(25);   //Waits 500 ms for the loading bay to be ready
                 state = 0;
                 logicControlA = false;
                 logicControlB = true;
             }
-            if (logicControlB) {
-                if (loaderControl.timeUp()) {
-                    state = 1;
-                    logicControlB = false;
-                    logicControlC = true;
-                }
+            if (logicControlB && loaderControl.timeUp()) {
+                state = 1;
+                logicControlB = false;
+                logicControlC = true;
             }
             if (logicControlC) {
                 if (state == 1 && frisbeeIsDetected) {
                     this.turnOn();
-                    loaderControl.waitXLoops(15);               //Turns on the loader for 15*20 = 300 ms
+                    loaderControl.waitXLoops(35);               //Turns on the loader for 35*20 = 700 ms
                     state = 2;
-                } else if (loaderControl.timeUp() && state == 2) {
+                }
+                if (loaderControl.timeUp() && state == 2) {
                     this.turnOff();
                     state = 0;
                 }

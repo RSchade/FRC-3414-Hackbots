@@ -1,6 +1,8 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Talon;
 import farmington.ultimateascent.IRobot;
 
@@ -13,7 +15,7 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
         
     private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
-    PID angleController;
+    Counter screwCounter;
 
     /**
      * Main constructor for ShooterScrew.
@@ -27,7 +29,13 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
         screwLift = new Talon(lifterSlot);
         sensorLow = new DigitalInput(dioSlotLow);
         sensorHigh = new DigitalInput(dioSlotHigh);
-        angleController = new PID(encoderSlotA, encoderSlotB, screwLift, 0.0, 0.0, 0.0);
+        DigitalInput encoderA = new DigitalInput(encoderSlotA);
+        DigitalInput encoderB = new DigitalInput(encoderSlotB);
+        screwCounter = new Counter(CounterBase.EncodingType.k2X, encoderA, encoderB, false);
+    }
+    
+    public void start() {
+        screwCounter.start();
     }
     
     /**
@@ -36,9 +44,9 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
      * @param downButton    this makes it go down!!
      */
     public void setMovement(boolean upButton, boolean downButton) {
-        if (upButton && !downButton && sensorHigh.get()) {
+        if (upButton && !downButton && this.getSensorHighValue()) {
             screwLift.set(SPEED_FORWARD_FULL);
-        } else if (downButton && !upButton && sensorLow.get()) {
+        } else if (downButton && !upButton && this.getSensorLowValue()) {
             screwLift.set(SPEED_REVERSE_FULL);
         } else {
             screwLift.set(SPEED_STOP);
@@ -50,15 +58,15 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
      * @param speed speed
      */
     public void setSpeed(double speed) {
-        if ((speed < 0 && !sensorLow.get()) || (speed > 0 && !sensorHigh.get())) {
+        if ((speed < 0 && !this.getSensorLowValue()) || (speed > 0 && !this.getSensorHighValue())) {
             screwLift.set(speed);
         } else {
             screwLift.set(SPEED_STOP);
         }
     }
     
-    public double getEncoderValue() {
-        return angleController.getRate();
+    public int getEncoderValue() {
+        return screwCounter.get();
     }
     
     public double getScrewMotorSpeed() {
@@ -70,6 +78,9 @@ public class ShooterScrew implements IRobot//This is the lead screw. It basicall
     }
     
     public boolean getSensorHighValue() {
+        if (sensorHigh.get()) {
+            screwCounter.reset();
+        }
         return sensorHigh.get();
     }
 }

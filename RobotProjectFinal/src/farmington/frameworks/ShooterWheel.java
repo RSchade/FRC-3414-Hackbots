@@ -1,6 +1,7 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.ultimateascent.IRobot;
 
 /**
@@ -24,6 +25,9 @@ public class ShooterWheel implements IRobot {
     public ShooterWheel(int encoderChannelA, int encoderChannelB, int motorSlot, double Kp, double Ki, double Kd) {
         shooterMotor = new Talon(motorSlot);
         shooterPID = new PID(encoderChannelA, encoderChannelB, shooterMotor, Kp, Ki, Kd);
+    }
+    
+    public void start() {
         shooterPID.start();
     }
     
@@ -49,12 +53,23 @@ public class ShooterWheel implements IRobot {
         }
     }
     
+    public void tune() {
+        double Kp = SmartDashboard.getNumber("Kp");
+        double Ki = SmartDashboard.getNumber("Ki");
+        double Kd = SmartDashboard.getNumber("Kd");
+        shooterPID.tune(Kp, Ki, Kd);
+    }
+    
     /**
      * Sets a custom PID rate for the wheel.
      * @param rate the target encoder rate
      */
     public void setRate(int rate) {
         shooterPID.setTargetRate(rate);
+    }
+    
+    public void setTrueSpeed(double speed) {
+        shooterMotor.set(speed);
     }
     
     /**

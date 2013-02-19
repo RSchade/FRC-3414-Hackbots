@@ -42,9 +42,12 @@ public class BaseRobot implements IRobot {
         gamepad = new Joystick(USB_THREE);
         myDrive = new DriveTrain(PWM_ONE, PWM_THREE, PWM_TWO, PWM_FOUR);
         myShooterScrew = new ShooterScrew(PWM_FIVE, DIO_SIX, DIO_SEVEN, DIO_EIGHT, DIO_NINE);
+        myShooterScrew.start();
         myShooterPiston = new ShooterPiston(SOLENOID_FOUR, SOLENOID_THREE);
-        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SIX, 0.3, 0, 0);
-        myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SEVEN, 0.3, 0, 0);
+        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SIX, 100, 0, 0);
+        myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SEVEN, 100, 0, 0);
+        myShooterWheelOne.start();
+        myShooterWheelTwo.start();
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);
         myPyramidLifter = new PyramidLifter(SOLENOID_ONE, SOLENOID_TWO);
         myAutoShooter = new AutoShooter();

@@ -28,6 +28,13 @@ public class DriveTrain implements IRobot {
         rightBackMotor = new Talon(rightBackSlot);
     }
     
+    public void setSpeed(double speed) {
+        leftFrontMotor.set(-speed);
+        leftBackMotor.set(-speed);
+        rightFrontMotor.set(speed);
+        rightBackMotor.set(speed);
+    }
+    
     /**
      * Sets the speed of the left and right sides relative to battery voltage.
      * @param leftSpeed     
@@ -39,7 +46,8 @@ public class DriveTrain implements IRobot {
          * Since the left side Talons are backwards, we need to invert the
          * input value.
          */
-        leftSpeed = -leftSpeed;
+        leftSpeed = -0.5*leftSpeed;
+        rightSpeed = 0.5*rightSpeed;
         
         if (leftSpeed < -JOYSTICK_DEADZONE || leftSpeed > JOYSTICK_DEADZONE) {
             leftFrontMotor.set(leftSpeed);

@@ -67,12 +67,16 @@ public class PID implements IRobot {
         return controller.onTarget();
     }
     
+    public void tune(double Kp, double Ki, double Kd) {
+        controller.setPID(Kp, Ki, Kd);
+    }
+    
     /**
      * Returns the encoder rate.
      * @return current encoder rate
      */
     public double getRate() {
-        return controller.get();
+        return encoder.get();
     }
     
     /**

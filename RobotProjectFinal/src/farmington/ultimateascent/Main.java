@@ -29,6 +29,9 @@ public class Main extends SimpleRobot implements IRobot {
      */
     public void robotInit() {
         myCompressor.start();
+        SmartDashboard.putNumber("Kp", 100.000);
+        SmartDashboard.putNumber("Ki", 0.000);
+        SmartDashboard.putNumber("Kd", 0.000);
     }
     
     /**

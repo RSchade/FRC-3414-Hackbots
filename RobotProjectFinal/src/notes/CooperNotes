@@ -7,3 +7,16 @@ Screw Sensor Low: False when safe, true when screw is at low value
 Screw Sensor High: False when safe, true when screw is at high value
 Shooter Piston: True when extended, False when retracted
 Loader Sensor: True when encountering a frisbee, False when clear
+
+
+Classes to fix:
+
+AutoShooter - Make it auto shoot (whole thing is broken)
+DistanceFinder - Find the scaling constant
+DriveTrain - Adjust scaling factor for comfortability
+PID - possibly change to a counter instead of encoder
+ShooterLoader - Make it auto update
+ShooterScrew - Make it return the correct values for encoder stuff
+
+Put the camera image on the smart dashboard instead of random other dashboard.
+Should the lifter start up or down?

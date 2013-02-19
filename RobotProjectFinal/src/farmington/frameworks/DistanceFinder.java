@@ -19,7 +19,7 @@ public class DistanceFinder implements IRobot {
      * @return distance from camera to its target
      */
     public double getDistance(ParticleAnalysisReport target) {
-        double constant = 0;
-        return (TRUE_RECT_HEIGHT*constant)/target.boundingRectHeight; //FIXME insert correct constant
+        double scalingConstant = 0;
+        return (TRUE_RECT_HEIGHT*scalingConstant)/target.boundingRectHeight; //FIXME insert correct constant
     }
 }
