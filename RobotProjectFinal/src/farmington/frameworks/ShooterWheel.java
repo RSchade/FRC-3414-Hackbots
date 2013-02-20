@@ -3,6 +3,7 @@ package farmington.frameworks;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.ultimateascent.IRobot;
 
 /**
@@ -14,6 +15,9 @@ public class ShooterWheel implements IRobot {
     private PIDController shooterPID;
     private Talon shooterMotor;
     private Encoder shooterEncoder;
+    private double oldEncoderValue;
+    private double oldSpeed;
+    private double targetRate;
     
     /**
      * Main constructor for ShooterWheel.
@@ -29,25 +33,7 @@ public class ShooterWheel implements IRobot {
         shooterEncoder = new Encoder(encoderChannelA, encoderChannelB);
         shooterEncoder.start();
         shooterEncoder.setDistancePerPulse(0.000623);        //DEBUG change this to the correct value
-        shooterEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-        //DEBUG reenable PID
-        shooterPID = new PIDController(KP, KI, KD, shooterEncoder, shooterMotor);
-        shooterPID.enable();
-        shooterPID.setPercentTolerance(PID_TOLERANCE);
-        shooterPID.setSetpoint(0.0);
-    }
-    
-    /**
-     * Sets a custom PID rate for the wheel.
-     * @param rate the target encoder rate
-     */
-    public void setRate(double rate) {
-        shooterPID.setSetpoint(rate);
-    }
-    
-    public void turnOff() {
-        shooterPID.setSetpoint(0.0);
-        shooterMotor.set(0.0);
+        oldSpeed = 0.0;
     }
     
     public void setTrueSpeed(double speed) {
@@ -68,13 +54,5 @@ public class ShooterWheel implements IRobot {
      */
     public double getRate() {
         return shooterEncoder.getRate();
-    }
-    
-    /**
-     * Tells us if the encoder is at its set rate +/- tolerance.
-     * @return true if the encoder rate is within its tolerance around the target rate
-     */
-    public boolean isOnTarget() {
-        return shooterPID.onTarget();
     }
 }

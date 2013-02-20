@@ -26,8 +26,8 @@ public class ShooterPiston {
         reloadControl = new Waiter();
     }
     
-    public void setWithMinTime(boolean wantToShoot) {
-        if (wantToShoot && !shoot.get() && !shooting) {
+    public void setWithMinTime(boolean wantToShoot, double shooterSpeed) {
+        if (wantToShoot && shoot.get() && !shooting && shooterSpeed > 0.0) {
             shoot.set(true);
             reload.set(false);
             shooting = true;
@@ -36,10 +36,20 @@ public class ShooterPiston {
         if (shootControl.timeUp()) {
             shoot.set(false);
             reload.set(true);
-            reloadControl.waitXLoops(10);
+            reloadControl.waitXLoops(30);
         }
         if (reloadControl.timeUp()) {
             shooting = false;
+        }
+    }
+    
+    public void set(boolean shooting, double shooterSpeed) {
+        if (shooterSpeed > 0.0) {
+            shoot.set(shooting);
+            reload.set(!shooting);
+        } else {
+            shoot.set(false);
+            reload.set(false);
         }
     }
     

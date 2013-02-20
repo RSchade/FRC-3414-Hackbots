@@ -75,33 +75,32 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
-        double time = 0.0;
-        while (!onTargetX || !onTargetY){
-           autoAim();
-           Timer.delay(0.020);
-           time += 0.020;
-           if (time >= 5.0) {
-               onTargetX = true;
-               onTargetY = true;
-           }
-        }
-        myShooterWheelOne.setRate(-3000);
-        myShooterWheelTwo.setRate(3000);
-        while(!myShooterWheelOne.isOnTarget() && !myShooterWheelTwo.isOnTarget())
-        {
-            
-        }
-        int shootingCount = 1;
-        while (shootingCount < 3){
-            myShooterPiston.setWithMinTime(true);
-            Timer.delay(0.5);
-            myShooterPiston.setWithMinTime(false);
-            Timer.delay(0.5);
-            myShooterLoader.turnOn();
-            Timer.delay(1.0);
-            myShooterLoader.turnOff();
-            shootingCount++;
-        }
+//        double time = 0.0;
+//        while (!onTargetX || !onTargetY){
+//           autoAim();
+//           Timer.delay(0.020);
+//           time += 0.020;
+//           if (time >= 5.0) {
+//               onTargetX = true;
+//               onTargetY = true;
+//           }
+//        }
+//        while(!myShooterWheelOne.isOnTarget() && !myShooterWheelTwo.isOnTarget())
+//        {
+//            myShooterWheelOne.updateSpeed(-12.0);
+//            myShooterWheelTwo.updateSpeed(12.0);
+//        }
+//        int shootingCount = 1;
+//        while (shootingCount < 3){
+//            myShooterPiston.setWithMinTime(true);
+//            Timer.delay(0.5);
+//            myShooterPiston.setWithMinTime(false);
+//            Timer.delay(0.5);
+//            myShooterLoader.turnOn();
+//            Timer.delay(1.0);
+//            myShooterLoader.turnOff();
+//            shootingCount++;
+//        }
     }
     
     public void resetSystems() {
@@ -144,36 +143,37 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterLoader.updateLoader(myShooterPiston.get(), gamepad.getRawButton(BUTTON_SIX));
             
             //Shooter Wheel control
-            //DEBUG uncomment this when you have encoders fixed
 //            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setRate(-12.0);
-//                myShooterWheelTwo.setRate(12.0);
+//                SmartDashboard.putBoolean("Shooter Has no target", false);
+//                myShooterWheelOne.updateSpeed(-0.017);
+//                myShooterWheelTwo.updateSpeed(-0.011);
 //            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setRate(-6.0);
-//                myShooterWheelTwo.setRate(6.0);
+//                SmartDashboard.putBoolean("Shooter Has no target", false);
+//                myShooterWheelOne.updateSpeed(-0.006);
+//                myShooterWheelTwo.updateSpeed(-0.004);
 //            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
+//                SmartDashboard.putBoolean("Shooter Has no target", false);
 //                myShooterWheelOne.setTrueSpeed(-1.0);
 //                myShooterWheelTwo.setTrueSpeed(1.0);
 //            } else {
-//                myShooterWheelOne.setRate(-0.1);
-//                myShooterWheelTwo.setRate(0.1);
+//                SmartDashboard.putBoolean("Shooter Has no target", true);
+//                myShooterWheelOne.updateSpeed(0.0);
+//                myShooterWheelTwo.updateSpeed(0.0);
 //            }
-            myShooterWheelOne.setRate(0.0);
-            myShooterWheelTwo.setRate(0.0);
             
-//            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setTrueSpeed(-1.0);
-//                myShooterWheelTwo.setTrueSpeed(1.0);
-//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setTrueSpeed(-0.75);
-//                myShooterWheelTwo.setTrueSpeed(0.75);
-//            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
-//                myShooterWheelOne.setTrueSpeed(-0.5);
-//                myShooterWheelTwo.setTrueSpeed(0.5);
-//            } else {
-//                myShooterWheelOne.setTrueSpeed(0.0);
-//                myShooterWheelTwo.setTrueSpeed(0.0);
-//            }
+            if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
+                myShooterWheelOne.setTrueSpeed(-1.0);
+                myShooterWheelTwo.setTrueSpeed(1.0);
+            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
+                myShooterWheelOne.setTrueSpeed(-0.75);
+                myShooterWheelTwo.setTrueSpeed(0.75);
+            } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
+                myShooterWheelOne.setTrueSpeed(-0.5);
+                myShooterWheelTwo.setTrueSpeed(0.5);
+            } else {
+                myShooterWheelOne.setTrueSpeed(0.0);
+                myShooterWheelTwo.setTrueSpeed(0.0);
+            }
             
             //Pyramid lifter logic
             if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {

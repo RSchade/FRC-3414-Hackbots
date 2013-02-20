@@ -6,6 +6,7 @@ package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import farmington.ultimateascent.IRobot;
 
 /**
@@ -52,7 +53,7 @@ public class ShooterLoader implements IRobot {
             logicControlC = false;
         } else {
             if (logicControlA) {
-                loaderControl.waitXLoops(22);   //Waits 440 ms for the loading bay to be ready
+                loaderControl.waitXLoops(25);   //Waits 500 ms for the loading bay to be ready
                 state = 0;
                 logicControlA = false;
                 logicControlB = true;
@@ -65,20 +66,28 @@ public class ShooterLoader implements IRobot {
             if (logicControlC) {
                 if (state == 1 && frisbeeIsDetected) {
                     this.turnOn();
-                    loaderControl.waitXLoops(35);               //Turns on the loader for 35*20 = 700 ms
+                    loaderControl.waitXLoops(40);               //Turns on the loader for 30*20 = 600 ms
                     state = 2;
                 }
                 if (loaderControl.timeUp() && state == 2) {
                     this.turnOff();
                     state = 0;
                 }
-                if (manualTrigger) {
-                    this.turnOn();
-                } else {
-                    this.turnOff();
+                if (state == 0) {
+                    if (manualTrigger) {
+                        this.turnOn();
+                    } else {
+                        this.turnOff();
+                    }
                 }
             }
         }
+        SmartDashboard.putBoolean("pistonIsExtended", pistonIsExtended);
+        SmartDashboard.putNumber("state", state);
+        SmartDashboard.putBoolean("loaderControl", loaderControl.timeUp());
+        SmartDashboard.putBoolean("logicControlA", logicControlA);
+        SmartDashboard.putBoolean("logicControlB", logicControlB);
+        SmartDashboard.putBoolean("logicControlC", logicControlC);
     }
     
     public void turnOn() {
