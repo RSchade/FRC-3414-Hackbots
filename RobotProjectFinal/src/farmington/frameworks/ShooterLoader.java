@@ -66,7 +66,7 @@ public class ShooterLoader implements IRobot {
             if (logicControlC) {
                 if (state == 1 && frisbeeIsDetected) {
                     this.turnOn();
-                    loaderControl.waitXLoops(40);               //Turns on the loader for 30*20 = 600 ms
+                    loaderControl.waitXLoops(40);               //Turns on the loader for 40*20 = 800 ms
                     state = 2;
                 }
                 if (loaderControl.timeUp() && state == 2) {

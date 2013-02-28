@@ -75,32 +75,20 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
-//        double time = 0.0;
-//        while (!onTargetX || !onTargetY){
-//           autoAim();
-//           Timer.delay(0.020);
-//           time += 0.020;
-//           if (time >= 5.0) {
-//               onTargetX = true;
-//               onTargetY = true;
-//           }
-//        }
-//        while(!myShooterWheelOne.isOnTarget() && !myShooterWheelTwo.isOnTarget())
-//        {
-//            myShooterWheelOne.updateSpeed(-12.0);
-//            myShooterWheelTwo.updateSpeed(12.0);
-//        }
-//        int shootingCount = 1;
-//        while (shootingCount < 3){
-//            myShooterPiston.setWithMinTime(true);
-//            Timer.delay(0.5);
-//            myShooterPiston.setWithMinTime(false);
-//            Timer.delay(0.5);
-//            myShooterLoader.turnOn();
-//            Timer.delay(1.0);
-//            myShooterLoader.turnOff();
-//            shootingCount++;
-//        }
+        myShooterWheelOne.setTrueSpeed(1.0);
+        myShooterWheelTwo.setTrueSpeed(1.0);
+        Timer.delay(3);
+        int i = 1;
+        while(i<=3) {
+            myShooterPiston.set(true);
+            Timer.delay(1);
+            myShooterPiston.set(false);
+            Timer.delay(0.5);
+            myShooterLoader.turnOn();
+            Timer.delay(0.8);
+            myShooterLoader.turnOff();
+            i++;
+        }
     }
     
     public void resetSystems() {
