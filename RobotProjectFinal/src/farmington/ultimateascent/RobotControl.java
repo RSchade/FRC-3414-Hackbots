@@ -42,6 +42,8 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Screw Encoder", myShooterScrew.getAngle());
         SmartDashboard.putBoolean("Screw Limit High", myShooterScrew.getSensorHighValue());
         SmartDashboard.putBoolean("Screw Limit Low", myShooterScrew.getSensorLowValue());
+        SmartDashboard.putNumber("Potentiometer", myPotentiometer.getVoltage());
+        SmartDashboard.putNumber("Average Pot Values", myPotentiometer.getAverageVoltage());
     }
     
     /**
@@ -81,7 +83,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         int i = 1;
         while(i<=3) {
             myShooterPiston.set(true);
-            Timer.delay(1);
+            Timer.delay(1.0);
             myShooterPiston.set(false);
             Timer.delay(0.5);
             myShooterLoader.turnOn();
@@ -174,6 +176,15 @@ public class RobotControl extends BaseRobot implements IRobot {
                 myPyramidLifter.goDown();
             } else {
                 myPyramidLifter.goUp();
+            }
+            
+            //DEBUG: Potentiometer testing
+            
+            myPotentiometer.updateAverageValues(POT_SAMPLING_RATE);
+            if (myPotentiometer.getAverageVoltage() > 4.030 || myPotentiometer.getAverageVoltage() < 4.000) {
+                SmartDashboard.putBoolean("Pot On Target", false);
+            } else {
+                SmartDashboard.putBoolean("Pot On Target", true);
             }
             
             this.updateDashboard();

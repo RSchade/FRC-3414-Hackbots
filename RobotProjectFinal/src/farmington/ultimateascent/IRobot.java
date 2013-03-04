@@ -14,9 +14,10 @@ public interface IRobot {
     
     //Miscellanious values
      double TIME_DELAY = 0.020; // 20 millisecond loop
-     boolean CAMERA_ENABLED = true; // Set to false for testing without camera
+     boolean CAMERA_ENABLED = false; // Set to false for testing without camera
      int SHOOTER_SPEED = -3000;
      double JOYSTICK_DEADZONE = 0.1;
+     int POT_SAMPLING_RATE = 10;
      
      //PID tuning values
      double PID_TOLERANCE = 0.02; //2% tolerance
@@ -53,6 +54,10 @@ public interface IRobot {
      int SOLENOID_FOUR = 4;
      int SOLENOID_FIVE = 5;
      
+     //Analog slots
+     int ANALOG_ONE = 1;
+     
+     //cRio Modules
      int MODULE_ONE = 1;
      int MODULE_THREE = 3;
     
