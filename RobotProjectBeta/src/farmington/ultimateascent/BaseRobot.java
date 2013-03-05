@@ -12,6 +12,7 @@ import farmington.frameworks.DriveTrain;
 import farmington.frameworks.PyramidLifter;
 import farmington.frameworks.ShooterLoader;
 import farmington.frameworks.ShooterPiston;
+//import farmington.frameworks.ShooterPistonNew;
 import farmington.frameworks.ShooterScrew;
 import farmington.frameworks.ShooterWheel;
 
@@ -26,6 +27,7 @@ public class BaseRobot implements IRobot {
     protected DriveTrain myDrive;
     protected ShooterScrew myShooterScrew;
     protected ShooterPiston myShooterPiston;
+//    protected ShooterPistonNew myShooterPistonNew;
     protected ShooterWheel myShooterWheelOne;
     protected ShooterWheel myShooterWheelTwo;
     protected ShooterLoader myShooterLoader;
@@ -43,6 +45,7 @@ public class BaseRobot implements IRobot {
         myDrive = new DriveTrain(PWM_ONE, PWM_THREE, PWM_TWO, PWM_FOUR);
         myShooterScrew = new ShooterScrew(PWM_FIVE, DIO_SIX, DIO_SEVEN, DIO_EIGHT, DIO_NINE);
         myShooterPiston = new ShooterPiston(SOLENOID_FOUR, SOLENOID_THREE);
+//        myShooterPistonNew = new ShooterPistonNew(RELAY_ONE, SOLENOID_FOUR, DIO_ONE);
         myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SIX, 0.3, 0, 0);
         myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SEVEN, 0.3, 0, 0);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE);

@@ -100,6 +100,8 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterLoader.turnOff();
             shootingCount++;
         }
+        
+        //Check BaseRobot (beta) for: myShooterPistonNew
     }
     
     public void resetSystems() {
