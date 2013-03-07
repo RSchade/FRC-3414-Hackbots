@@ -8,8 +8,9 @@ PWM 5           | Screw Motor
 PWM 6           | Shooter First Motor (first motor the frisbees pass through)
 PWM 7           | Shooter Second Motor (second motor the frisbees pass through)
                 | 
-Joystick 1      | Left Main Control Stick
-Joystick 2      | Right Main Control Stick
+Joystick 1      | Left Drive Control Stick
+Joystick 2      | Right Drive Control Stick
+Joystick 3      | Gamepad Control
                 |
 rightStick      |
 AXIS            | Right side drive train
@@ -22,7 +23,9 @@ gamepad         |
 BUTTON_FOUR     | Move shooter screw up
 BUTTON_TWO      | Move shooter screw down
 BUTTON_NINE     | Hold for Auto Aim
-BUTTON_SEVEN    | Shooter Wheels On
+BUTTON_SEVEN    | Shooter Wheels 100%
+BUTTON_FIVE     | Shooter Wheels 75%
+BUTTON_THREE    | Shooter Wheels 50%
 BUTTON_EIGHT    | Shooter Piston
                 | 
 DIO 1           | Loading Wheel Sensor
@@ -32,6 +35,7 @@ DIO 4           | Shooter Wheel Two Encoder A Channel
 DIO 5           | Shooter Wheel Two Encoder B Channel
 DIO 8           | Shooter Screw Low Sensor
 DIO 9           | Shooter Screw High Sensor
+DIO 10          | Loading Wheel Chamber Sensor
 DIO 12          | Shooter Screw Encoder A Channel
 DIO 13          | Shooter Screw Encoder B Channel
 DIO 14          | Compressor Pressure Switch

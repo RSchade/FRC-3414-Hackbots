@@ -79,6 +79,7 @@ public class Main extends SimpleRobot implements IRobot {
      * Runs periodically while the robot is disabled.
      */
     public void disabled() {
+        myRobotControl.resetSystems();
     }
     
     /**

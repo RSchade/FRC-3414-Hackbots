@@ -1,7 +1,6 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import farmington.ultimateascent.IRobot;
 
@@ -13,23 +12,20 @@ public class ShooterScrew implements IRobot {
         
     private Talon screwLift;
     DigitalInput sensorLow, sensorHigh;
-    Encoder screwEncoder;
+    Potentiometer screwPot;
 
     /**
      * Main constructor for ShooterScrew.
      * @param lifterSlot    PWM slot for lifter talon
-     * @param encoderChannelA  A-channel DIO for encoder
-     * @param encoderChannelB  B-channel DIO for encoder
+     * @param potSlot       Analog channel for potentiometer
      * @param dioSlotLow    DIO slot for back limit switch
      * @param dioSlotHigh   Dio slot for front limit switch
      */
-    public ShooterScrew(int lifterSlot, int encoderChannelA, int encoderChannelB, int dioSlotLow, int dioSlotHigh) {
+    public ShooterScrew(int lifterSlot, int potSlot, int dioSlotLow, int dioSlotHigh) {
         screwLift = new Talon(lifterSlot);
         sensorLow = new DigitalInput(dioSlotLow);
         sensorHigh = new DigitalInput(dioSlotHigh);
-        screwEncoder = new Encoder(encoderChannelA, encoderChannelB);
-        screwEncoder.start();
-        screwEncoder.setDistancePerPulse(0.000623);        //DEBUG change this to an angular value
+        screwPot = new Potentiometer(potSlot);
     }
     
     /**
@@ -59,8 +55,22 @@ public class ShooterScrew implements IRobot {
         }
     }
     
-    public double getAngle() {
-        return screwEncoder.getDistance();
+    public int isOnTarget(double targetVoltage, double offset) {
+        if (this.getAverageVoltage() < targetVoltage-offset) {
+            return -1;
+        } else if (this.getAverageVoltage() > targetVoltage+offset) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    public double getVoltage() {
+        return screwPot.getVoltage();
+    }
+    
+    public double getAverageVoltage() {
+        return screwPot.getAverageVoltage();
     }
     
     public double getScrewMotorSpeed() {
@@ -72,10 +82,6 @@ public class ShooterScrew implements IRobot {
     }
     
     public boolean getSensorHighValue() {
-        if (sensorHigh.get()) {
-            screwEncoder.stop();
-            screwEncoder.reset();
-        }
         return sensorHigh.get();
     }
 }

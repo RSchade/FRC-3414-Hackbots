@@ -17,78 +17,102 @@ public class ShooterLoader implements IRobot {
     
     private Relay loaderWheel;
     private DigitalInput loaderSensor;
+    private DigitalInput chamberSensor;
     private boolean frisbeeIsDetected;
     private boolean logicControlA;
-    //state: 0 = inactive, 1 = waiting for frisbee, 2 = loading
-    private int state;
     private Waiter loaderControl;
-    private boolean logicControlB;
-    private boolean logicControlC;
     
     /**
      * Main constructor for ShooterLoader.
      * @param loaderWheelRelay relay slot for the loader wheel relay
      * @param loaderSensorSlot DIO slot for the limit switch
      */
-    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot) {
+    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot, int oneInTheChamberSensorSlot) {
         loaderWheel = new Relay(loaderWheelRelay);
         loaderSensor = new DigitalInput(loaderSensorSlot);
-        state = 0;
+        chamberSensor = new DigitalInput(oneInTheChamberSensorSlot);
         loaderControl = new Waiter();
-        logicControlA = false;
-        logicControlB = false;
-        logicControlC = true;
+        logicControlA = true;
+    }
+    
+    public void updateLoader(boolean manualTrigger) {
+        SmartDashboard.putBoolean("Chamber", chamberSensor.get());
+        SmartDashboard.putBoolean("Loader", loaderSensor.get());
+        if (manualTrigger) {
+            this.turnOn();
+        } else {
+            //DEBUG Disable this line when the 10mm sensor is in the right spot
+            this.turnOff();
+            
+            //DEBUG Re-enable this when the 10mm sensor is in the right spot
+//            if (loaderSensor.get()) {
+//                if (!chamberSensor.get()) {
+//                    if (logicControlA) {
+//                        loaderControl.waitXLoops(25);
+//                        logicControlA = false;
+//                    }
+//                    if (loaderControl.timeUp()) {
+//                        this.turnOn();
+//                    }
+//                } else {
+//                    logicControlA = true;
+//                    this.turnOff();
+//                }
+//            } else {
+//                this.turnOn();
+//            }
+        }
     }
     
     /**
      * Controls the loader wheel based on logic.
      * @param pistonIsExtended piston.get() method from the shooter piston
      */
-    public void updateLoader(boolean pistonIsExtended, boolean manualTrigger) {
-        //Inverts input from the loader sensor because sensor returns false when a frisbee is detected.
-        frisbeeIsDetected = !loaderSensor.get();
-        
-        if (pistonIsExtended) {
-            logicControlA = true;
-            logicControlC = false;
-        } else {
-            if (logicControlA) {
-                loaderControl.waitXLoops(25);   //Waits 500 ms for the loading bay to be ready
-                state = 0;
-                logicControlA = false;
-                logicControlB = true;
-            }
-            if (logicControlB && loaderControl.timeUp()) {
-                state = 1;
-                logicControlB = false;
-                logicControlC = true;
-            }
-            if (logicControlC) {
-                if (state == 1 && frisbeeIsDetected) {
-                    this.turnOn();
-                    loaderControl.waitXLoops(40);               //Turns on the loader for 40*20 = 800 ms
-                    state = 2;
-                }
-                if (loaderControl.timeUp() && state == 2) {
-                    this.turnOff();
-                    state = 0;
-                }
-                if (state == 0) {
-                    if (manualTrigger) {
-                        this.turnOn();
-                    } else {
-                        this.turnOff();
-                    }
-                }
-            }
-        }
-        SmartDashboard.putBoolean("pistonIsExtended", pistonIsExtended);
-        SmartDashboard.putNumber("state", state);
-        SmartDashboard.putBoolean("loaderControl", loaderControl.timeUp());
-        SmartDashboard.putBoolean("logicControlA", logicControlA);
-        SmartDashboard.putBoolean("logicControlB", logicControlB);
-        SmartDashboard.putBoolean("logicControlC", logicControlC);
-    }
+//    public void updateLoader(boolean pistonIsExtended, boolean manualTrigger) {
+//        //Inverts input from the loader sensor because sensor returns false when a frisbee is detected.
+//        frisbeeIsDetected = !loaderSensor.get();
+//        
+//        if (pistonIsExtended) {
+//            logicControlA = true;
+//            logicControlC = false;
+//        } else {
+//            if (logicControlA) {
+//                loaderControl.waitXLoops(25);   //Waits 500 ms for the loading bay to be ready
+//                state = 0;
+//                logicControlA = false;
+//                logicControlB = true;
+//            }
+//            if (logicControlB && loaderControl.timeUp()) {
+//                state = 1;
+//                logicControlB = false;
+//                logicControlC = true;
+//            }
+//            if (logicControlC) {
+//                if (state == 1 && frisbeeIsDetected) {
+//                    this.turnOn();
+//                    loaderControl.waitXLoops(40);               //Turns on the loader for 40*20 = 800 ms
+//                    state = 2;
+//                }
+//                if (loaderControl.timeUp() && state == 2) {
+//                    this.turnOff();
+//                    state = 0;
+//                }
+//                if (state == 0) {
+//                    if (manualTrigger) {
+//                        this.turnOn();
+//                    } else {
+//                        this.turnOff();
+//                    }
+//                }
+//            }
+//        }
+//        SmartDashboard.putBoolean("pistonIsExtended", pistonIsExtended);
+//        SmartDashboard.putNumber("state", state);
+//        SmartDashboard.putBoolean("loaderControl", loaderControl.timeUp());
+//        SmartDashboard.putBoolean("logicControlA", logicControlA);
+//        SmartDashboard.putBoolean("logicControlB", logicControlB);
+//        SmartDashboard.putBoolean("logicControlC", logicControlC);
+//    }
     
     public void turnOn() {
         loaderWheel.set(RELAY_FORWARD);
@@ -100,13 +124,5 @@ public class ShooterLoader implements IRobot {
     
     public void reset() {
         loaderControl.reset();
-    }
-    
-    /**
-     * Checks to see if there is a frisbee waiting to be loaded.
-     * @return true if the limit switch is tripped
-     */
-    public boolean getFrisbeeSensor() {
-        return loaderSensor.get();
     }
 }

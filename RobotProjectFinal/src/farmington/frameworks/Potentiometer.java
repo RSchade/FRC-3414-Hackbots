@@ -14,25 +14,23 @@ public class Potentiometer {
     
     private AnalogChannel potentiometer;
     double averagePot;
+    double[] potValues;
     
     public Potentiometer(int channel) {
         potentiometer = new AnalogChannel(channel);
-    }
-    
-    public void updateAverageValues(int sampleRate) {
-        averagePot = 0.0;
-        double[] potValues = new double[sampleRate];
-        for (int i=0; i<sampleRate; i++) {
-            if (i<sampleRate-1) {
-                potValues[i] = potValues[i+1];
-            }
-            potValues[sampleRate-1] = potentiometer.getVoltage();
-            averagePot += potValues[i];
-        }
-        averagePot /= (double)sampleRate;
+        potValues = new double[10];
     }
     
     public double getAverageVoltage() {
+        averagePot = 0.0;
+        for (int i=0; i<10; i++) {
+            if (i<10-1) {
+                potValues[i] = potValues[i+1];
+            }
+            potValues[10-1] = potentiometer.getVoltage();
+            averagePot += potValues[i];
+        }
+        averagePot /= 10.0;
         return averagePot;
     }
     

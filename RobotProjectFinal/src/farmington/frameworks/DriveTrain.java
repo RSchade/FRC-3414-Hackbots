@@ -29,10 +29,17 @@ public class DriveTrain implements IRobot {
     }
     
     public void setSpeed(double speed) {
-        leftFrontMotor.set(-speed);
-        leftBackMotor.set(-speed);
-        rightFrontMotor.set(speed);
-        rightBackMotor.set(speed);
+        if (speed < -JOYSTICK_DEADZONE || speed > JOYSTICK_DEADZONE) {
+            leftFrontMotor.set(-speed);
+            leftBackMotor.set(-speed);
+            rightFrontMotor.set(speed);
+            rightBackMotor.set(speed);
+        } else {
+            leftFrontMotor.set(0.0);
+            leftBackMotor.set(0.0);
+            rightFrontMotor.set(0.0);
+            rightBackMotor.set(0.0);
+        }
     }
     
     /**
@@ -42,12 +49,10 @@ public class DriveTrain implements IRobot {
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
         
-        /*
-         * Since the left side Talons are backwards, we need to invert the
+        /* Since the left side Talons are backwards, we need to invert the
          * input value.
          */
-        leftSpeed = -0.5*leftSpeed;
-        rightSpeed = 0.5*rightSpeed;
+        leftSpeed = -leftSpeed;
         
         if (leftSpeed < -JOYSTICK_DEADZONE || leftSpeed > JOYSTICK_DEADZONE) {
             leftFrontMotor.set(leftSpeed);

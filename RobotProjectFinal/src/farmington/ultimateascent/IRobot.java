@@ -69,6 +69,7 @@ public interface IRobot {
      //Joystick axis
      int HORIZ_AXIS = 1;
      int VERTICAL_AXIS = 2;
+     int SWITCH_AXIS = 3;
      
      //Joystick buttons
      int TRIGGER = 1;
@@ -93,6 +94,8 @@ public interface IRobot {
      int DIO_SEVEN = 7;
      int DIO_EIGHT = 8;
      int DIO_NINE = 9;
+     int DIO_TEN = 10;
+     int DIO_ELEVEN = 11;
      int DIO_TWELVE = 12;
      int DIO_THIRTEEN = 13;
      int DIO_FOURTEEN = 14;
