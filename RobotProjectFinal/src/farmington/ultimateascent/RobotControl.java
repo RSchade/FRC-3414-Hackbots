@@ -21,6 +21,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     double driveScaling;
     double targetVoltage;
     double manualTargetVoltage;
+    double offset;
 
     /**
      * Main constructor for RobotControl.
@@ -33,14 +34,15 @@ public class RobotControl extends BaseRobot implements IRobot {
         liftControl = false;
         driveScaling = 1.0;
         manualTargetVoltage = 0.0;
+        offset = 0.0;
     }
     
     /**
      * Puts all information we need to see in the Driver Station on the SmartDashboard.
      */
     private void updateDashboard() {
-        SmartDashboard.putNumber("Shooter Wheel One Rate", myShooterWheelOne.getRate());
-        SmartDashboard.putNumber("Shooter Wheel Two Rate", myShooterWheelTwo.getRate());
+        SmartDashboard.putNumber("Shooter Wheel One RPM", myShooterWheelOne.getRate());
+        SmartDashboard.putNumber("Shooter Wheel Two RPM", myShooterWheelTwo.getRate());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
         SmartDashboard.putNumber("AveragePotentiometer", myShooterScrew.getAverageVoltage());
     }
@@ -76,14 +78,15 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
-        double automode = (rightStick.getRawAxis(SWITCH_AXIS)>0 ? 1 : 0);
-        if (automode == 0) {
-            targetVoltage = 3.5; //Insert angle A here
-        } else if (automode == 1) {
-            targetVoltage = 2.005; //Insert angle B here
-        } else {
-            targetVoltage = 0.0;
-        }
+//        double automode = (rightStick.getRawAxis(SWITCH_AXIS)>0 ? 1 : 0);
+//        if (automode == 0) {
+//            targetVoltage = 3.5; //Insert angle A here
+//        } else if (automode == 1) {
+//            targetVoltage = 2.005; //Insert angle B here
+//        } else {
+//            targetVoltage = 0.0;
+//        }
+        targetVoltage = 2.005;
         myShooterWheelOne.setTrueSpeed(-1.0);
         myShooterWheelTwo.setTrueSpeed(1.0);
         while(true) {
@@ -125,14 +128,14 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public void twentyMSLoop() {            
         //Drive speed scaling
-        if (leftStick.getRawButton(BUTTON_TWO)) {
+        if (rightStick.getRawButton(TRIGGER)) {
             driveScaling = 1.0;
         } else {
             driveScaling = 0.5;
         }
         
         //Drive Train
-        if (rightStick.getRawButton(TRIGGER)) {
+        if (rightStick.getRawButton(BUTTON_TEN)) {
             myDrive.setSpeed(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         } else {
             myDrive.setSpeed(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
@@ -142,11 +145,13 @@ public class RobotControl extends BaseRobot implements IRobot {
         if (!(gamepad.getRawButton(BUTTON_FOUR) || gamepad.getRawButton(BUTTON_TWO))) {
             if (gamepad.getRawButton(BUTTON_THREE)) {
                 manualTargetVoltage = 3.450;
+                offset = 0.025;
             } else if (gamepad.getRawButton(BUTTON_ONE)) {
                 manualTargetVoltage = 1.850;
+                offset = 0.1;
             }
             if (manualTargetVoltage != 0.0) {
-                int position = myShooterScrew.isOnTarget(manualTargetVoltage, 0.025);
+                int position = myShooterScrew.isOnTarget(manualTargetVoltage, offset);
                 if (position == -1) {
                     myShooterScrew.setMovement(true, false);
                 } else if (position == 1) {

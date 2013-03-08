@@ -15,6 +15,7 @@ Joystick 3      | Gamepad Control
 rightStick      |
 AXIS            | Right side drive train
 BUTTON_EIGHT    | Pyramid Lifter
+TRIGGER         | Drive Train Speed Control (on=full speed, off = half speed)
                 | 
 leftStick       |
 AXIS            | Left side drive train
@@ -22,10 +23,10 @@ AXIS            | Left side drive train
 gamepad         |
 BUTTON_FOUR     | Move shooter screw up
 BUTTON_TWO      | Move shooter screw down
-BUTTON_NINE     | Hold for Auto Aim
 BUTTON_SEVEN    | Shooter Wheels 100%
 BUTTON_FIVE     | Shooter Wheels 75%
-BUTTON_THREE    | Shooter Wheels 50%
+BUTTON_THREE    | Shooter screw to shooting mode
+BUTTON_ONE      | Shooter screw to loading mode
 BUTTON_EIGHT    | Shooter Piston
                 | 
 DIO 1           | Loading Wheel Sensor

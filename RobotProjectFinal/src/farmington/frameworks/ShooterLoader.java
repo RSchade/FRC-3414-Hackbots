@@ -41,26 +41,30 @@ public class ShooterLoader implements IRobot {
         if (manualTrigger) {
             this.turnOn();
         } else {
-            //DEBUG Disable this line when the 10mm sensor is in the right spot
             this.turnOff();
             
-            //DEBUG Re-enable this when the 10mm sensor is in the right spot
-//            if (loaderSensor.get()) {
-//                if (!chamberSensor.get()) {
-//                    if (logicControlA) {
-//                        loaderControl.waitXLoops(25);
-//                        logicControlA = false;
-//                    }
-//                    if (loaderControl.timeUp()) {
-//                        this.turnOn();
-//                    }
-//                } else {
-//                    logicControlA = true;
-//                    this.turnOff();
-//                }
-//            } else {
-//                this.turnOn();
-//            }
+            //DEBUG Enable this when the photosensor is fixed
+            
+            SmartDashboard.putBoolean("logicControlA", logicControlA);
+            SmartDashboard.putBoolean("loadercontrol.timeup", loaderControl.timeUp());
+            if (loaderSensor.get()) {
+                // If there is not a frisbee in the chamber
+                if (chamberSensor.get()) {
+                    if (logicControlA) {
+                        loaderControl.waitXLoops(50);
+                        logicControlA = false;
+                    }
+                    if (loaderControl.timeUp()) {
+                        this.turnOn();
+                    }
+                // If there is a frisbee in the chamber
+                } else {
+                    logicControlA = true;
+                    this.turnOff();
+                }
+            } else {
+                this.turnOn();
+            }
         }
     }
     
