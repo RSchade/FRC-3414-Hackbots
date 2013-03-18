@@ -5,12 +5,13 @@
 package farmington.frameworks;
 
 import edu.wpi.first.wpilibj.AnalogChannel;
+import farmington.ultimateascent.IRobot;
 
 /**
  *
  * @author Robotics
  */
-public class Potentiometer {
+public class Potentiometer implements IRobot {
     
     private AnalogChannel potentiometer;
     double averagePot;
@@ -18,19 +19,18 @@ public class Potentiometer {
     
     public Potentiometer(int channel) {
         potentiometer = new AnalogChannel(channel);
-        potValues = new double[10];
+        potValues = new double[POT_SAMPLING_RATE];
     }
     
     public double getAverageVoltage() {
-        averagePot = 0.0;
-        for (int i=0; i<10; i++) {
-            if (i<10-1) {
+        for (int i=0; i<POT_SAMPLING_RATE; i++) {
+            if (i<POT_SAMPLING_RATE-1) {
                 potValues[i] = potValues[i+1];
             }
-            potValues[10-1] = potentiometer.getVoltage();
+            potValues[POT_SAMPLING_RATE-1] = potentiometer.getVoltage();
             averagePot += potValues[i];
         }
-        averagePot /= 10.0;
+        averagePot /= (double)POT_SAMPLING_RATE;
         return averagePot;
     }
     

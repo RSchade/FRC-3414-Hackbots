@@ -45,6 +45,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Shooter Wheel Two RPM", myShooterWheelTwo.getRate());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
         SmartDashboard.putNumber("AveragePotentiometer", myShooterScrew.getAverageVoltage());
+        SmartDashboard.putNumber("right switch axis B", leftStick.getRawAxis(3));
+        SmartDashboard.putBoolean("High Sensor", myShooterScrew.getSensorHighValue());
+        SmartDashboard.putBoolean("Low Sensor", myShooterScrew.getSensorLowValue());
     }
     
     /**
@@ -86,36 +89,53 @@ public class RobotControl extends BaseRobot implements IRobot {
 //        } else {
 //            targetVoltage = 0.0;
 //        }
+        myShooterLoader.turnOff();
         targetVoltage = 2.005;
         myShooterWheelOne.setTrueSpeed(-1.0);
         myShooterWheelTwo.setTrueSpeed(1.0);
-        while(true) {
+        boolean screwIsGood = false;
+        boolean driveIsGood = false;
+        double time = 0.000;
+        while(!screwIsGood || !driveIsGood) {
             int position = myShooterScrew.isOnTarget(targetVoltage, 0.025);
-            SmartDashboard.putNumber("DEBUG autonomous position check:", position);
-            SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
-            SmartDashboard.putNumber("AveragePotentiometer", myShooterScrew.getAverageVoltage());
             if (position == -1) {
                 myShooterScrew.setMovement(true, false);
             } else if (position == 1) {
                 myShooterScrew.setMovement(false, true);
             } else {
                 myShooterScrew.setMovement(false, false);
-                break;
+                screwIsGood = true;
             }
+            
+            //Drive backwards while inside the pyramid
+            if (leftStick.getRawAxis(SWITCH_AXIS) < 0) {
+                time += 0.020;
+                if (time >= 0.500) {
+                    myDrive.setSpeed(0.0);
+                    driveIsGood = true;
+                } else {
+                    myDrive.setSpeed(0.5);
+                }
+            } else {
+                driveIsGood = true;
+            }
+            
             Timer.delay(0.020);
         }
         int i = 1;
-        Timer.delay(0.100);
         while(i<=3) {
             myShooterPiston.set(true);
-            Timer.delay(1.0);
+            Timer.delay(0.25);  //Extended for 1/4 of a second
             myShooterPiston.set(false);
-            Timer.delay(0.5);
+            Timer.delay(0.75);  //Wait for 3/4 of a second
             myShooterLoader.turnOn();
-            Timer.delay(0.8);
+            Timer.delay(0.75); //Wait for the frisbee to drop in
             myShooterLoader.turnOff();
+            Timer.delay(0.25); //Wait 1/4 second for the frisbee to settle and wheels to reach speed
             i++;
         }
+        myShooterWheelOne.setTrueSpeed(0.0);
+        myShooterWheelTwo.setTrueSpeed(0.0);
     }
     
     public void resetSystems() {
@@ -144,11 +164,11 @@ public class RobotControl extends BaseRobot implements IRobot {
         //Screw with manual positioning
         if (!(gamepad.getRawButton(BUTTON_FOUR) || gamepad.getRawButton(BUTTON_TWO))) {
             if (gamepad.getRawButton(BUTTON_THREE)) {
-                manualTargetVoltage = 3.450;
+                manualTargetVoltage = 3.50;
                 offset = 0.025;
             } else if (gamepad.getRawButton(BUTTON_ONE)) {
-                manualTargetVoltage = 1.850;
-                offset = 0.1;
+                manualTargetVoltage = 2.100;
+                offset = 0.050;
             }
             if (manualTargetVoltage != 0.0) {
                 int position = myShooterScrew.isOnTarget(manualTargetVoltage, offset);
@@ -158,6 +178,7 @@ public class RobotControl extends BaseRobot implements IRobot {
                     myShooterScrew.setMovement(false, true);
                 } else {
                     myShooterScrew.setMovement(false, false);
+                    manualTargetVoltage = 0.0;
                 }
             } else {
                 myShooterScrew.setMovement(false, false);
@@ -168,11 +189,12 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
         
         //Piston
-        if (gamepad.getRawButton(BUTTON_EIGHT)) {
-            myShooterPiston.set(true);      //DEBUG: revert to setWithMinTime(); once that is fixed
-        } else {
-            myShooterPiston.set(false);
-        }
+        myShooterPiston.shootWithTimeDelay(gamepad.getRawButton(BUTTON_EIGHT));
+//        if (gamepad.getRawButton(BUTTON_EIGHT)) {
+//            myShooterPiston.set(true);      //DEBUG: revert to setWithMinTime(); once that is fixed
+//        } else {
+//            myShooterPiston.set(false);
+//        }
         
         //Automatic loader update
         myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));

@@ -56,9 +56,9 @@ public class ShooterScrew implements IRobot {
     }
     
     public int isOnTarget(double targetVoltage, double offset) {
-        if (this.getAverageVoltage() < targetVoltage-offset) {
+        if (this.getVoltage() < targetVoltage-offset) {             //Change both getVoltages to getAverageVoltage when that is ready
             return -1;
-        } else if (this.getAverageVoltage() > targetVoltage+offset) {
+        } else if (this.getVoltage() > targetVoltage+offset) {
             return 1;
         } else {
             return 0;

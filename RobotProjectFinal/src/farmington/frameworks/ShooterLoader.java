@@ -36,6 +36,9 @@ public class ShooterLoader implements IRobot {
     }
     
     public void updateLoader(boolean manualTrigger) {
+        
+        //we invert chamberSensor.get() because false = there is a frisbee, and true = not a frisbee
+        boolean oneInTheChamber = !chamberSensor.get();
         SmartDashboard.putBoolean("Chamber", chamberSensor.get());
         SmartDashboard.putBoolean("Loader", loaderSensor.get());
         if (manualTrigger) {
@@ -47,20 +50,32 @@ public class ShooterLoader implements IRobot {
             
             SmartDashboard.putBoolean("logicControlA", logicControlA);
             SmartDashboard.putBoolean("loadercontrol.timeup", loaderControl.timeUp());
+            /*
+             * This checks to see if a frisbee is not detected constantly for 1000ms.
+             * If a frisbee has not been detected at the end of this time, it loads
+             * one from the loader. This is to prevent double-loading because of jostling
+             */
             if (loaderSensor.get()) {
-                // If there is not a frisbee in the chamber
-                if (chamberSensor.get()) {
-                    if (logicControlA) {
-                        loaderControl.waitXLoops(50);
-                        logicControlA = false;
-                    }
-                    if (loaderControl.timeUp()) {
-                        this.turnOn();
-                    }
-                // If there is a frisbee in the chamber
-                } else {
+                // If there is not a frisbee in the chamber, start waiting
+                if (!oneInTheChamber && logicControlA) {
+                    loaderControl.waitXLoops(40);
+                    logicControlA = false;
+                }
+                // If we are waiting and a frisbee appears, cancel the wait.
+                if (loaderControl.isWaiting() && oneInTheChamber) {
                     logicControlA = true;
-                    this.turnOff();
+                    loaderControl.reset();
+                }
+                /* 
+                 * If we reach the end of the wait and the timer has not been cancelled, start loading.
+                 * Load until a frisbee is detected in the chamber, then reset the logic to detect missing frisbees
+                 */
+                if (loaderControl.timeUp() && !logicControlA) {
+                    if (!oneInTheChamber) {
+                        this.turnOn();
+                    } else {
+                        logicControlA = true;
+                    }
                 }
             } else {
                 this.turnOn();
@@ -124,6 +139,10 @@ public class ShooterLoader implements IRobot {
     
     public void turnOff() {
         loaderWheel.set(RELAY_OFF);
+    }
+    
+    public boolean getChamberSensor() {
+        return chamberSensor.get();
     }
     
     public void reset() {
