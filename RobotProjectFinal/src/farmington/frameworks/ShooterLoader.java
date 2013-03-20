@@ -46,8 +46,6 @@ public class ShooterLoader implements IRobot {
         } else {
             this.turnOff();
             
-            //DEBUG Enable this when the photosensor is fixed
-            
             SmartDashboard.putBoolean("logicControlA", logicControlA);
             SmartDashboard.putBoolean("loadercontrol.timeup", loaderControl.timeUp());
             /*

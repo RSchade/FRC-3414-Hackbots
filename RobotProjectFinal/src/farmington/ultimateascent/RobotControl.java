@@ -81,14 +81,6 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
-//        double automode = (rightStick.getRawAxis(SWITCH_AXIS)>0 ? 1 : 0);
-//        if (automode == 0) {
-//            targetVoltage = 3.5; //Insert angle A here
-//        } else if (automode == 1) {
-//            targetVoltage = 2.005; //Insert angle B here
-//        } else {
-//            targetVoltage = 0.0;
-//        }
         myShooterLoader.turnOff();
         targetVoltage = 2.005;
         myShooterWheelOne.setTrueSpeed(-1.0);
@@ -125,7 +117,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         int i = 1;
         while(i<=3) {
             myShooterPiston.set(true);
-            Timer.delay(0.25);  //Extended for 1/4 of a second
+            Timer.delay(0.25);  //Extended for 1/4 of a second               
             myShooterPiston.set(false);
             Timer.delay(0.75);  //Wait for 3/4 of a second
             myShooterLoader.turnOn();

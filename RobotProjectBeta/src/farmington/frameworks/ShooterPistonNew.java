@@ -3,67 +3,67 @@ package farmington.frameworks;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
-
-import farmington.frameworks.Waiter;
 import farmington.ultimateascent.IRobot;
 
 public class ShooterPistonNew implements IRobot {
 
     private Talon loaderWheel;
     private Solenoid shooterPiston;
+    private Solenoid shooterPistonReverse;
     private DigitalInput sensor;
+    
     private Waiter autoReloadControl;
     private Waiter forceReloadControl;
     private Waiter autoShooterControl;
     private Waiter autoBayControl;
-//    private boolean sensor;
+    
     private boolean isBayFull;
     private boolean loaderOverRide;
     private boolean wantAuto;
+    private boolean control = false;
     private int runCounter;
 
-    public ShooterPistonNew(int loaderWheelSlot, int shootChannel, int loaderSensorSlot) {
+    public ShooterPistonNew(int loaderWheelSlot, int shootChannel, int loaderSensorSlot, int shootChannelTwo) {
         loaderWheel = new Talon(loaderWheelSlot);
         shooterPiston = new Solenoid(shootChannel);
+        shooterPistonReverse = new Solenoid(shootChannelTwo);
         sensor = new DigitalInput(loaderSensorSlot);
+
         autoReloadControl = new Waiter();
         forceReloadControl = new Waiter();
         autoShooterControl = new Waiter();
         autoBayControl = new Waiter();
-//        sensor = false;
+
         isBayFull = false;
         loaderOverRide = false;
         wantAuto = false;
-        runCounter = 0;
     }
 
     public void reload(boolean forceReload) {
 
         //Force Reload
-        if (forceReload == true && isBayFull == false) {
+        if (forceReloadControl.timeUp()) {
+            loaderWheel.set(SPEED_STOP);
+            isBayFull = true;
+            loaderOverRide = false;
+        }
+        if (forceReload == true && isBayFull == false && !forceReloadControl.isWaiting()) {
             loaderWheel.set(SPEED_FORWARD_FULL);
             loaderOverRide = true;
-            forceReloadControl.waitXLoops(12);
-
-            if (forceReloadControl.timeUp()) {
-                loaderWheel.set(SPEED_STOP);
-                isBayFull = true;
-                loaderOverRide = false;
-            }
+            forceReloadControl.waitXLoops(38);
         }
+
         //Automatically Reload
-        if (sensor.get() == true && isBayFull == false && loaderOverRide == false) {
+        if (autoBayControl.timeUp()) {
+            isBayFull = true;
+        }
+        if (autoReloadControl.timeUp() && !autoBayControl.isWaiting()) {
+            loaderWheel.set(SPEED_STOP);
+            autoBayControl.waitXLoops(20);
+        }
+        if (sensor.get() == true && isBayFull == false && loaderOverRide == false && !autoReloadControl.isWaiting()) {
             loaderWheel.set(SPEED_FORWARD_FULL);
-            autoReloadControl.waitXLoops(12);
-
-            if (autoReloadControl.timeUp()) {
-                loaderWheel.set(SPEED_STOP);
-                autoBayControl.waitXLoops(7);
-
-                if (autoBayControl.timeUp()) {
-                    isBayFull = true;
-                }
-            }
+            autoReloadControl.waitXLoops(38);
         }
     }
 
@@ -71,22 +71,31 @@ public class ShooterPistonNew implements IRobot {
 
         //Manually Shoot
         if (wantToShoot == true) {
+            loaderOverRide = true;
             shooterPiston.set(true);
+            shooterPistonReverse.set(false);
             isBayFull = false;
         } else {
+            loaderOverRide = false;
             shooterPiston.set(false);
+            shooterPistonReverse.set(true);
         }
     }
 
     public void autoRun(boolean workAuto) {
 
         //Sets a single-button counter
+
         int counter = 0;
-        if (workAuto == true) {
+        if (workAuto == true && !control) {         // inverse method!!!
             counter++;
+            control = true;
+        } else if (!workAuto) {
+            control = false;
         }
         if (counter % 2 == 0) {
             wantAuto = true;
+            runCounter = 0;
         } else {
             wantAuto = false;
         }
@@ -98,42 +107,35 @@ public class ShooterPistonNew implements IRobot {
         if (wantAuto = true) {
 
             //Auto Run counter
-            for (runCounter = 0; runCounter < 5; runCounter++) {
+            if (runCounter < 4) {
 
                 //Automatically Reload
-                if (sensor.get() == true && isBayFull == false && loaderOverRide == false) {
+                if (autoBayControl.timeUp()) {
+                    isBayFull = true;
+                }
+                if (autoReloadControl.timeUp() && !autoBayControl.isWaiting()) {
+                    loaderWheel.set(SPEED_STOP);
+                    autoBayControl.waitXLoops(20);
+                }
+                if (sensor.get() == true && isBayFull == false && loaderOverRide == false && !autoReloadControl.isWaiting()) {
                     loaderWheel.set(SPEED_FORWARD_FULL);
-                    autoReloadControl.waitXLoops(12);
-
-                    if (autoReloadControl.timeUp()) {
-                        loaderWheel.set(SPEED_STOP);
-                        autoBayControl.waitXLoops(7);
-
-                        if (autoBayControl.timeUp()) {
-                            isBayFull = true;
-                        }
-                    }
+                    autoReloadControl.waitXLoops(38);
                 }
 
                 //Automatically Shoot
-                if (isBayFull == true) {
+                if (autoShooterControl.timeUp()) {
+                    shooterPiston.set(false);
+                    shooterPistonReverse.set(true);
+                    isBayFull = false;
+                    runCounter++;
+                }
+                if (isBayFull == true && !autoShooterControl.isWaiting()) {
                     shooterPiston.set(true);
-                    autoShooterControl.waitXLoops(3);
-
-                    if (autoShooterControl.timeUp()) {
-                        shooterPiston.set(false);
-                        isBayFull = false;
-                    }
+                    shooterPistonReverse.set(false);
+                    autoShooterControl.waitXLoops(25);      //half a second
                 }
-
-                //Shut off loop
-                if (runCounter == 4) {
-                    counter++;
-                }
+                counter++;      //reset because when %2 , runCounter = 0
             }
-
-            //Resets loop
-            runCounter = 0;
         }
     }
 }
