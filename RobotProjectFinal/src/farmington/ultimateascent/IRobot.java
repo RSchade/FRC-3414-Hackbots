@@ -53,6 +53,8 @@ public interface IRobot {
      int SOLENOID_THREE = 3;
      int SOLENOID_FOUR = 4;
      int SOLENOID_FIVE = 5;
+     int SOLENOID_SIX = 6;
+     int SOLENOID_SEVEN = 7;
      
      //Analog slots
      int ANALOG_ONE = 1;

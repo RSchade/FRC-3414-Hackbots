@@ -22,6 +22,11 @@ public class Waiter {
         this.targetIteration = getCurrentIteration() + waitTime;
     }
     
+    public void waitXms(int waitTime) {
+        int loopsToAdd = (int)(waitTime/20);
+        this.targetIteration = getCurrentIteration() + loopsToAdd;
+    }
+    
     public int getCurrentIteration() {
         return Main.loopCount;
     }

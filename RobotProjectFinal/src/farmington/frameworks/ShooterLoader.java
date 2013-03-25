@@ -26,10 +26,10 @@ public class ShooterLoader implements IRobot {
      * @param loaderWheelRelay relay slot for the loader wheel relay
      * @param loaderSensorSlot DIO slot for the limit switch
      */
-    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot, int oneInTheChamberSensorSlot) {
+    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot, int chamberSensorSlot) {
         loaderWheel = new Relay(loaderWheelRelay);
         loaderSensor = new DigitalInput(loaderSensorSlot);
-        chamberSensor = new DigitalInput(oneInTheChamberSensorSlot);
+        chamberSensor = new DigitalInput(chamberSensorSlot);
         loaderControl = new Waiter();
         logicControlA = true;
     }
@@ -80,56 +80,6 @@ public class ShooterLoader implements IRobot {
         }
     }
     
-    /**
-     * Controls the loader wheel based on logic.
-     * @param pistonIsExtended piston.get() method from the shooter piston
-     */
-//    public void updateLoader(boolean pistonIsExtended, boolean manualTrigger) {
-//        //Inverts input from the loader sensor because sensor returns false when a frisbee is detected.
-//        frisbeeIsDetected = !loaderSensor.get();
-//        
-//        if (pistonIsExtended) {
-//            logicControlA = true;
-//            logicControlC = false;
-//        } else {
-//            if (logicControlA) {
-//                loaderControl.waitXLoops(25);   //Waits 500 ms for the loading bay to be ready
-//                state = 0;
-//                logicControlA = false;
-//                logicControlB = true;
-//            }
-//            if (logicControlB && loaderControl.timeUp()) {
-//                state = 1;
-//                logicControlB = false;
-//                logicControlC = true;
-//            }
-//            if (logicControlC) {
-//                if (state == 1 && frisbeeIsDetected) {
-//                    this.turnOn();
-//                    loaderControl.waitXLoops(40);               //Turns on the loader for 40*20 = 800 ms
-//                    state = 2;
-//                }
-//                if (loaderControl.timeUp() && state == 2) {
-//                    this.turnOff();
-//                    state = 0;
-//                }
-//                if (state == 0) {
-//                    if (manualTrigger) {
-//                        this.turnOn();
-//                    } else {
-//                        this.turnOff();
-//                    }
-//                }
-//            }
-//        }
-//        SmartDashboard.putBoolean("pistonIsExtended", pistonIsExtended);
-//        SmartDashboard.putNumber("state", state);
-//        SmartDashboard.putBoolean("loaderControl", loaderControl.timeUp());
-//        SmartDashboard.putBoolean("logicControlA", logicControlA);
-//        SmartDashboard.putBoolean("logicControlB", logicControlB);
-//        SmartDashboard.putBoolean("logicControlC", logicControlC);
-//    }
-    
     public void turnOn() {
         loaderWheel.set(RELAY_FORWARD);
     }
@@ -140,6 +90,10 @@ public class ShooterLoader implements IRobot {
     
     public boolean getChamberSensor() {
         return chamberSensor.get();
+    }
+    
+    public boolean getLoaderSensor() {
+        return loaderSensor.get();
     }
     
     public void reset() {

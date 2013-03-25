@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import farmington.frameworks.AutoShooter;
 import farmington.frameworks.Camera;
 import farmington.frameworks.DriveTrain;
+import farmington.frameworks.LED;
 import farmington.frameworks.PyramidLifter;
 import farmington.frameworks.ShooterLoader;
 import farmington.frameworks.ShooterPiston;
@@ -30,6 +31,7 @@ public class BaseRobot implements IRobot {
     protected ShooterLoader myShooterLoader;
     protected PyramidLifter myPyramidLifter;
     protected AutoShooter myAutoShooter;
+    protected LED myLed;
     
     /**
      * Main constructor for BaseRobot.
@@ -47,5 +49,6 @@ public class BaseRobot implements IRobot {
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE, DIO_SEVEN);
         myPyramidLifter = new PyramidLifter(SOLENOID_ONE, SOLENOID_TWO);
         myAutoShooter = new AutoShooter();
+        myLed = new LED(SOLENOID_FIVE, SOLENOID_SIX, SOLENOID_SEVEN);
     }
 }
