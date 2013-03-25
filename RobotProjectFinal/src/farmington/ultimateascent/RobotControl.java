@@ -164,9 +164,11 @@ public class RobotControl extends BaseRobot implements IRobot {
         //Screw with manual positioning
         if (!(gamepad.getRawButton(BUTTON_FOUR) || gamepad.getRawButton(BUTTON_TWO))) {
             if (gamepad.getRawButton(BUTTON_THREE)) {
+                //Loading angle
                 manualTargetVoltage = 3.50;
                 offset = 0.025;
             } else if (gamepad.getRawButton(BUTTON_ONE)) {
+                //Shooting angle from back of pyramid
                 manualTargetVoltage = 2.100;
                 offset = 0.050;
             }
@@ -190,11 +192,6 @@ public class RobotControl extends BaseRobot implements IRobot {
         
         //Piston
         myShooterPiston.shootWithTimeDelay(gamepad.getRawButton(BUTTON_EIGHT));
-//        if (gamepad.getRawButton(BUTTON_EIGHT)) {
-//            myShooterPiston.set(true);      //DEBUG: revert to setWithMinTime(); once that is fixed
-//        } else {
-//            myShooterPiston.set(false);
-//        }
         
         //Automatic loader update
         myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));

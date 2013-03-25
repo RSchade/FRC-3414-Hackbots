@@ -18,7 +18,6 @@ public class ShooterLoader implements IRobot {
     private Relay loaderWheel;
     private DigitalInput loaderSensor;
     private DigitalInput chamberSensor;
-    private boolean frisbeeIsDetected;
     private boolean logicControlA;
     private Waiter loaderControl;
     
