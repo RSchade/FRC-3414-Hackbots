@@ -55,6 +55,7 @@ public interface IRobot {
      int SOLENOID_FIVE = 5;
      int SOLENOID_SIX = 6;
      int SOLENOID_SEVEN = 7;
+     int SOLENOID_EIGHT = 8;
      
      //Analog slots
      int ANALOG_ONE = 1;
@@ -123,4 +124,6 @@ public interface IRobot {
      Relay.Value RELAY_FORWARD = Relay.Value.kForward;
      Relay.Value RELAY_REVERSE = Relay.Value.kReverse;
      Relay.Value RELAY_OFF = Relay.Value.kOff;
+     
+     
 }

@@ -33,7 +33,7 @@ public class LED implements IRobot
     public void cycleColors() {
         if (canCycle) {
             cycle++;
-            if (cycle==7) {
+            if (cycle==8) {
                 cycle = 0;
             }
 
@@ -49,10 +49,24 @@ public class LED implements IRobot
                 this.setNastyBrown();
             } else if (cycle==5) {
                 this.setSeaBlue();
-            } else if (cycle==6) {
+            }else if (cycle==6) {
+                this.setWhite();
+            }else if (cycle==7) {
                 this.justNo();
             }
         }
+    }
+    
+    public boolean getRedStatus() {
+        return red.get();
+    }
+    
+    public boolean getBlueStatus() {
+        return blue.get();
+    }
+    
+    public boolean getGreenStatus() {
+        return green.get();
     }
     
     public void setPurple()
@@ -102,5 +116,12 @@ public class LED implements IRobot
         red.set(false);
         blue.set(false);
         green.set(false);
+    }
+    
+    public void setWhite()
+    {
+        red.set(true);
+        blue.set(true);
+        green.set(true);
     }
 }
