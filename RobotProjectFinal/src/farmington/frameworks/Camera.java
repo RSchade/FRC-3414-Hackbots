@@ -56,7 +56,6 @@ public class Camera implements IRobot {
             ParticleAnalysisReport[] reports = dataImage.getOrderedParticleAnalysisReports();
             for(int i=0; i < reports.length; i++) {
                 System.out.println("Rectangle number " + i + " found! Output: " + reports[i].particleArea);
-                SmartDashboard.putNumber("Camera Output", reports[i].particleArea);
                 if (reports[i].particleArea >= PARTICLE_AREA_THRESHOLD) {
                     return reports[i];
                 }

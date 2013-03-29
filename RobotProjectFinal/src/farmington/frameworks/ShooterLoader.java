@@ -38,15 +38,12 @@ public class ShooterLoader implements IRobot {
         
         //we invert chamberSensor.get() because false = there is a frisbee, and true = not a frisbee
         boolean oneInTheChamber = !chamberSensor.get();
-        SmartDashboard.putBoolean("Chamber", chamberSensor.get());
-        SmartDashboard.putBoolean("Loader", loaderSensor.get());
         if (manualTrigger) {
             this.turnOn();
         } else {
             this.turnOff();
             
-            SmartDashboard.putBoolean("logicControlA", logicControlA);
-            SmartDashboard.putBoolean("loadercontrol.timeup", loaderControl.timeUp());
+            
             /*
              * This checks to see if a frisbee is not detected constantly for 1000ms.
              * If a frisbee has not been detected at the end of this time, it loads

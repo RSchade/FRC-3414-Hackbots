@@ -50,13 +50,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putBoolean("Loader Wheel Sensor", myShooterLoader.getLoaderSensor());
         SmartDashboard.putBoolean("Chamber Sensor", myShooterLoader.getChamberSensor());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
-        SmartDashboard.putBoolean("High Screw Sensor", myShooterScrew.getSensorHighValue());
-        SmartDashboard.putBoolean("Low Screw Sensor", myShooterScrew.getSensorLowValue());
-        SmartDashboard.putNumber("Wheel One Voltage", -myShooterWheelOne.getTrueSpeed());
-        SmartDashboard.putNumber("Wheel Two Voltage", myShooterWheelTwo.getTrueSpeed());
-        SmartDashboard.putBoolean("Red LED", myLed.getRedStatus());
-        SmartDashboard.putBoolean("Green LED", myLed.getGreenStatus());
-        SmartDashboard.putBoolean("Blue LED", myLed.getBlueStatus());
+        SmartDashboard.putBoolean("Shooter Piston State", myShooterPiston.get());
+        SmartDashboard.putNumber("Shooter Wheel One", myShooterWheelOne.getRate());
+        SmartDashboard.putNumber("Shooter Wheel Two", myShooterWheelTwo.getRate());
     }
     
     private void logData() {
