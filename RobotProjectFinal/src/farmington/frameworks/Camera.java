@@ -44,7 +44,7 @@ public class Camera implements IRobot {
     
     /**
      * Looks for rectangular reflective tape and processes.
-     * @return the targetted rectangular image
+     * @return the targeted rectangular image
      */
     public ParticleAnalysisReport findParticles() {
         try {

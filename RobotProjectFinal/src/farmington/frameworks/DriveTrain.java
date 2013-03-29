@@ -28,7 +28,11 @@ public class DriveTrain implements IRobot {
         rightBackMotor = new Talon(rightBackSlot);
     }
     
-    public void setSpeed(double speed) {
+    /**
+     * This sets the speed based on a Joystick. Keep in mind that this is an inversion of the true speed (so 0.5 will cause the robot to go backwards at half speed)
+     * @param speed speed at which to move
+     */
+    public void setSpeedWithJoystick(double speed) {
         if (speed < -JOYSTICK_DEADZONE || speed > JOYSTICK_DEADZONE) {
             leftFrontMotor.set(-speed);
             leftBackMotor.set(-speed);
@@ -47,7 +51,7 @@ public class DriveTrain implements IRobot {
      * @param leftSpeed     
      * @param rightSpeed    
      */
-    public void setSpeed(double leftSpeed, double rightSpeed) {
+    public void setSpeedWithJoysticks(double leftSpeed, double rightSpeed) {
         
         /* Since the left side Talons are backwards, we need to invert the
          * input value.

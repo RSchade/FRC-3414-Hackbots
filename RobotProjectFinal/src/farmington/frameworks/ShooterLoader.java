@@ -55,7 +55,7 @@ public class ShooterLoader implements IRobot {
             if (loaderSensor.get()) {
                 // If there is not a frisbee in the chamber, start waiting
                 if (!oneInTheChamber && logicControlA) {
-                    loaderControl.waitXLoops(40);
+                    loaderControl.waitXLoops(20);   //DEBUG -20 loops
                     logicControlA = false;
                 }
                 // If we are waiting and a frisbee appears, cancel the wait.

@@ -93,12 +93,12 @@ public class RobotControl extends BaseRobot implements IRobot {
             
             //Drive backwards while inside the pyramid
             if (leftStick.getRawAxis(SWITCH_AXIS) < 0) {
-                time += 0.020;
-                if (time >= 0.500) {
-                    myDrive.setSpeed(0.0);
+                time += 0.010;
+                if (time >= 0.750) {
+                    myDrive.setSpeedWithJoystick(0.0);
                     driveIsGood = true;
                 } else {
-                    myDrive.setSpeed(0.5);
+                    myDrive.setSpeedWithJoystick(0.5);
                 }
             } else {
                 driveIsGood = true;
@@ -115,16 +115,27 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
             myShooterLoader.turnOff();
-            Timer.delay(0.25); //Wait 1/4 second for the frisbee to settle and wheels to reach speed
+            Timer.delay(0.50); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
         myShooterWheelOne.setTrueSpeed(0.0);
         myShooterWheelTwo.setTrueSpeed(0.0);
+        
+        myDrive.setSpeedWithJoystick(0.5);
+        Timer.delay(1.0);
+        myDrive.setSpeedWithJoystick(0.0);
     }
     
     public void resetSystems() {
         myShooterPiston.reset();
         myShooterLoader.reset();
+        
+        //reset autonomous
+        myShooterScrew.setMovement(false, false, 0.0);
+        myDrive.setSpeedWithJoystick(0.0);
+        myShooterPiston.set(false);
+        myShooterWheelOne.setTrueSpeed(0.0);
+        myShooterWheelTwo.setTrueSpeed(0.0);
     }
     
     /**
@@ -140,9 +151,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         
         //Drive Train
         if (rightStick.getRawButton(BUTTON_TEN)) {
-            myDrive.setSpeed(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            myDrive.setSpeedWithJoystick(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         } else {
-            myDrive.setSpeed(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            myDrive.setSpeedWithJoysticks(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         }
         
         //Screw with manual positioning
@@ -187,6 +198,14 @@ public class RobotControl extends BaseRobot implements IRobot {
         myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));
         
         //Shooter Wheel Speed
+        //THE BEGINNING OF matt's super duper stupider codin'
+        if(gamepad.getRawButton(BUTTON_NINE)){
+            WHEEL_ONE_SPEED = -0.50;
+            WHEEL_TWO_SPEED = 0.75;
+        }else{
+            WHEEL_ONE_SPEED = -0.7;
+            WHEEL_TWO_SPEED = 1.0;
+        }
         if (gamepad.getRawButton(BUTTON_SEVEN)) {
             myShooterWheelOne.setTrueSpeed(WHEEL_ONE_SPEED);
             myShooterWheelTwo.setTrueSpeed(WHEEL_TWO_SPEED);
