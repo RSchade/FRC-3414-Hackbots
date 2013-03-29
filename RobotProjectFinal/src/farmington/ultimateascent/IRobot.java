@@ -19,13 +19,18 @@ public interface IRobot {
      double JOYSTICK_DEADZONE = 0.1;
      int POT_SAMPLING_RATE = 3;
      
+     //Screw speed values
+     double SCREW_FULL = 1.0;
+     double SCREW_OFF = 0.0;
+     double SCREW_HALF = 0.5;
+     
      //PID tuning values
      double PID_TOLERANCE = 0.02; //2% tolerance
      double KP = 0.1;
      double KI = 0.001;
      double KD = 0.0;
     
-     //Motor speed values
+     //General Motor speed values
      double SPEED_FORWARD_FULL = 1.0;
      double SPEED_FORWARD_HALF = 0.5;
      double SPEED_STOP = 0.0;

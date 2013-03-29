@@ -55,10 +55,6 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Shooter Wheel Two", myShooterWheelTwo.getRate());
     }
     
-    private void logData() {
-        
-    }
-    
     /**
      * Redirect method for autonomous control.
      */
@@ -81,20 +77,20 @@ public class RobotControl extends BaseRobot implements IRobot {
 //                screwIsGood = true;
 //            }
             if (myShooterScrew.getVoltage() <= targetVoltage) {
-                myShooterScrew.setMovement(false, false, 0.0);
+                myShooterScrew.setMovement(false, false, SCREW_OFF);
                 screwIsGood = true;
             } else {
-                myShooterScrew.setMovement(false, true, 1.0);
+                myShooterScrew.setMovement(false, true, SCREW_FULL);
             }
             
             //Drive backwards while inside the pyramid
             if (leftStick.getRawAxis(SWITCH_AXIS) < 0) {
                 time += 0.010;
                 if (time >= 0.750) {
-                    myDrive.setSpeedWithJoystick(0.0);
+                    myDrive.setSpeed(SPEED_STOP);
                     driveIsGood = true;
                 } else {
-                    myDrive.setSpeedWithJoystick(0.5);
+                    myDrive.setSpeed(SPEED_REVERSE_HALF);
                 }
             } else {
                 driveIsGood = true;
@@ -114,12 +110,12 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(0.50); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
-        myShooterWheelOne.setTrueSpeed(0.0);
-        myShooterWheelTwo.setTrueSpeed(0.0);
+        myShooterWheelOne.setTrueSpeed(SPEED_STOP);
+        myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
         
-        myDrive.setSpeedWithJoystick(0.5);
+        myDrive.setSpeed(SPEED_REVERSE_HALF);
         Timer.delay(1.0);
-        myDrive.setSpeedWithJoystick(0.0);
+        myDrive.setSpeed(SPEED_STOP);
     }
     
     public void resetSystems() {
@@ -127,11 +123,11 @@ public class RobotControl extends BaseRobot implements IRobot {
         myShooterLoader.reset();
         
         //reset autonomous
-        myShooterScrew.setMovement(false, false, 0.0);
-        myDrive.setSpeedWithJoystick(0.0);
+        myShooterScrew.setMovement(false, false, SCREW_OFF);
+        myDrive.setSpeed(SPEED_STOP);
         myShooterPiston.set(false);
-        myShooterWheelOne.setTrueSpeed(0.0);
-        myShooterWheelTwo.setTrueSpeed(0.0);
+        myShooterWheelOne.setTrueSpeed(SPEED_STOP);
+        myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
     }
     
     /**
@@ -147,7 +143,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         
         //Drive Train
         if (rightStick.getRawButton(BUTTON_TEN)) {
-            myDrive.setSpeedWithJoystick(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            myDrive.setSpeedWithJoysticks(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         } else {
             myDrive.setSpeedWithJoysticks(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         }
@@ -166,15 +162,15 @@ public class RobotControl extends BaseRobot implements IRobot {
             if (manualTargetVoltage != 0.0) {
                 int position = myShooterScrew.isOnTarget(manualTargetVoltage, offset);
                 if (position == -1) {
-                    myShooterScrew.setMovement(true, false, 1.0);
+                    myShooterScrew.setMovement(true, false, SCREW_FULL);
                 } else if (position == 1) {
-                    myShooterScrew.setMovement(false, true, 1.0);
+                    myShooterScrew.setMovement(false, true, SCREW_FULL);
                 } else {
-                    myShooterScrew.setMovement(false, false, 0.0);
+                    myShooterScrew.setMovement(false, false, SCREW_OFF);
                     manualTargetVoltage = 0.0;
                 }
             } else {
-                myShooterScrew.setMovement(false, false, 0.0);
+                myShooterScrew.setMovement(false, false, SCREW_OFF);
             }
         } else {
             manualTargetVoltage = 0.0;
@@ -206,8 +202,8 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterWheelOne.setTrueSpeed(WHEEL_ONE_SPEED);
             myShooterWheelTwo.setTrueSpeed(WHEEL_TWO_SPEED);
         } else {
-            myShooterWheelOne.setTrueSpeed(0.0);
-            myShooterWheelTwo.setTrueSpeed(0.0);
+            myShooterWheelOne.setTrueSpeed(SPEED_STOP);
+            myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
         }
         
         //Pyramid lifter logic
