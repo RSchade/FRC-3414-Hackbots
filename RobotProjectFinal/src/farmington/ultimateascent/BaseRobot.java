@@ -44,8 +44,8 @@ public class BaseRobot implements IRobot {
         myDrive = new DriveTrain(PWM_ONE, PWM_THREE, PWM_TWO, PWM_FOUR);
         myShooterScrew = new ShooterScrew(PWM_FIVE, ANALOG_ONE, DIO_EIGHT, DIO_NINE);
         myShooterPiston = new ShooterPiston(SOLENOID_FOUR, SOLENOID_THREE);
-        myShooterWheelOne = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SIX, 100, 0, 0);
-        myShooterWheelTwo = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SEVEN, 100, 0, 0);
+        myShooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SIX, 100, 0, 0);
+        myShooterWheelTwo = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SEVEN, 100, 0, 0);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE, DIO_SEVEN);
         myPyramidLifter = new PyramidLifter(SOLENOID_ONE, SOLENOID_TWO);
         myAutoShooter = new AutoShooter();
