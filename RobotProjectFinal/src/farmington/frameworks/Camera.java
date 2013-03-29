@@ -23,6 +23,9 @@ public class Camera implements IRobot {
     public Camera() {
         if (CAMERA_ENABLED) {
             myCamera = AxisCamera.getInstance();
+            myCamera.writeResolution(AxisCamera.ResolutionT.k320x240);
+            myCamera.writeMaxFPS(20);
+            myCamera.writeCompression(50);
             crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
             crit.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
         }
@@ -32,44 +35,46 @@ public class Camera implements IRobot {
      * Calls findParticles() once each time this is true.
      * @param trigger button to be pressed for picture taking
      */
-    public void takePicture(boolean trigger) {
-        if (trigger && loopControl) {
-            findParticles();
-            loopControl = false;
-        }
-        if (!trigger && !loopControl) {
-            loopControl = true;
-        }
-    }
+    //Currently disabled because we don't use it.
+//    public void takePicture(boolean trigger) {
+//        if (trigger && loopControl) {
+//            findParticles();
+//            loopControl = false;
+//        }
+//        if (!trigger && !loopControl) {
+//            loopControl = true;
+//        }
+//    }
     
     /**
      * Looks for rectangular reflective tape and processes.
      * @return the targeted rectangular image
      */
-    public ParticleAnalysisReport findParticles() {
-        try {
-            image = myCamera.getImage();
-            dataImage = image.thresholdRGB(RED_MIN, RED_MAX, BLU_MIN, BLU_MAX, GRN_MIN, GRN_MAX);
-            dataImage = dataImage.removeSmallObjects(false, 2);
-            dataImage = dataImage.convexHull(true);
-            dataImage = dataImage.particleFilter(crit);
-            ParticleAnalysisReport[] reports = dataImage.getOrderedParticleAnalysisReports();
-            for(int i=0; i < reports.length; i++) {
-                System.out.println("Rectangle number " + i + " found! Output: " + reports[i].particleArea);
-                if (reports[i].particleArea >= PARTICLE_AREA_THRESHOLD) {
-                    return reports[i];
-                }
-            }
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-        
-        try {
-            image = null;
-            dataImage = null;
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    //Currently disabled because we don't use it.
+//    public ParticleAnalysisReport findParticles() {
+//        try {
+//            image = myCamera.getImage();
+//            dataImage = image.thresholdRGB(RED_MIN, RED_MAX, BLU_MIN, BLU_MAX, GRN_MIN, GRN_MAX);
+//            dataImage = dataImage.removeSmallObjects(false, 2);
+//            dataImage = dataImage.convexHull(true);
+//            dataImage = dataImage.particleFilter(crit);
+//            ParticleAnalysisReport[] reports = dataImage.getOrderedParticleAnalysisReports();
+//            for(int i=0; i < reports.length; i++) {
+//                System.out.println("Rectangle number " + i + " found! Output: " + reports[i].particleArea);
+//                if (reports[i].particleArea >= PARTICLE_AREA_THRESHOLD) {
+//                    return reports[i];
+//                }
+//            }
+//        } catch(Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        
+//        try {
+//            image = null;
+//            dataImage = null;
+//        } catch(Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
 }

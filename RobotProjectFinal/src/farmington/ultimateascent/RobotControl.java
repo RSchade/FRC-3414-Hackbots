@@ -10,10 +10,11 @@ import farmington.frameworks.Waiter;
 
 /**
  * The main control class for our robot.
+ *
  * @author 3414
  */
 public class RobotControl extends BaseRobot implements IRobot {
-    
+
     double WHEEL_ONE_SPEED;
     double WHEEL_TWO_SPEED;
     boolean onTargetX;
@@ -42,9 +43,10 @@ public class RobotControl extends BaseRobot implements IRobot {
         offset = 0.0;
         LEDCycleControl = new Waiter();
     }
-    
+
     /**
-     * Puts all information we need to see in the Driver Station on the SmartDashboard.
+     * Puts all information we need to see in the Driver Station on the
+     * SmartDashboard.
      */
     private void updateDashboard() {
         SmartDashboard.putBoolean("Loader Wheel Sensor", myShooterLoader.getLoaderSensor());
@@ -54,7 +56,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putNumber("Shooter Wheel One", myShooterWheelOne.getRate());
         SmartDashboard.putNumber("Shooter Wheel Two", myShooterWheelTwo.getRate());
     }
-    
+
     /**
      * Redirect method for autonomous control.
      */
@@ -66,7 +68,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         boolean screwIsGood = false;
         boolean driveIsGood = false;
         double time = 0.000;
-        while(!screwIsGood || !driveIsGood) {
+        while (!screwIsGood || !driveIsGood) {
 //            int position = myShooterScrew.isOnTarget(targetVoltage, 0.005);
 //            if (position == -1) {
 //                myShooterScrew.setMovement(true, false, 1.0);
@@ -82,7 +84,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             } else {
                 myShooterScrew.setMovement(false, true, SCREW_FULL);
             }
-            
+
             //Drive backwards while inside the pyramid
             if (leftStick.getRawAxis(SWITCH_AXIS) < 0) {
                 time += 0.010;
@@ -95,11 +97,11 @@ public class RobotControl extends BaseRobot implements IRobot {
             } else {
                 driveIsGood = true;
             }
-            
+
             Timer.delay(0.010);
         }
         int i = 1;
-        while(i<=3) {
+        while (i <= 3) {
             myShooterPiston.set(true);
             Timer.delay(0.25);  //Extended for 1/4 of a second               
             myShooterPiston.set(false);
@@ -112,16 +114,20 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
         myShooterWheelOne.setTrueSpeed(SPEED_STOP);
         myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
-        
-        myDrive.setSpeed(SPEED_REVERSE_HALF);
-        Timer.delay(1.0);
-        myDrive.setSpeed(SPEED_STOP);
+
+        if (leftStick.getRawAxis(SWITCH_AXIS) > 0) {
+            myDrive.setSpeed(SPEED_REVERSE_HALF);
+            Timer.delay(1.0);
+            myDrive.setSpeed(SPEED_STOP);
+        } else {
+        }
+
     }
-    
+
     public void resetSystems() {
         myShooterPiston.reset();
         myShooterLoader.reset();
-        
+
         //reset autonomous
         myShooterScrew.setMovement(false, false, SCREW_OFF);
         myDrive.setSpeed(SPEED_STOP);
@@ -129,7 +135,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         myShooterWheelOne.setTrueSpeed(SPEED_STOP);
         myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
     }
-    
+
     /**
      * Updates important systems, called every 20 milliseconds in Main.java.
      */
@@ -140,14 +146,14 @@ public class RobotControl extends BaseRobot implements IRobot {
         } else {
             driveScaling = 0.5;
         }
-        
+
         //Drive Train
         if (rightStick.getRawButton(BUTTON_TEN)) {
             myDrive.setSpeedWithJoysticks(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         } else {
             myDrive.setSpeedWithJoysticks(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         }
-        
+
         //Screw with manual positioning
         if (!(gamepad.getRawButton(BUTTON_FOUR) || gamepad.getRawButton(BUTTON_TWO))) {
             if (gamepad.getRawButton(BUTTON_THREE)) {
@@ -182,19 +188,19 @@ public class RobotControl extends BaseRobot implements IRobot {
             }
             myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO), speedFactor);
         }
-        
+
         //Piston
         myShooterPiston.shootWithTimeDelay(gamepad.getRawButton(BUTTON_EIGHT));
-        
+
         //Automatic loader update
         myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));
-        
+
         //Shooter Wheel Speed
         //THE BEGINNING OF matt's super duper stupider codin'
-        if(gamepad.getRawButton(BUTTON_NINE)){
+        if (gamepad.getRawButton(BUTTON_NINE)) {
             WHEEL_ONE_SPEED = -0.50;
             WHEEL_TWO_SPEED = 0.75;
-        }else{
+        } else {
             WHEEL_ONE_SPEED = -0.7;
             WHEEL_TWO_SPEED = 1.0;
         }
@@ -205,7 +211,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterWheelOne.setTrueSpeed(SPEED_STOP);
             myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
         }
-        
+
         //Pyramid lifter logic
         if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {
             liftIsUp = !liftIsUp;
@@ -218,13 +224,13 @@ public class RobotControl extends BaseRobot implements IRobot {
         } else {
             myPyramidLifter.goUp();
         }
-        
+
         //LED Manual Cycling
         if (leftStick.getRawButton(TRIGGER) && LEDCycleControl.timeUp()) {
             myLed.cycleColors();
             LEDCycleControl.waitXms(500);
         }
-        
+
         //LED Automatic Color changes
         if (myShooterLoader.getChamberSensor()) {
             myLed.setGreen();
@@ -236,16 +242,16 @@ public class RobotControl extends BaseRobot implements IRobot {
             myLed.setPurple();
             myLed.canCycle = true;
         }
-        
+
         this.updateDashboard();
     }
-    
+
     /**
      * Called every 100 milliseconds in Main.java.
      */
     public void hundredMSLoop() {
     }
-    
+
     /**
      * Called every second in Main.java.
      */
