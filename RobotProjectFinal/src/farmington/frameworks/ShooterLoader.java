@@ -45,14 +45,14 @@ public class ShooterLoader implements IRobot {
             
             
             /*
-             * This checks to see if a frisbee is not detected constantly for 1000ms.
+             * This checks to see if a frisbee is not detected constantly for 200ms.
              * If a frisbee has not been detected at the end of this time, it loads
              * one from the loader. This is to prevent double-loading because of jostling
              */
             if (loaderSensor.get()) {
                 // If there is not a frisbee in the chamber, start waiting
                 if (!oneInTheChamber && logicControlA) {
-                    loaderControl.waitXLoops(20);   //DEBUG -20 loops
+                    loaderControl.waitXms(200);   //DEBUG -20 loops
                     logicControlA = false;
                 }
                 // If we are waiting and a frisbee appears, cancel the wait.
