@@ -69,15 +69,6 @@ public class RobotControl extends BaseRobot implements IRobot {
         boolean driveIsGood = false;
         double time = 0.000;
         while (!screwIsGood || !driveIsGood) {
-//            int position = myShooterScrew.isOnTarget(targetVoltage, 0.005);
-//            if (position == -1) {
-//                myShooterScrew.setMovement(true, false, 1.0);
-//            } else if (position == 1) {
-//                myShooterScrew.setMovement(false, true, 1.0);
-//            } else {
-//                myShooterScrew.setMovement(false, false, 0.0);
-//                screwIsGood = true;
-//            }
             if (myShooterScrew.getVoltage() <= targetVoltage) {
                 myShooterScrew.setMovement(false, false, SCREW_OFF);
                 screwIsGood = true;
@@ -237,13 +228,13 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
 
         //LED Automatic Color changes
-        if (myShooterLoader.getChamberSensor()) {
+        if (!myShooterLoader.getChamberSensor()) {
             myLed.setGreen();
             myLed.canCycle = false;
-        } else if (!myShooterLoader.getChamberSensor() && myShooterLoader.getLoaderSensor()) {
+        } else if (myShooterLoader.getChamberSensor() && myShooterLoader.getLoaderSensor()) {
             myLed.setBlue();
             myLed.canCycle = false;
-        } else if (!myShooterLoader.getLoaderSensor()) {
+        } else if (myShooterLoader.getLoaderSensor()) {
             myLed.setPurple();
             myLed.canCycle = true;
         }

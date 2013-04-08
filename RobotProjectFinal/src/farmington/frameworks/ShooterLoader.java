@@ -18,7 +18,7 @@ public class ShooterLoader implements IRobot {
     private Relay loaderWheel;
     private DigitalInput loaderSensor;
     private DigitalInput chamberSensor;
-    private boolean logicControlA;
+    private boolean waiting;
     private Waiter loaderControl;
     
     /**
@@ -31,13 +31,11 @@ public class ShooterLoader implements IRobot {
         loaderSensor = new DigitalInput(loaderSensorSlot);
         chamberSensor = new DigitalInput(chamberSensorSlot);
         loaderControl = new Waiter();
-        logicControlA = true;
+        waiting = false;
     }
     
     public void updateLoader(boolean manualTrigger) {
         
-        //we invert chamberSensor.get() because false = there is a frisbee, and true = not a frisbee
-        boolean oneInTheChamber = !chamberSensor.get();
         if (manualTrigger) {
             this.turnOn();
         } else {
@@ -51,24 +49,24 @@ public class ShooterLoader implements IRobot {
              */
             if (loaderSensor.get()) {
                 // If there is not a frisbee in the chamber, start waiting
-                if (!oneInTheChamber && logicControlA) {
+                if (!getChamberSensor() && !waiting) {
                     loaderControl.waitXms(200);   //DEBUG -20 loops
-                    logicControlA = false;
+                    waiting = true;
                 }
                 // If we are waiting and a frisbee appears, cancel the wait.
-                if (loaderControl.isWaiting() && oneInTheChamber) {
-                    logicControlA = true;
+                if (loaderControl.isWaiting() && getChamberSensor()) {
+                    waiting = false;
                     loaderControl.reset();
                 }
                 /* 
                  * If we reach the end of the wait and the timer has not been cancelled, start loading.
                  * Load until a frisbee is detected in the chamber, then reset the logic to detect missing frisbees
                  */
-                if (loaderControl.timeUp() && !logicControlA) {
-                    if (!oneInTheChamber) {
+                if (loaderControl.timeUp() && waiting) {
+                    if (!getChamberSensor()) {
                         this.turnOn();
                     } else {
-                        logicControlA = true;
+                        waiting = false;
                     }
                 }
             } else {
@@ -86,7 +84,7 @@ public class ShooterLoader implements IRobot {
     }
     
     public boolean getChamberSensor() {
-        return chamberSensor.get();
+        return !chamberSensor.get();
     }
     
     public boolean getLoaderSensor() {
