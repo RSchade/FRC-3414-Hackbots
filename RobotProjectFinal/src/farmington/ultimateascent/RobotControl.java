@@ -114,12 +114,17 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
         myShooterWheelOne.setTrueSpeed(SPEED_STOP);
         myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
-
+        if (myShooterScrew.getVoltage() < 3.5)
+        {
+            myShooterScrew.setMovement(true, false, 1.0);
+        }
+        else{
+            myShooterScrew.setMovement(false, false, SCREW_OFF);
+        }
         if (leftStick.getRawAxis(SWITCH_AXIS) > 0) {
             myDrive.setSpeed(SPEED_REVERSE_HALF);
             Timer.delay(1.0);
             myDrive.setSpeed(SPEED_STOP);
-        } else {
         }
 
     }
