@@ -14,10 +14,15 @@ public interface IRobot {
     
     //Miscellanious values
      double TIME_DELAY = 0.020; // 20 millisecond loop
-     boolean CAMERA_ENABLED = false; // Set to false for testing without camera
+     boolean CAMERA_ENABLED = true; // Set to false for testing without camera
      int SHOOTER_SPEED = -3000;
      double JOYSTICK_DEADZONE = 0.1;
      int POT_SAMPLING_RATE = 3;
+     
+     //Screw speed values
+     double SCREW_FULL = 1.0;
+     double SCREW_OFF = 0.0;
+     double SCREW_HALF = 0.5;
      
      //PID tuning values
      double PID_TOLERANCE = 0.02; //2% tolerance
@@ -25,7 +30,7 @@ public interface IRobot {
      double KI = 0.001;
      double KD = 0.0;
     
-     //Motor speed values
+     //General Motor speed values
      double SPEED_FORWARD_FULL = 1.0;
      double SPEED_FORWARD_HALF = 0.5;
      double SPEED_STOP = 0.0;
@@ -53,6 +58,9 @@ public interface IRobot {
      int SOLENOID_THREE = 3;
      int SOLENOID_FOUR = 4;
      int SOLENOID_FIVE = 5;
+     int SOLENOID_SIX = 6;
+     int SOLENOID_SEVEN = 7;
+     int SOLENOID_EIGHT = 8;
      
      //Analog slots
      int ANALOG_ONE = 1;
@@ -121,4 +129,6 @@ public interface IRobot {
      Relay.Value RELAY_FORWARD = Relay.Value.kForward;
      Relay.Value RELAY_REVERSE = Relay.Value.kReverse;
      Relay.Value RELAY_OFF = Relay.Value.kOff;
+     
+     
 }

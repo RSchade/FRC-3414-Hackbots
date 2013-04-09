@@ -5,15 +5,18 @@
 package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import farmington.frameworks.Waiter;
 
 /**
  * The main control class for our robot.
+ *
  * @author 3414
  */
 public class RobotControl extends BaseRobot implements IRobot {
-    
+
+    double WHEEL_ONE_SPEED;
+    double WHEEL_TWO_SPEED;
     boolean onTargetX;
     boolean onTargetY;
     boolean liftIsUp;
@@ -22,12 +25,15 @@ public class RobotControl extends BaseRobot implements IRobot {
     double targetVoltage;
     double manualTargetVoltage;
     double offset;
+    Waiter LEDCycleControl;
 
     /**
      * Main constructor for RobotControl.
      */
     public RobotControl() {
         super();
+        WHEEL_ONE_SPEED = -0.70;
+        WHEEL_TWO_SPEED = 1.0;
         onTargetX = false;
         onTargetY = false;
         liftIsUp = false;
@@ -35,87 +41,67 @@ public class RobotControl extends BaseRobot implements IRobot {
         driveScaling = 1.0;
         manualTargetVoltage = 0.0;
         offset = 0.0;
+        LEDCycleControl = new Waiter();
     }
-    
+
     /**
-     * Puts all information we need to see in the Driver Station on the SmartDashboard.
+     * Puts all information we need to see in the Driver Station on the
+     * SmartDashboard.
      */
     private void updateDashboard() {
-        SmartDashboard.putNumber("Shooter Wheel One RPM", myShooterWheelOne.getRate());
-        SmartDashboard.putNumber("Shooter Wheel Two RPM", myShooterWheelTwo.getRate());
+        SmartDashboard.putBoolean("Loader Wheel Sensor", myShooterLoader.getLoaderSensor());
+        SmartDashboard.putBoolean("Chamber Sensor", myShooterLoader.getChamberSensor());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
-        SmartDashboard.putNumber("AveragePotentiometer", myShooterScrew.getAverageVoltage());
-        SmartDashboard.putNumber("right switch axis B", leftStick.getRawAxis(3));
-        SmartDashboard.putBoolean("High Sensor", myShooterScrew.getSensorHighValue());
-        SmartDashboard.putBoolean("Low Sensor", myShooterScrew.getSensorLowValue());
+        SmartDashboard.putBoolean("Shooter Piston State", myShooterPiston.get());
+        SmartDashboard.putNumber("Shooter Wheel One", myShooterWheelOne.getRate());
+        SmartDashboard.putNumber("Shooter Wheel Two", myShooterWheelTwo.getRate());
     }
-    
-    /**
-     * Updates systems based on the camera rectangle target.
-     */
-    public void autoAim() {
-        onTargetX = false;
-        onTargetY = false;
-        ParticleAnalysisReport target = myCamera.findParticles();
-            
-        if (myAutoShooter.aimX(target) == 1) {
-            myDrive.setSpeed(-0.1, 0.1);
-        } else if (myAutoShooter.aimX(target) == -1) {
-            myDrive.setSpeed(0.1, -0.1);
-        } else {
-            onTargetX = true;
-            myDrive.setSpeed(0.0, 0.0);
-        }
-        
-        if (myAutoShooter.aimY(target) == 1) {
-            myShooterScrew.setMovement(false, true);
-        } else if (myAutoShooter.aimY(target) == -1) {
-            myShooterScrew.setMovement(true, false);
-        } else {
-            onTargetY = true;
-            myShooterScrew.setMovement(false, false);
-        }
-    }
-    
+
     /**
      * Redirect method for autonomous control.
      */
     public void autonomous() {
         myShooterLoader.turnOff();
         targetVoltage = 2.005;
-        myShooterWheelOne.setTrueSpeed(-1.0);
-        myShooterWheelTwo.setTrueSpeed(1.0);
+        myShooterWheelOne.setTrueSpeed(WHEEL_ONE_SPEED);
+        myShooterWheelTwo.setTrueSpeed(WHEEL_TWO_SPEED);
         boolean screwIsGood = false;
         boolean driveIsGood = false;
         double time = 0.000;
-        while(!screwIsGood || !driveIsGood) {
-            int position = myShooterScrew.isOnTarget(targetVoltage, 0.025);
-            if (position == -1) {
-                myShooterScrew.setMovement(true, false);
-            } else if (position == 1) {
-                myShooterScrew.setMovement(false, true);
-            } else {
-                myShooterScrew.setMovement(false, false);
+        while (!screwIsGood || !driveIsGood) {
+//            int position = myShooterScrew.isOnTarget(targetVoltage, 0.005);
+//            if (position == -1) {
+//                myShooterScrew.setMovement(true, false, 1.0);
+//            } else if (position == 1) {
+//                myShooterScrew.setMovement(false, true, 1.0);
+//            } else {
+//                myShooterScrew.setMovement(false, false, 0.0);
+//                screwIsGood = true;
+//            }
+            if (myShooterScrew.getVoltage() <= targetVoltage) {
+                myShooterScrew.setMovement(false, false, SCREW_OFF);
                 screwIsGood = true;
+            } else {
+                myShooterScrew.setMovement(false, true, SCREW_FULL);
             }
-            
+
             //Drive backwards while inside the pyramid
             if (leftStick.getRawAxis(SWITCH_AXIS) < 0) {
-                time += 0.020;
-                if (time >= 0.500) {
-                    myDrive.setSpeed(0.0);
+                time += 0.010;
+                if (time >= 0.750) {
+                    myDrive.setSpeed(SPEED_STOP);
                     driveIsGood = true;
                 } else {
-                    myDrive.setSpeed(0.5);
+                    myDrive.setSpeed(SPEED_REVERSE_HALF);
                 }
             } else {
                 driveIsGood = true;
             }
-            
-            Timer.delay(0.020);
+
+            Timer.delay(0.010);
         }
         int i = 1;
-        while(i<=3) {
+        while (i <= 3) {
             myShooterPiston.set(true);
             Timer.delay(0.25);  //Extended for 1/4 of a second               
             myShooterPiston.set(false);
@@ -123,105 +109,114 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
             myShooterLoader.turnOff();
-            Timer.delay(0.25); //Wait 1/4 second for the frisbee to settle and wheels to reach speed
+            Timer.delay(0.50); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
-        myShooterWheelOne.setTrueSpeed(0.0);
-        myShooterWheelTwo.setTrueSpeed(0.0);
+        myShooterWheelOne.setTrueSpeed(SPEED_STOP);
+        myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
+        if (myShooterScrew.getVoltage() < 3.5)
+        {
+            myShooterScrew.setMovement(true, false, 1.0);
+        }
+        else{
+            myShooterScrew.setMovement(false, false, SCREW_OFF);
+        }
+        if (leftStick.getRawAxis(SWITCH_AXIS) > 0) {
+            myDrive.setSpeed(SPEED_REVERSE_HALF);
+            Timer.delay(1.0);
+            myDrive.setSpeed(SPEED_STOP);
+        }
+
     }
-    
+
     public void resetSystems() {
         myShooterPiston.reset();
         myShooterLoader.reset();
+
+        //reset autonomous
+        myShooterScrew.setMovement(false, false, SCREW_OFF);
+        myDrive.setSpeed(SPEED_STOP);
+        myShooterPiston.set(false);
+        myShooterWheelOne.setTrueSpeed(SPEED_STOP);
+        myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
     }
-    
+
     /**
      * Updates important systems, called every 20 milliseconds in Main.java.
      */
-    public void twentyMSLoop() {            
+    public void twentyMSLoop() {
         //Drive speed scaling
         if (rightStick.getRawButton(TRIGGER)) {
             driveScaling = 1.0;
         } else {
             driveScaling = 0.5;
         }
-        
+
         //Drive Train
         if (rightStick.getRawButton(BUTTON_TEN)) {
-            myDrive.setSpeed(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            myDrive.setSpeedWithJoysticks(driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         } else {
-            myDrive.setSpeed(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
+            myDrive.setSpeedWithJoysticks(driveScaling * leftStick.getRawAxis(VERTICAL_AXIS), driveScaling * rightStick.getRawAxis(VERTICAL_AXIS));
         }
-        
+
         //Screw with manual positioning
         if (!(gamepad.getRawButton(BUTTON_FOUR) || gamepad.getRawButton(BUTTON_TWO))) {
             if (gamepad.getRawButton(BUTTON_THREE)) {
+                //Loading angle
                 manualTargetVoltage = 3.50;
                 offset = 0.025;
             } else if (gamepad.getRawButton(BUTTON_ONE)) {
-                manualTargetVoltage = 2.100;
+                //Shooting angle from back of pyramid
+                manualTargetVoltage = 1.950;
                 offset = 0.050;
             }
             if (manualTargetVoltage != 0.0) {
                 int position = myShooterScrew.isOnTarget(manualTargetVoltage, offset);
                 if (position == -1) {
-                    myShooterScrew.setMovement(true, false);
+                    myShooterScrew.setMovement(true, false, SCREW_FULL);
                 } else if (position == 1) {
-                    myShooterScrew.setMovement(false, true);
+                    myShooterScrew.setMovement(false, true, SCREW_FULL);
                 } else {
-                    myShooterScrew.setMovement(false, false);
+                    myShooterScrew.setMovement(false, false, SCREW_OFF);
                     manualTargetVoltage = 0.0;
                 }
             } else {
-                myShooterScrew.setMovement(false, false);
+                myShooterScrew.setMovement(false, false, SCREW_OFF);
             }
         } else {
             manualTargetVoltage = 0.0;
-            myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO));
+            double speedFactor;
+            if (gamepad.getRawButton(BUTTON_FIVE)) {
+                speedFactor = 0.75;
+            } else {
+                speedFactor = 1.0;
+            }
+            myShooterScrew.setMovement(gamepad.getRawButton(BUTTON_FOUR), gamepad.getRawButton(BUTTON_TWO), speedFactor);
         }
-        
+
         //Piston
         myShooterPiston.shootWithTimeDelay(gamepad.getRawButton(BUTTON_EIGHT));
-//        if (gamepad.getRawButton(BUTTON_EIGHT)) {
-//            myShooterPiston.set(true);      //DEBUG: revert to setWithMinTime(); once that is fixed
-//        } else {
-//            myShooterPiston.set(false);
-//        }
-        
+
         //Automatic loader update
         myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));
-        
+
         //Shooter Wheel Speed
-//        if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//            SmartDashboard.putBoolean("Shooter Has no target", false);
-//            myShooterWheelOne.updateSpeed(-0.017);
-//            myShooterWheelTwo.updateSpeed(-0.011);
-//        } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE) && !gamepad.getRawButton(BUTTON_THREE)) {
-//            SmartDashboard.putBoolean("Shooter Has no target", false);
-//            myShooterWheelOne.updateSpeed(-0.006);
-//            myShooterWheelTwo.updateSpeed(-0.004);
-//        } else if (!gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE) && gamepad.getRawButton(BUTTON_THREE)) {
-//            SmartDashboard.putBoolean("Shooter Has no target", false);
-//            myShooterWheelOne.setTrueSpeed(-1.0);
-//            myShooterWheelTwo.setTrueSpeed(1.0);
-//        } else {
-//            SmartDashboard.putBoolean("Shooter Has no target", true);
-//            myShooterWheelOne.updateSpeed(0.0);
-//            myShooterWheelTwo.updateSpeed(0.0);
-//        }
-        
-        //Shooter Wheel Speed
-        if (gamepad.getRawButton(BUTTON_SEVEN) && !gamepad.getRawButton(BUTTON_FIVE)) {
-            myShooterWheelOne.setTrueSpeed(-1.0);
-            myShooterWheelTwo.setTrueSpeed(1.0);
-        } else if (!gamepad.getRawButton(BUTTON_SEVEN) && gamepad.getRawButton(BUTTON_FIVE)) {
-            myShooterWheelOne.setTrueSpeed(-0.75);
-            myShooterWheelTwo.setTrueSpeed(0.75);
+        //THE BEGINNING OF matt's super duper stupider codin'
+        if (gamepad.getRawButton(BUTTON_NINE)) {
+            WHEEL_ONE_SPEED = -0.50;
+            WHEEL_TWO_SPEED = 0.75;
         } else {
-            myShooterWheelOne.setTrueSpeed(0.0);
-            myShooterWheelTwo.setTrueSpeed(0.0);
+            WHEEL_ONE_SPEED = -0.7;
+            WHEEL_TWO_SPEED = 1.0;
         }
-        
+        if (gamepad.getRawButton(BUTTON_SEVEN)) {
+            myShooterWheelOne.setTrueSpeed(WHEEL_ONE_SPEED);
+            myShooterWheelTwo.setTrueSpeed(WHEEL_TWO_SPEED);
+        } else {
+            myShooterWheelOne.setTrueSpeed(SPEED_STOP);
+            myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
+        }
+
         //Pyramid lifter logic
         if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {
             liftIsUp = !liftIsUp;
@@ -234,25 +229,34 @@ public class RobotControl extends BaseRobot implements IRobot {
         } else {
             myPyramidLifter.goUp();
         }
-        
+
+        //LED Manual Cycling
+        if (leftStick.getRawButton(TRIGGER) && LEDCycleControl.timeUp()) {
+            myLed.cycleColors();
+            LEDCycleControl.waitXms(500);
+        }
+
+        //LED Automatic Color changes
+        if (myShooterLoader.getChamberSensor()) {
+            myLed.setGreen();
+            myLed.canCycle = false;
+        } else if (!myShooterLoader.getChamberSensor() && myShooterLoader.getLoaderSensor()) {
+            myLed.setBlue();
+            myLed.canCycle = false;
+        } else if (!myShooterLoader.getLoaderSensor()) {
+            myLed.setPurple();
+            myLed.canCycle = true;
+        }
+
         this.updateDashboard();
     }
-    
+
     /**
      * Called every 100 milliseconds in Main.java.
      */
     public void hundredMSLoop() {
-        //AutoAim logic goes here because it involves camera logic.
-//        if (gamepad.getRawButton(BUTTON_NINE) && CAMERA_ENABLED) {
-//            autoAim();
-//            if (onTargetX && onTargetY) {
-//                SmartDashboard.putBoolean("Ready for shooting!?", true);
-//            } else {
-//                SmartDashboard.putBoolean("Ready for shooting!?", false);
-//            }
-//        }
     }
-    
+
     /**
      * Called every second in Main.java.
      */

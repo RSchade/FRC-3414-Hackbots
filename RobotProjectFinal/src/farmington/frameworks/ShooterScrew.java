@@ -33,11 +33,11 @@ public class ShooterScrew implements IRobot {
      * @param upButton      this makes it go up
      * @param downButton    this makes it go down!!
      */
-    public void setMovement(boolean upButton, boolean downButton) {
+    public void setMovement(boolean upButton, boolean downButton, double speedFactor) {
         if (upButton && !downButton && this.getSensorHighValue()) {
-            screwLift.set(SPEED_FORWARD_FULL);
+            screwLift.set(SPEED_FORWARD_FULL * speedFactor);
         } else if (downButton && !upButton && this.getSensorLowValue()) {
-            screwLift.set(SPEED_REVERSE_FULL);
+            screwLift.set(SPEED_REVERSE_FULL * speedFactor);
         } else {
             screwLift.set(SPEED_STOP);
         }
