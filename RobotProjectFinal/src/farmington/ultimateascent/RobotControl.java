@@ -19,7 +19,6 @@ public class RobotControl extends BaseRobot implements IRobot {
     double WHEEL_TWO_SPEED;
     boolean onTargetX;
     boolean onTargetY;
-    boolean liftIsUp;
     boolean liftControl;
     double driveScaling;
     double targetVoltage;
@@ -36,7 +35,6 @@ public class RobotControl extends BaseRobot implements IRobot {
         WHEEL_TWO_SPEED = 1.0;
         onTargetX = false;
         onTargetY = false;
-        liftIsUp = false;
         liftControl = false;
         driveScaling = 1.0;
         manualTargetVoltage = 0.0;
@@ -192,7 +190,6 @@ public class RobotControl extends BaseRobot implements IRobot {
         myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));
 
         //Shooter Wheel Speed
-        //THE BEGINNING OF matt's super duper stupider codin'
         if (gamepad.getRawButton(BUTTON_NINE)) {
             WHEEL_ONE_SPEED = -0.50;
             WHEEL_TWO_SPEED = 0.75;
@@ -210,15 +207,10 @@ public class RobotControl extends BaseRobot implements IRobot {
 
         //Pyramid lifter logic
         if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {
-            liftIsUp = !liftIsUp;
+            myPyramidLifter.alternate();
             liftControl = false;
         } else if (!rightStick.getRawButton(BUTTON_EIGHT)) {
             liftControl = true;
-        }
-        if (liftIsUp) {
-            myPyramidLifter.goDown();
-        } else {
-            myPyramidLifter.goUp();
         }
 
         //LED Manual Cycling

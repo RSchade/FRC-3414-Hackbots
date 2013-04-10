@@ -27,6 +27,14 @@ public class PyramidLifter {
         liftArm = new DoubleSolenoid(1, liftArmForwardChannel, liftArmReverseChannel);
     }
     
+    public void alternate() {
+        if (liftArm.get().equals(DoubleSolenoid.Value.kForward)) {
+            liftArm.set(DoubleSolenoid.Value.kReverse);
+        } else {
+            liftArm.set(DoubleSolenoid.Value.kForward);
+        }
+    }
+    
     /**
      * Moves the lifter arm up.
      */
