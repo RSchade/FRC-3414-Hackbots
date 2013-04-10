@@ -31,7 +31,7 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public RobotControl() {
         super();
-        WHEEL_ONE_SPEED = -0.70;
+        WHEEL_ONE_SPEED = 0.70;
         WHEEL_TWO_SPEED = 1.0;
         onTargetX = false;
         onTargetY = false;
@@ -51,8 +51,8 @@ public class RobotControl extends BaseRobot implements IRobot {
         SmartDashboard.putBoolean("Chamber Sensor", myShooterLoader.getChamberSensor());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
         SmartDashboard.putBoolean("Shooter Piston State", myShooterPiston.get());
-        SmartDashboard.putNumber("Shooter Wheel One", myShooterWheelOne.getRate());
-        SmartDashboard.putNumber("Shooter Wheel Two", myShooterWheelTwo.getRate());
+        SmartDashboard.putNumber("Shooter Wheel One Voltage", myShooterWheels.getWheelOneSpeed());
+        SmartDashboard.putNumber("Shooter Wheel Two Voltage", myShooterWheels.getWheelTwoSpeed());
     }
 
     /**
@@ -61,8 +61,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     public void autonomous() {
         myShooterLoader.turnOff();
         targetVoltage = 2.005;
-        myShooterWheelOne.setTrueSpeed(WHEEL_ONE_SPEED);
-        myShooterWheelTwo.setTrueSpeed(WHEEL_TWO_SPEED);
+        myShooterWheels.setWheelSpeeds(WHEEL_ONE_SPEED, WHEEL_TWO_SPEED);
         boolean screwIsGood = false;
         boolean driveIsGood = false;
         double time = 0.000;
@@ -101,8 +100,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(0.50); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
-        myShooterWheelOne.setTrueSpeed(SPEED_STOP);
-        myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
+        myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
         if (myShooterScrew.getVoltage() < 3.5)
         {
             myShooterScrew.setMovement(true, false, 1.0);
@@ -126,8 +124,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         myShooterScrew.setMovement(false, false, SCREW_OFF);
         myDrive.setSpeed(SPEED_STOP);
         myShooterPiston.set(false);
-        myShooterWheelOne.setTrueSpeed(SPEED_STOP);
-        myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
+        myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
     }
 
     /**
@@ -191,18 +188,16 @@ public class RobotControl extends BaseRobot implements IRobot {
 
         //Shooter Wheel Speed
         if (gamepad.getRawButton(BUTTON_NINE)) {
-            WHEEL_ONE_SPEED = -0.50;
+            WHEEL_ONE_SPEED = 0.50;
             WHEEL_TWO_SPEED = 0.75;
         } else {
-            WHEEL_ONE_SPEED = -0.7;
+            WHEEL_ONE_SPEED = 0.7;
             WHEEL_TWO_SPEED = 1.0;
         }
         if (gamepad.getRawButton(BUTTON_SEVEN)) {
-            myShooterWheelOne.setTrueSpeed(WHEEL_ONE_SPEED);
-            myShooterWheelTwo.setTrueSpeed(WHEEL_TWO_SPEED);
+            myShooterWheels.setWheelSpeeds(WHEEL_ONE_SPEED, WHEEL_TWO_SPEED);
         } else {
-            myShooterWheelOne.setTrueSpeed(SPEED_STOP);
-            myShooterWheelTwo.setTrueSpeed(SPEED_STOP);
+            myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
         }
 
         //Pyramid lifter logic

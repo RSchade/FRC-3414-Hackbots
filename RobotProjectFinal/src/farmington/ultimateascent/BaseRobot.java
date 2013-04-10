@@ -14,6 +14,7 @@ import farmington.frameworks.ShooterLoader;
 import farmington.frameworks.ShooterPiston;
 import farmington.frameworks.ShooterScrew;
 import farmington.frameworks.ShooterWheel;
+import farmington.frameworks.ShooterWheelsCombined;
 
 /**
  * Main class which initializes all necessary systems.
@@ -26,8 +27,9 @@ public class BaseRobot implements IRobot {
     protected DriveTrain myDrive;
     protected ShooterScrew myShooterScrew;
     protected ShooterPiston myShooterPiston;
-    protected ShooterWheel myShooterWheelOne;
-    protected ShooterWheel myShooterWheelTwo;
+    private ShooterWheel shooterWheelOne;
+    private ShooterWheel shooterWheelTwo;
+    protected ShooterWheelsCombined myShooterWheels;
     protected ShooterLoader myShooterLoader;
     protected PyramidLifter myPyramidLifter;
     protected AutoShooter myAutoShooter;
@@ -44,8 +46,9 @@ public class BaseRobot implements IRobot {
         myDrive = new DriveTrain(PWM_ONE, PWM_THREE, PWM_TWO, PWM_FOUR);
         myShooterScrew = new ShooterScrew(PWM_FIVE, ANALOG_ONE, DIO_EIGHT, DIO_NINE);
         myShooterPiston = new ShooterPiston(SOLENOID_FOUR, SOLENOID_THREE);
-        myShooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SIX, 100, 0, 0);
-        myShooterWheelTwo = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SEVEN, 100, 0, 0);
+        shooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SIX);
+        shooterWheelTwo = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SEVEN);
+        myShooterWheels = new ShooterWheelsCombined(shooterWheelOne, shooterWheelTwo);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE, DIO_SEVEN);
         myPyramidLifter = new PyramidLifter(SOLENOID_ONE, SOLENOID_TWO);
         myAutoShooter = new AutoShooter();

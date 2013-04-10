@@ -20,16 +20,12 @@ public class ShooterWheel implements IRobot {
      * @param encoderChannelA   DIO A-channel for the encoder attached to the wheel
      * @param encoderChannelB   DIO B-channel for the encoder attached to the wheel
      * @param motorSlot         PWM slot for the motor Talon
-     * @param Kp                Kp for the PID controller
-     * @param Ki                Ki for the PID controller
-     * @param Kd                Kd for the PID controller
      */
-    public ShooterWheel(int encoderChannelA, int encoderChannelB, int motorSlot, double Kp, double Ki, double Kd) {
+    public ShooterWheel(int encoderChannelA, int encoderChannelB, int motorSlot) {
         shooterMotor = new Talon(motorSlot);
         shooterEncoder = new Encoder(encoderChannelA, encoderChannelB);
         shooterEncoder.setDistancePerPulse(0.00277778);        //Currently set to 1/360 so 360 pulses = 1 rotation
         shooterEncoder.start();
-        shooterPID = new PIDController(Kp, Ki, Kd, shooterEncoder, shooterMotor);
         
     }
     
