@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RobotControl extends BaseRobot implements IRobot {
 
-    double WHEEL_ONE_SPEED;
-    double WHEEL_TWO_SPEED;
+    double wheelOneSpeed;
+    double wheelTwoSpeed;
     boolean onTargetX;
     boolean onTargetY;
     boolean liftControl;
@@ -30,8 +30,8 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public RobotControl() {
         super();
-        WHEEL_ONE_SPEED = 0.70;
-        WHEEL_TWO_SPEED = 1.0;
+        wheelOneSpeed = 0.70;
+        wheelTwoSpeed = 1.0;
         onTargetX = false;
         onTargetY = false;
         liftControl = false;
@@ -60,7 +60,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     public void autonomous() {
         myShooterLoader.turnOff();
         targetVoltage = 2.005;
-        myShooterWheels.setWheelSpeeds(WHEEL_ONE_SPEED, WHEEL_TWO_SPEED);
+        myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
         boolean driveIsGood = false;
         double time = 0.000;
@@ -187,14 +187,14 @@ public class RobotControl extends BaseRobot implements IRobot {
 
         //Shooter Wheel Speed
         if (gamepad.getRawButton(BUTTON_NINE)) {
-            WHEEL_ONE_SPEED = 0.50;
-            WHEEL_TWO_SPEED = 0.75;
+            wheelOneSpeed = 0.50;
+            wheelTwoSpeed = 0.75;
         } else {
-            WHEEL_ONE_SPEED = 0.7;
-            WHEEL_TWO_SPEED = 1.0;
+            wheelOneSpeed = 0.7;
+            wheelTwoSpeed = 1.0;
         }
         if (gamepad.getRawButton(BUTTON_SEVEN)) {
-            myShooterWheels.setWheelSpeeds(WHEEL_ONE_SPEED, WHEEL_TWO_SPEED);
+            myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         } else {
             myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
         }
