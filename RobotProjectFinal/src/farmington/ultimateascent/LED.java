@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
- * @author Ray Schade and Shrihari B------------i
+ * @author Ray Schade and Shrihari Bhaskaramurthi
  */
 
 public class LED implements IRobot

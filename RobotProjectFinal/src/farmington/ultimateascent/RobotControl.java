@@ -87,6 +87,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             }
             Timer.delay(0.010);
         }
+        Timer.delay(0.250); //Wait for the screw to settle
         int i = 1;
         while (i <= 3) {
             myShooterPiston.set(true);

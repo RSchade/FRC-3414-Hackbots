@@ -16,14 +16,14 @@ public class ShooterPiston {
     Solenoid reload;
     boolean readyToShoot;
     Waiter shootControl;
-    Waiter reloadControl;
+    Waiter cooldownControl;
     
     public ShooterPiston(int shootChannel, int reloadChannel) {
         shoot = new Solenoid(shootChannel);
         reload = new Solenoid(reloadChannel);
         readyToShoot = true;
         shootControl = new Waiter();
-        reloadControl = new Waiter();
+        cooldownControl = new Waiter();
     }
     
     public void shootWithTimeDelay(boolean wantToShoot) {
@@ -32,15 +32,15 @@ public class ShooterPiston {
             reload.set(false);
             //Extends the piston for 240 ms
             shootControl.waitXms(240);
-            //Retracts the piston after 240 ms and waits for 900 more ms
-            reloadControl.waitXms(240+900);
+            //Retracts the piston after 240 ms and waits for 900 more ms before we are ready to fire
+            cooldownControl.waitXms(240+900);
             readyToShoot = false;
         }
         if (shootControl.timeUp()) {
             shoot.set(false);
             reload.set(true);
         }
-        if (reloadControl.timeUp()) {
+        if (cooldownControl.timeUp()) {
             readyToShoot = true;
         }
     }
