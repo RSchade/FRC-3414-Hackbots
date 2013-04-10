@@ -58,6 +58,7 @@ public class RobotControl extends BaseRobot implements IRobot {
      * Redirect method for autonomous control.
      */
     public void autonomous() {
+        myPyramidLifter.goDown();
         myShooterLoader.turnOff();
         targetVoltage = 2.005;
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
@@ -84,7 +85,6 @@ public class RobotControl extends BaseRobot implements IRobot {
             } else {
                 driveIsGood = true;
             }
-
             Timer.delay(0.010);
         }
         int i = 1;
@@ -124,6 +124,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         myDrive.setSpeed(SPEED_STOP);
         myShooterPiston.set(false);
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
+        myPyramidLifter.goDown();
     }
 
     /**
