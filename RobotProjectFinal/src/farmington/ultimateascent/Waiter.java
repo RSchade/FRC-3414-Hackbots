@@ -2,9 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package farmington.frameworks;
-
-import farmington.ultimateascent.Main;
+package farmington.ultimateascent;
 
 /**
  *

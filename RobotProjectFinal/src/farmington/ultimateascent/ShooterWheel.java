@@ -1,9 +1,7 @@
-package farmington.frameworks;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
-import farmington.ultimateascent.IRobot;
 
 /**
  * Each instance of this class controls one wheel on the shooter.
@@ -11,7 +9,6 @@ import farmington.ultimateascent.IRobot;
  */
 public class ShooterWheel implements IRobot {
 
-    private PIDController shooterPID;
     private Talon shooterMotor;
     private Encoder shooterEncoder;
     

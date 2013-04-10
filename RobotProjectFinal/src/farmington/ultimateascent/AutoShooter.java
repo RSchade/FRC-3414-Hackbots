@@ -1,8 +1,7 @@
 
-package farmington.frameworks;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-import farmington.ultimateascent.IRobot;
 
 /**
  * Takes control of the bot and automagically aims at a target.

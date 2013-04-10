@@ -1,9 +1,7 @@
-package farmington.frameworks;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.image.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import farmington.ultimateascent.IRobot;
 
 /**
  * Camera processing.

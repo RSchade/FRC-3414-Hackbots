@@ -1,8 +1,7 @@
-package farmington.frameworks;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
-import farmington.ultimateascent.IRobot;
 
 /**
  * Controls the up/down screw system.

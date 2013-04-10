@@ -6,7 +6,6 @@ package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import farmington.frameworks.Waiter;
 
 /**
  * The main control class for our robot.

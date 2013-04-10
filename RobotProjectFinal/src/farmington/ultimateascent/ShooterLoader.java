@@ -2,12 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package farmington.frameworks;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import farmington.ultimateascent.IRobot;
 
 /**
  * Controls the loader wheel and limit switch system.

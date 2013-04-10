@@ -1,7 +1,6 @@
-package farmington.frameworks;
+package farmington.ultimateascent;
 
 import edu.wpi.first.wpilibj.Talon;
-import farmington.ultimateascent.IRobot;
 
 /**
  * This class controls all four Talons on the drive train.
