@@ -60,7 +60,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     public void autonomous() {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
-        targetVoltage = 2.005;
+        targetVoltage = 1.995;
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
         boolean driveIsGood = false;
@@ -189,8 +189,8 @@ public class RobotControl extends BaseRobot implements IRobot {
 
         //Shooter Wheel Speed
         if (gamepad.getRawButton(BUTTON_NINE)) {
-            wheelOneSpeed = 0.50;
-            wheelTwoSpeed = 0.75;
+            wheelOneSpeed = 0.25; //MATT MADE CHANGES HERE IT WAS 50
+            wheelTwoSpeed = 0.375;//MATT MADE CHANGES HERE IT WAS 75
         } else {
             wheelOneSpeed = 0.7;
             wheelTwoSpeed = 1.0;
