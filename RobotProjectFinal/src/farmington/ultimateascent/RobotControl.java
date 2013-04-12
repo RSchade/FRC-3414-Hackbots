@@ -105,13 +105,6 @@ public class RobotControl extends BaseRobot implements IRobot {
             i++;
         }
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
-        if (myShooterScrew.getVoltage() < 3.5)
-        {
-            myShooterScrew.setMovement(true, false, 1.0);
-        }
-        else{
-            myShooterScrew.setMovement(false, false, SCREW_OFF);
-        }
         
         if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
             myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
@@ -122,6 +115,11 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(1.0);
             myDrive.setSpeed(SPEED_STOP);
         }
+        
+        while (myShooterScrew.getVoltage() < 3.5) {
+            myShooterScrew.setMovement(true, false, 1.0);
+        }
+        myShooterScrew.setMovement(false, false, 0.0);
     }
 
     public void resetSystems() {
