@@ -61,9 +61,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
         if (leftStick.getRawAxis(SWITCH_AXIS) < 0 && rightStick.getRawAxis(SWITCH_AXIS) > 0) {
-            targetVoltage = 1.965;  //Angle for back of pyramid (was 1.980)
+            targetVoltage = 1.920;  //Angle for back of pyramid (was 1.980)
         } else {
-            targetVoltage = 1.965;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
+            targetVoltage = 1.920;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
         }
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
@@ -101,7 +101,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
             myShooterLoader.turnOff();
-            Timer.delay(0.25); //Wait 1/4 second for the frisbee to settle and wheels to reach speed
+            Timer.delay(0.5); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
