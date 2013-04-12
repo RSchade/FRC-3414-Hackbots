@@ -61,9 +61,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
         if (leftStick.getRawAxis(SWITCH_AXIS) < 0 && rightStick.getRawAxis(SWITCH_AXIS) > 0) {
-            targetVoltage = 1.965;  //Angle for back of pyramid
+            targetVoltage = 1.965;  //Angle for back of pyramid (was 1.980)
         } else {
-            targetVoltage = 1.965;  //Angle for corner of pyramid and SUPER SPECIAL mode
+            targetVoltage = 1.965;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
         }
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
