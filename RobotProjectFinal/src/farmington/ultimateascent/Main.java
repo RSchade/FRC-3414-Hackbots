@@ -18,10 +18,12 @@ public class Main extends SimpleRobot implements IRobot {
     RobotControl myRobotControl;
     Compressor myCompressor;
     public static int loopCount;
+    public static boolean isAutonomous;
     
     public Main() {
         myRobotControl = new RobotControl();
         myCompressor = new Compressor(DIO_FOURTEEN, RELAY_TWO);
+        isAutonomous = false;
     }
     
     /**
@@ -36,6 +38,7 @@ public class Main extends SimpleRobot implements IRobot {
      * Runs once each time the robot enters autonomous mode.
      */
     public void autonomous() {
+        isAutonomous = true;
         myRobotControl.autonomous();
     }
 
@@ -43,7 +46,7 @@ public class Main extends SimpleRobot implements IRobot {
      * Runs once each time the robot enters operator control.
      */
     public void operatorControl() {
-        
+        isAutonomous = false;
         System.out.println("DEBUG: Entering teleop mode");
         
         //Initialized a counter to keep track of current loop.
