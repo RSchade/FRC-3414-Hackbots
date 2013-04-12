@@ -60,7 +60,11 @@ public class RobotControl extends BaseRobot implements IRobot {
     public void autonomous() {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
-        targetVoltage = 1.980;
+        if (leftStick.getRawAxis(SWITCH_AXIS) < 0 && rightStick.getRawAxis(SWITCH_AXIS) > 0) {
+            targetVoltage = 1.965;  //Angle for back of pyramid
+        } else {
+            targetVoltage = 1.965;  //Angle for corner of pyramid and SUPER SPECIAL mode
+        }
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
         boolean driveIsGood = false;
