@@ -48,7 +48,7 @@ public class ShooterLoader implements IRobot {
             if (loaderSensor.get()) {
                 // If there is not a frisbee in the chamber, start waiting
                 if (!getChamberSensor() && !waiting) {
-                    loaderControl.waitXms(200);   //DEBUG -20 loops
+                    loaderControl.waitXms(700);   //DEBUG: 200 ms when the old sensor works again
                     waiting = true;
                 }
                 // If we are waiting and a frisbee appears, cancel the wait.
@@ -70,6 +70,15 @@ public class ShooterLoader implements IRobot {
             } else {
                 this.turnOn();
             }
+        }
+    }
+    
+    public void manualControl(boolean manualTrigger) {
+        
+        if (manualTrigger) {
+            this.turnOn();
+        } else {
+            this.turnOff();
         }
     }
     

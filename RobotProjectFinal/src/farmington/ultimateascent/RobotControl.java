@@ -191,7 +191,8 @@ public class RobotControl extends BaseRobot implements IRobot {
         myShooterPiston.shootWithTimeDelay(gamepad.getRawButton(BUTTON_EIGHT));
 
         //Automatic loader update
-        myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX));
+        myShooterLoader.updateLoader(gamepad.getRawButton(BUTTON_SIX)); //DEBUG: Disabled because sensor is broken
+//         myShooterLoader.manualControl(gamepad.getRawButton(BUTTON_SIX)); //Enable this when the sensor is broke
 
         //Shooter Wheel Speed
         if (gamepad.getRawButton(BUTTON_NINE)) {
