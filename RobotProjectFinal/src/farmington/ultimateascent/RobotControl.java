@@ -60,7 +60,7 @@ public class RobotControl extends BaseRobot implements IRobot {
     public void autonomous() {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
-        targetVoltage = 1.995;
+        targetVoltage = 1.980;
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
         boolean driveIsGood = false;
@@ -73,8 +73,8 @@ public class RobotControl extends BaseRobot implements IRobot {
                 myShooterScrew.setMovement(false, true, SCREW_FULL);
             }
 
-            //Drive backwards while inside the pyramid
-            if (leftStick.getRawAxis(SWITCH_AXIS) < 0) {
+            //Drive backwards while on the back of the pyramid
+            if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) < 0) {
                 time += 0.010;
                 if (time >= 0.750) {
                     myDrive.setSpeed(SPEED_STOP);
@@ -91,13 +91,13 @@ public class RobotControl extends BaseRobot implements IRobot {
         int i = 1;
         while (i <= 3) {
             myShooterPiston.set(true);
-            Timer.delay(0.25);  //Extended for 1/4 of a second               
+            Timer.delay(0.24);  //Extended for .24 of a second               
             myShooterPiston.set(false);
-            Timer.delay(0.75);  //Wait for 3/4 of a second
+            Timer.delay(0.1);  //Wait for .1 of a second
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
             myShooterLoader.turnOff();
-            Timer.delay(0.50); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
+            Timer.delay(0.25); //Wait 1/4 second for the frisbee to settle and wheels to reach speed
             i++;
         }
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
@@ -108,12 +108,16 @@ public class RobotControl extends BaseRobot implements IRobot {
         else{
             myShooterScrew.setMovement(false, false, SCREW_OFF);
         }
-        if (leftStick.getRawAxis(SWITCH_AXIS) > 0) {
+        
+        if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
+            myDrive.setSpeedWithJoysticks(0.2, 0.7);    //THIS MAKES IT GO BACKWARDS
+            Timer.delay(1.8);
+            myDrive.setSpeed(SPEED_STOP);
+        } else if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) > 0) {
             myDrive.setSpeed(SPEED_REVERSE_HALF);
             Timer.delay(1.0);
             myDrive.setSpeed(SPEED_STOP);
         }
-
     }
 
     public void resetSystems() {
@@ -189,8 +193,8 @@ public class RobotControl extends BaseRobot implements IRobot {
 
         //Shooter Wheel Speed
         if (gamepad.getRawButton(BUTTON_NINE)) {
-            wheelOneSpeed = 0.25; //MATT MADE CHANGES HERE IT WAS 50
-            wheelTwoSpeed = 0.375;//MATT MADE CHANGES HERE IT WAS 75
+            wheelOneSpeed = 0.4; //MATT MADE CHANGES HERE IT WAS 50
+            wheelTwoSpeed = 0.65;//MATT MADE CHANGES HERE IT WAS 75
         } else {
             wheelOneSpeed = 0.7;
             wheelTwoSpeed = 1.0;
@@ -202,10 +206,10 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
 
         //Pyramid lifter logic
-        if (rightStick.getRawButton(BUTTON_EIGHT) && liftControl) {
+        if ((rightStick.getRawButton(BUTTON_EIGHT) || rightStick.getRawButton(BUTTON_TWO)) && liftControl) {
             myPyramidLifter.alternate();
             liftControl = false;
-        } else if (!rightStick.getRawButton(BUTTON_EIGHT)) {
+        } else if (!rightStick.getRawButton(BUTTON_EIGHT) && !rightStick.getRawButton(BUTTON_TWO)) {
             liftControl = true;
         }
 
