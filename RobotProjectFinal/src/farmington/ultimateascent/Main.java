@@ -28,7 +28,7 @@ public class Main extends SimpleRobot implements IRobot {
      * Runs once when the robot turns on.
      */
     public void robotInit() {
-        System.out.println("Welcome to HACKBOTS code v1.0 final");
+        System.out.println("Welcome to HACKBOTS code v1.7.x final");
         myCompressor.start();
     }
     

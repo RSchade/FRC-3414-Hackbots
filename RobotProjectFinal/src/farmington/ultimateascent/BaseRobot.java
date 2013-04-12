@@ -22,7 +22,6 @@ public class BaseRobot implements IRobot {
     protected ShooterWheelsCombined myShooterWheels;
     protected ShooterLoader myShooterLoader;
     protected PyramidLifter myPyramidLifter;
-    protected AutoShooter myAutoShooter;
     protected LED myLed;
     
     /**
@@ -41,7 +40,6 @@ public class BaseRobot implements IRobot {
         myShooterWheels = new ShooterWheelsCombined(shooterWheelOne, shooterWheelTwo);
         myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_ONE, DIO_SEVEN);
         myPyramidLifter = new PyramidLifter(SOLENOID_ONE, SOLENOID_TWO);
-        myAutoShooter = new AutoShooter();
         myLed = new LED(SOLENOID_EIGHT, SOLENOID_SIX, SOLENOID_SEVEN);
     }
 }

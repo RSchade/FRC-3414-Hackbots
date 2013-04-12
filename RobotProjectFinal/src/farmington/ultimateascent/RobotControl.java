@@ -114,7 +114,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         }
         
         if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
-            myDrive.setSpeedWithJoysticks(0.2, 0.7);    //THIS MAKES IT GO BACKWARDS
+            myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
             Timer.delay(1.8);
             myDrive.setSpeed(SPEED_STOP);
         } else if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) > 0) {

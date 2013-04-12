@@ -27,11 +27,25 @@ public class DriveTrain implements IRobot {
         rightBackMotor = new Talon(rightBackSlot);
     }
     
+    /*
+     * This sets the speed based on a raw value. Use this for setting a manual drive speed.
+     */
     public void setSpeed(double speed) {
         leftFrontMotor.set(speed);
         leftBackMotor.set(speed);
+        
+        // We invert the right speed because the right side Talons are inverted
         rightFrontMotor.set(-speed);
         rightBackMotor.set(-speed);
+    }
+    
+    public void setSpeed(double leftSpeed, double rightSpeed) {
+        leftFrontMotor.set(leftSpeed);
+        leftBackMotor.set(leftSpeed);
+        
+        // We invert the right speed because the right side Talons are inverted        
+        rightFrontMotor.set(-rightSpeed);
+        rightBackMotor.set(-rightSpeed);
     }
     
     /**
@@ -40,6 +54,9 @@ public class DriveTrain implements IRobot {
      */
     public void setSpeedWithJoysticks(double speed) {
         if (speed < -JOYSTICK_DEADZONE || speed > JOYSTICK_DEADZONE) {
+            /* Now we invert the left speed because the right Talons AND the
+             * Joysticks are inverted
+             */
             leftFrontMotor.set(-speed);
             leftBackMotor.set(-speed);
             rightFrontMotor.set(speed);
@@ -58,15 +75,12 @@ public class DriveTrain implements IRobot {
      * @param rightSpeed    
      */
     public void setSpeedWithJoysticks(double leftSpeed, double rightSpeed) {
-        
-        /* Since the left side Talons are backwards, we need to invert the
-         * input value.
-         */
-        leftSpeed = -leftSpeed;
-        
         if (leftSpeed < -JOYSTICK_DEADZONE || leftSpeed > JOYSTICK_DEADZONE) {
-            leftFrontMotor.set(leftSpeed);
-            leftBackMotor.set(leftSpeed);
+            /* Now we invert the left speed because the right Talons AND the
+             * Joysticks are inverted
+             */
+            leftFrontMotor.set(-leftSpeed);
+            leftBackMotor.set(-leftSpeed);
         } else {
             leftFrontMotor.set(0);
             leftBackMotor.set(0);
