@@ -69,8 +69,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         boolean screwIsGood = false;
         boolean driveIsGood = false;
         double time = 0.000;
-        
-        while (!screwIsGood && !driveIsGood && Main.isAutonomous) {
+        while (!screwIsGood || !driveIsGood) {
             if (myShooterScrew.getVoltage() <= targetVoltage) {
                 myShooterScrew.setMovement(false, false, SCREW_OFF);
                 screwIsGood = true;
@@ -78,7 +77,7 @@ public class RobotControl extends BaseRobot implements IRobot {
                 myShooterScrew.setMovement(false, true, SCREW_FULL);
             }
 
-            //Drive backwards if setup on the back of the pyramid
+            //Drive backwards while on the back of the pyramid
             if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) < 0) {
                 time += 0.010;
                 if (time >= 0.750) {
@@ -92,11 +91,9 @@ public class RobotControl extends BaseRobot implements IRobot {
             }
             Timer.delay(0.010);
         }
-        
         Timer.delay(0.250); //Wait for the screw to settle
         int i = 1;
-        
-        while (i <= 3 && Main.isAutonomous) {
+        while (i <= 3) {
             myShooterPiston.set(true);
             Timer.delay(0.24);  //Extended for .24 of a second               
             myShooterPiston.set(false);
@@ -107,8 +104,8 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(0.5); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
-        
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
+        
         if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
             myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
             Timer.delay(1.8);
@@ -119,13 +116,10 @@ public class RobotControl extends BaseRobot implements IRobot {
             myDrive.setSpeed(SPEED_STOP);
         }
         
-        while (myShooterScrew.getVoltage() < 3.5 && Main.isAutonomous) {
+        while (myShooterScrew.getVoltage() < 3.5) {
             myShooterScrew.setMovement(true, false, 1.0);
         }
         myShooterScrew.setMovement(false, false, 0.0);
-    }
-    public void presetTeleop() {
-        
     }
 
     public void resetSystems() {
