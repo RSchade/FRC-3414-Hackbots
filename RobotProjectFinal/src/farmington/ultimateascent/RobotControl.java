@@ -69,7 +69,7 @@ public class RobotControl extends BaseRobot implements IRobot {
         boolean screwIsGood = false;
         boolean driveIsGood = false;
         double time = 0.000;
-        while (!screwIsGood || !driveIsGood) {
+        while (!screwIsGood || !driveIsGood) {  //If either the screw or the drive aren't ready:
             if (myShooterScrew.getVoltage() <= targetVoltage) {
                 myShooterScrew.setMovement(false, false, SCREW_OFF);
                 screwIsGood = true;

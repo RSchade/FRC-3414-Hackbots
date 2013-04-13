@@ -32,8 +32,8 @@ public class ShooterPiston {
             reload.set(false);
             //Extends the piston for 240 ms
             shootControl.waitXms(240);
-            //Retracts the piston after 240 ms and waits for 900 more ms before we are ready to fire
-            cooldownControl.waitXms(240+900);
+            //Retracts the piston after 240 ms and waits for 1400 more ms before we are ready to fire
+            cooldownControl.waitXms(240+1400);
             readyToShoot = false;
         }
         if (shootControl.timeUp()) {
