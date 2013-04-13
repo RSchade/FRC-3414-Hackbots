@@ -116,9 +116,11 @@ public class RobotControl extends BaseRobot implements IRobot {
             myDrive.setSpeed(SPEED_STOP);
         }
         
-        while (myShooterScrew.getVoltage() < 3.5) {
-            myShooterScrew.setMovement(true, false, 1.0);
-        }
+        //DEBUG: Disabled because autonomous extends into teleop right now
+        //Find a way to break out of this autonomous loop when teleop is activated or the robot is disabled
+//        while (myShooterScrew.getVoltage() < 3.5) {
+//            myShooterScrew.setMovement(true, false, 1.0);
+//        }
         myShooterScrew.setMovement(false, false, 0.0);
     }
 
