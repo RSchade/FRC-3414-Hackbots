@@ -59,9 +59,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
         if (leftStick.getRawAxis(SWITCH_AXIS) < 0 && rightStick.getRawAxis(SWITCH_AXIS) > 0) {
-            targetVoltage = 1.860;  //Angle for back of pyramid (was 1.980)
+            targetVoltage = 1.870;  //Angle for back of pyramid (was 1.980)
         } else {
-            targetVoltage = 1.860;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
+            targetVoltage = 1.870;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
         }
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
@@ -98,22 +98,21 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(0.1);  //Wait for .1 of a second
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
-            Timer.delay(0.5); //DEBUG: Extra delay to account for the tag holding onto frisbees too long
             myShooterLoader.turnOff();
             Timer.delay(0.5); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
         
-//        if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
-//            myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
-//            Timer.delay(1.8);
-//            myDrive.setSpeed(SPEED_STOP);
-//        } else if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) > 0) {
-//            myDrive.setSpeed(SPEED_REVERSE_HALF);
-//            Timer.delay(1.0);
-//            myDrive.setSpeed(SPEED_STOP);
-//        }
+        if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
+            myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
+            Timer.delay(1.8);
+            myDrive.setSpeed(SPEED_STOP);
+        } else if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) > 0) {
+            myDrive.setSpeed(SPEED_REVERSE_HALF);
+            Timer.delay(1.0);
+            myDrive.setSpeed(SPEED_STOP);
+        }
         
         //DEBUG: Disabled because autonomous extends into teleop right now
         //Find a way to break out of this autonomous loop when teleop is activated or the robot is disabled
