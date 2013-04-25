@@ -47,7 +47,7 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     private void updateDashboard() {
         SmartDashboard.putBoolean("Loader Wheel Sensor", myShooterLoader.getLoaderSensor());
-        SmartDashboard.putBoolean("Chamber Sensor", myShooterLoader.getChamberSensor());
+        SmartDashboard.putBoolean("Chamber Sensor", myShooterLoader.getChamberSideSensor());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
         SmartDashboard.putBoolean("Shooter Piston State", myShooterPiston.get());
         SmartDashboard.putNumber("Shooter Wheel One Voltage", myShooterWheels.getWheelOneSpeed());
@@ -61,9 +61,9 @@ public class RobotControl extends BaseRobot implements IRobot {
         myPyramidLifter.goDown();
         myShooterLoader.turnOff();
         if (leftStick.getRawAxis(SWITCH_AXIS) < 0 && rightStick.getRawAxis(SWITCH_AXIS) > 0) {
-            targetVoltage = 1.920;  //Angle for back of pyramid (was 1.980)
+            targetVoltage = 1.860;  //Angle for back of pyramid (was 1.980)
         } else {
-            targetVoltage = 1.920;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
+            targetVoltage = 1.860;  //Angle for corner of pyramid and SUPER SPECIAL mode (was 1.980)
         }
         myShooterWheels.setWheelSpeeds(wheelOneSpeed, wheelTwoSpeed);
         boolean screwIsGood = false;
@@ -100,21 +100,22 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(0.1);  //Wait for .1 of a second
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
+            Timer.delay(0.5); //Extra delay to account for thing somthing some blah dissable this later
             myShooterLoader.turnOff();
             Timer.delay(0.5); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
         }
         myShooterWheels.setWheelSpeeds(SPEED_STOP, SPEED_STOP);
         
-        if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
-            myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
-            Timer.delay(1.8);
-            myDrive.setSpeed(SPEED_STOP);
-        } else if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) > 0) {
-            myDrive.setSpeed(SPEED_REVERSE_HALF);
-            Timer.delay(1.0);
-            myDrive.setSpeed(SPEED_STOP);
-        }
+//        if (rightStick.getRawAxis(SWITCH_AXIS) < 0) {
+//            myDrive.setSpeed(-0.2, -0.7);    //THIS MAKES IT GO BACKWARDS
+//            Timer.delay(1.8);
+//            myDrive.setSpeed(SPEED_STOP);
+//        } else if (rightStick.getRawAxis(SWITCH_AXIS) > 0 && leftStick.getRawAxis(SWITCH_AXIS) > 0) {
+//            myDrive.setSpeed(SPEED_REVERSE_HALF);
+//            Timer.delay(1.0);
+//            myDrive.setSpeed(SPEED_STOP);
+//        }
         
         //DEBUG: Disabled because autonomous extends into teleop right now
         //Find a way to break out of this autonomous loop when teleop is activated or the robot is disabled
@@ -162,7 +163,7 @@ public class RobotControl extends BaseRobot implements IRobot {
                 offset = 0.025;
             } else if (gamepad.getRawButton(BUTTON_ONE)) {
                 //Shooting angle from back of pyramid
-                manualTargetVoltage = 1.950;
+                manualTargetVoltage = 1.790;
                 offset = 0.050;
             }
             if (manualTargetVoltage != 0.0) {
@@ -197,9 +198,10 @@ public class RobotControl extends BaseRobot implements IRobot {
 //         myShooterLoader.manualControl(gamepad.getRawButton(BUTTON_SIX)); //Enable this when the sensor is broke
 
         //Shooter Wheel Speed
+        //Matt's button :D
         if (gamepad.getRawButton(BUTTON_NINE)) {
-            wheelOneSpeed = 0.4; //MATT MADE CHANGES HERE IT WAS 50
-            wheelTwoSpeed = 0.65;//MATT MADE CHANGES HERE IT WAS 75
+            wheelOneSpeed = 0.4;
+            wheelTwoSpeed = 0.65;
         } else {
             wheelOneSpeed = 0.7;
             wheelTwoSpeed = 1.0;
@@ -218,23 +220,24 @@ public class RobotControl extends BaseRobot implements IRobot {
             liftControl = true;
         }
 
-        //LED Manual Cycling
-        if (leftStick.getRawButton(TRIGGER) && LEDCycleControl.timeUp()) {
-            myLed.cycleColors();
-            LEDCycleControl.waitXms(500);
-        }
-
-        //LED Automatic Color changes
-        if (!myShooterLoader.getChamberSensor()) {
-            myLed.setGreen();
-            myLed.canCycle = false;
-        } else if (myShooterLoader.getChamberSensor() && myShooterLoader.getLoaderSensor()) {
-            myLed.setBlue();
-            myLed.canCycle = false;
-        } else if (myShooterLoader.getLoaderSensor()) {
-            myLed.setPurple();
-            myLed.canCycle = true;
-        }
+//        //LED Manual Cycling THIS DON'T WORK
+//        if (leftStick.getRawButton(TRIGGER) && LEDCycleControl.timeUp()) {
+//            myLed.cycleColors();
+//            LEDCycleControl.waitXms(500);
+//        }
+//
+//        //LED Automatic Color changes THIS DON'T WORK EITHER
+        //
+//        if (!myShooterLoader.getChamberSideSensor()) {
+//            myLed.setGreen();
+//            myLed.canCycle = false;
+//        } else if (myShooterLoader.getChamberSideSensor() && myShooterLoader.getLoaderSensor()) {
+//            myLed.setBlue();
+//            myLed.canCycle = false;
+//        } else if (myShooterLoader.getLoaderSensor()) {
+//            myLed.setPurple();
+//            myLed.canCycle = true;
+//        }
 
         this.updateDashboard();
     }
@@ -250,4 +253,5 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     public void thousandMSLoop() {
     }
+        
 }

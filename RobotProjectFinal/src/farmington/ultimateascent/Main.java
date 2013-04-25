@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Main extends SimpleRobot implements IRobot {
     
+    //REMEMBER: If it ain't broke, don't fix it!
+    
     RobotControl myRobotControl;
     Compressor myCompressor;
     public static int loopCount;

@@ -38,7 +38,7 @@ public class BaseRobot implements IRobot {
         shooterWheelOne = new ShooterWheel(DIO_FOUR, DIO_FIVE, PWM_SIX);
         shooterWheelTwo = new ShooterWheel(DIO_TWO, DIO_THREE, PWM_SEVEN);
         myShooterWheels = new ShooterWheelsCombined(shooterWheelOne, shooterWheelTwo);
-        myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_SEVEN, DIO_ONE);
+        myShooterLoader = new ShooterLoader(RELAY_ONE, DIO_SEVEN, DIO_ONE, DIO_SIX);
         myPyramidLifter = new PyramidLifter(SOLENOID_ONE, SOLENOID_TWO);
         myLed = new LED(SOLENOID_EIGHT, SOLENOID_SIX, SOLENOID_SEVEN);
     }

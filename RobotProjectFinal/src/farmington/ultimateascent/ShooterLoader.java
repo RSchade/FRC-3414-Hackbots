@@ -15,7 +15,8 @@ public class ShooterLoader implements IRobot {
     
     private Relay loaderWheel;
     private DigitalInput loaderSensor;
-    private DigitalInput chamberSensor;
+    private DigitalInput chamberSideSensor;
+    private DigitalInput chamberBottomSensor;
     private boolean waiting;
     private Waiter loaderControl;
     
@@ -24,10 +25,11 @@ public class ShooterLoader implements IRobot {
      * @param loaderWheelRelay relay slot for the loader wheel relay
      * @param loaderSensorSlot DIO slot for the limit switch
      */
-    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot, int chamberSensorSlot) {
+    public ShooterLoader(int loaderWheelRelay, int loaderSensorSlot, int chamberSideSensorSlot, int chamberBottomSensorSlot) {
         loaderWheel = new Relay(loaderWheelRelay);
         loaderSensor = new DigitalInput(loaderSensorSlot);
-        chamberSensor = new DigitalInput(chamberSensorSlot);
+        chamberSideSensor = new DigitalInput(chamberSideSensorSlot);
+        chamberBottomSensor = new DigitalInput(chamberBottomSensorSlot);
         loaderControl = new Waiter();
         waiting = false;
     }
@@ -47,12 +49,12 @@ public class ShooterLoader implements IRobot {
              */
             if (loaderSensor.get()) {
                 // If there is not a frisbee in the chamber, start waiting
-                if (!getChamberSensor() && !waiting) {
+                if (!getChamberSensors() && !waiting) {
                     loaderControl.waitXms(700);   //DEBUG: 200 ms when the old sensor works again
                     waiting = true;
                 }
                 // If we are waiting and a frisbee appears, cancel the wait.
-                if (loaderControl.isWaiting() && getChamberSensor()) {
+                if (loaderControl.isWaiting() && getChamberSensors()) {
                     waiting = false;
                     loaderControl.reset();
                 }
@@ -61,7 +63,7 @@ public class ShooterLoader implements IRobot {
                  * Load until a frisbee is detected in the chamber, then reset the logic to detect missing frisbees
                  */
                 if (loaderControl.timeUp() && waiting) {
-                    if (!getChamberSensor()) {
+                    if (!getChamberSensors()) {
                         this.turnOn();
                     } else {
                         waiting = false;
@@ -90,8 +92,18 @@ public class ShooterLoader implements IRobot {
         loaderWheel.set(RELAY_OFF);
     }
     
-    public boolean getChamberSensor() {
-        return !chamberSensor.get();
+    public boolean getChamberSensors() {
+        return getChamberSideSensor() || getChamberBottomSensor();
+    }
+    
+    public boolean getChamberSideSensor() {
+        //Inverted due to the side sensor wiring
+        return !chamberSideSensor.get();
+    }
+    
+    public boolean getChamberBottomSensor() {
+        //possibly inverted? needs to be tested
+        return !chamberBottomSensor.get();
     }
     
     public boolean getLoaderSensor() {
