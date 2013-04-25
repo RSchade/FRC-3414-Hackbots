@@ -47,11 +47,9 @@ public class RobotControl extends BaseRobot implements IRobot {
      */
     private void updateDashboard() {
         SmartDashboard.putBoolean("Loader Wheel Sensor", myShooterLoader.getLoaderSensor());
-        SmartDashboard.putBoolean("Chamber Sensor", myShooterLoader.getChamberSideSensor());
+        SmartDashboard.putBoolean("Chamber Side Sensor", myShooterLoader.getChamberSideSensor());
+        SmartDashboard.putBoolean("Chamber Bottom Sensor", myShooterLoader.getChamberBottomSensor());
         SmartDashboard.putNumber("Potentiometer", myShooterScrew.getVoltage());
-        SmartDashboard.putBoolean("Shooter Piston State", myShooterPiston.get());
-        SmartDashboard.putNumber("Shooter Wheel One Voltage", myShooterWheels.getWheelOneSpeed());
-        SmartDashboard.putNumber("Shooter Wheel Two Voltage", myShooterWheels.getWheelTwoSpeed());
     }
 
     /**
@@ -100,7 +98,7 @@ public class RobotControl extends BaseRobot implements IRobot {
             Timer.delay(0.1);  //Wait for .1 of a second
             myShooterLoader.turnOn();
             Timer.delay(0.75); //Wait for the frisbee to drop in
-            Timer.delay(0.5); //Extra delay to account for thing somthing some blah dissable this later
+            Timer.delay(0.5); //DEBUG: Extra delay to account for the tag holding onto frisbees too long
             myShooterLoader.turnOff();
             Timer.delay(0.5); //Wait 1/2 second for the frisbee to settle and wheels to reach speed
             i++;
