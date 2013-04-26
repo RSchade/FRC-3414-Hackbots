@@ -19,6 +19,7 @@ public class ShooterLoader implements IRobot {
     private DigitalInput chamberBottomSensor;
     private boolean waiting;
     private Waiter loaderControl;
+    private boolean firstFrisbee;
     
     /**
      * Main constructor for ShooterLoader.
@@ -32,6 +33,7 @@ public class ShooterLoader implements IRobot {
         chamberBottomSensor = new DigitalInput(chamberBottomSensorSlot);
         loaderControl = new Waiter();
         waiting = false;
+        firstFrisbee = true;
     }
     
     public void updateLoader(boolean manualTrigger) {
@@ -49,9 +51,12 @@ public class ShooterLoader implements IRobot {
              */
             if (loaderSensor.get()) {
                 // If there is not a frisbee in the chamber, start waiting
-                if (!getChamberSensors() && !waiting) {
+                if (!getChamberSensors() && !waiting && !firstFrisbee) {
                     loaderControl.waitXms(700);   //DEBUG: 200 ms when the old sensor works again
                     waiting = true;
+                } else if (firstFrisbee) {
+                    waiting = true;
+                    firstFrisbee = false;
                 }
                 // If we are waiting and a frisbee appears, cancel the wait.
                 if (loaderControl.isWaiting() && getChamberSensors()) {
